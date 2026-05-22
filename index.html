@@ -842,7 +842,7 @@
       <article class="project project--compact">
         <div class="project-cat">Personal &middot; Portfolio</div>
         <h3 class="project-name">Nuxt Personal Portfolio</h3>
-        <p class="project-desc">Personal portfolio built with Nuxt and deployed on Vercel. Live at <a href="https://portfolio-devsrakesh.vercel.app" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">portfolio-devsrakesh</a>.</p>
+        <p class="project-desc">Personal portfolio built with Nuxt and deployed on Vercel. Live at <a href="https://devsrakesh.github.io/" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">devsrakesh.github.io</a>.</p>
         <div class="project-tags"><span class="tag">Nuxt</span><span class="tag">Vue</span><span class="tag">Vercel</span></div>
       </article>
 
@@ -1009,13 +1009,13 @@
           </div>
 
           <button type="submit" class="form-submit">Send inquiry &rarr;</button>
-          <div id="form-note" class="form-note">On submit, your email client will open with the inquiry prefilled. If it does not open, you can write to me directly at <a href="mailto:baajigarrakesh@gmail.com">baajigarrakesh@gmail.com</a>.</div>
+          <div id="form-note" class="form-note">On submit, your message will be sent securely. Or write to me directly at <a href="mailto:startupfreak01@gmail.com">startupfreak01@gmail.com</a>.</div>
         </form>
 
         <aside class="contact-info">
           <div class="contact-info-block">
             <span class="contact-meta-label">Email</span>
-            <a class="contact-email-large" href="mailto:baajigarrakesh@gmail.com">baajigarrakesh@gmail.com</a>
+            <a class="contact-email-large" href="mailto:startupfreak01@gmail.com">startupfreak01@gmail.com</a>
           </div>
           <div class="contact-info-block">
             <span class="contact-meta-label">Phone</span>
@@ -1034,7 +1034,7 @@
             <span>
               <a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener">LinkedIn</a> &middot;
               <a href="https://github.com/devsrakesh" target="_blank" rel="noopener">GitHub</a> &middot;
-              <a href="https://portfolio-devsrakesh.vercel.app" target="_blank" rel="noopener">Portfolio</a>
+              <a href="https://devsrakesh.github.io/" target="_blank" rel="noopener">Portfolio</a>
             </span>
           </div>
         </aside>
@@ -1080,10 +1080,16 @@
   };
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Contact form handler — composes a mailto: with all fields prefilled
-  const cform = document.getElementById('contact-form');
-  if (cform) {
-    cform.addEventListener('submit', (e) => {
+  // Contact form handler — posts to the serverless /api/contact endpoint.
+  // The API key lives on the server (BREVO_API_KEY env var), never in the browser.
+  (function() {
+    const CONTACT_ENDPOINT = '/api/contact';
+    const FALLBACK_EMAIL = 'startupfreak01@gmail.com';
+
+    const cform = document.getElementById('contact-form');
+    if (!cform) return;
+
+    cform.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(cform);
       const name = (fd.get('name') || '').toString().trim();
@@ -1099,26 +1105,28 @@
         return;
       }
 
-      const subject = 'Project inquiry — ' + type + ' from ' + name;
-      const lines = [
-        'Name: ' + name,
-        'Email: ' + email,
-        company ? 'Company: ' + company : null,
-        'Project Type: ' + type,
-        'Budget: ' + budget,
-        'Timeline: ' + timeline,
-        '',
-        'Message:',
-        message
-      ].filter(Boolean);
-      const body = lines.join('\n');
+      try {
+        const res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, company, type, budget, timeline, message })
+        });
 
-      const href = 'mailto:baajigarrakesh@gmail.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
-      window.location.href = href;
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          console.error('Contact API error', err);
+          alert('Failed to send message. Please try again or email ' + FALLBACK_EMAIL + '.');
+          return;
+        }
+
+        alert('Message sent — I will get back to you shortly.');
+        cform.reset();
+      } catch (err) {
+        console.error('Network error', err);
+        alert('Network error. Please try again later or email ' + FALLBACK_EMAIL + '.');
+      }
     });
-  }
+  })();
 </script>
 
 </body>
