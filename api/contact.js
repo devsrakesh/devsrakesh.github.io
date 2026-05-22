@@ -19,24 +19,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, company, type, budget, timeline, message } = req.body || {};
+    const { name, email, company, type, budget, timeline, whatsapp, socialPlatform, socialHandle, message } = req.body || {};
     if (!name || !email || !message) return res.status(400).json({ error: 'Missing required fields' });
 
     const BREVO_API_KEY = process.env.BREVO_API_KEY;
     if (!BREVO_API_KEY) return res.status(500).json({ error: 'Server not configured with Brevo API key' });
 
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
     const subject = `Project inquiry — ${type || 'General'} from ${name}`;
     const htmlContent = `
-      <h3>${subject}</h3>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
-      <p><strong>Project Type:</strong> ${type}</p>
-      <p><strong>Budget:</strong> ${budget}</p>
-      <p><strong>Timeline:</strong> ${timeline}</p>
+      <h3>${esc(subject)}</h3>
+      <p><strong>Name:</strong> ${esc(name)}</p>
+      <p><strong>Email:</strong> ${esc(email)}</p>
+      ${company ? `<p><strong>Company:</strong> ${esc(company)}</p>` : ''}
+      <p><strong>Project Type:</strong> ${esc(type)}</p>
+      <p><strong>Budget:</strong> ${esc(budget)}</p>
+      <p><strong>Timeline:</strong> ${esc(timeline)}</p>
+      ${whatsapp ? `<p><strong>WhatsApp:</strong> ${esc(whatsapp)}</p>` : ''}
+      ${(socialPlatform || socialHandle) ? `<p><strong>Social:</strong> ${esc(socialPlatform)}${socialPlatform && socialHandle ? ' — ' : ''}${esc(socialHandle)}</p>` : ''}
       <hr/>
       <h4>Message</h4>
-      <p>${(message || '').replace(/\n/g, '<br/>')}</p>
+      <p>${esc(message).replace(/\n/g, '<br/>')}</p>
     `;
 
     const payload = {

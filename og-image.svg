@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#161616"/>
+      <stop offset="1" stop-color="#2a2a2a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Concentric rings (echo of hero blob) -->
+  <g transform="translate(1020, 200)" fill="none" stroke="#ffffff">
+    <circle r="180" stroke-opacity="0.05"/>
+    <circle r="135" stroke-opacity="0.08"/>
+    <circle r="90"  stroke-opacity="0.12"/>
+    <circle r="45"  stroke-opacity="0.18"/>
+    <circle r="6"   fill="#ffffff" stroke="none" fill-opacity="0.85"/>
+  </g>
+
+  <!-- Top bar -->
+  <g transform="translate(72, 72)">
+    <rect width="56" height="56" rx="12" fill="#ffffff"/>
+    <text x="28" y="41" font-family="Inter, Helvetica, Arial, sans-serif" font-size="36" font-weight="800" fill="#161616" text-anchor="middle">R</text>
+  </g>
+  <text x="148" y="108" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing="3.6" fill="#ffffff" fill-opacity="0.55" xml:space="preserve">PORTFOLIO  ·  2026</text>
+
+  <!-- Accent line -->
+  <rect x="72" y="170" width="220" height="2" fill="url(#accent)"/>
+
+  <!-- Name -->
+  <text x="72" y="310" font-family="Inter, Helvetica, Arial, sans-serif" font-size="118" font-weight="200" letter-spacing="-3.4" fill="#ffffff">Rakesh Rajput.</text>
+
+  <!-- Tagline -->
+  <text x="72" y="370" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="400" fill="#ffffff" fill-opacity="0.78">Freelance DevOps Engineer &amp; Full-Stack Developer</text>
+
+  <!-- Tech stack pills -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" font-weight="500">
+    <g transform="translate(72, 410)">
+      <rect width="60" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="30" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">AWS</text>
+    </g>
+    <g transform="translate(142, 410)">
+      <rect width="118" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="59" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">Kubernetes</text>
+    </g>
+    <g transform="translate(270, 410)">
+      <rect width="100" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="50" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">Terraform</text>
+    </g>
+    <g transform="translate(380, 410)">
+      <rect width="76" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="38" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">NestJS</text>
+    </g>
+    <g transform="translate(466, 410)">
+      <rect width="78" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="39" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">Next.js</text>
+    </g>
+    <g transform="translate(554, 410)">
+      <rect width="112" height="32" rx="16" fill="#ffffff" fill-opacity="0.08"/>
+      <text x="56" y="21" fill="#ffffff" fill-opacity="0.85" text-anchor="middle">TypeScript</text>
+    </g>
+  </g>
+
+  <!-- Stats strip -->
+  <g transform="translate(72, 480)" font-family="Inter, Helvetica, Arial, sans-serif" fill="#ffffff">
+    <g>
+      <text font-size="42" font-weight="200" letter-spacing="-1.5">4+</text>
+      <text y="60" font-size="12" font-weight="500" letter-spacing="1.6" fill-opacity="0.5">YEARS</text>
+    </g>
+    <g transform="translate(170, 0)">
+      <text font-size="42" font-weight="200" letter-spacing="-1.5">45+</text>
+      <text y="60" font-size="12" font-weight="500" letter-spacing="1.6" fill-opacity="0.5">PROJECTS</text>
+    </g>
+    <g transform="translate(360, 0)">
+      <text font-size="42" font-weight="200" letter-spacing="-1.5">IN · UAE</text>
+      <text y="60" font-size="12" font-weight="500" letter-spacing="1.6" fill-opacity="0.5">CLIENTS</text>
+    </g>
+  </g>
+
+  <!-- Bottom footer -->
+  <line x1="72" y1="582" x2="1128" y2="582" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+  <text x="72" y="608" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing="2.4" fill="#ffffff" fill-opacity="0.45">BILASPUR  ·  CHHATTISGARH  ·  INDIA</text>
+  <text x="1128" y="608" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" letter-spacing="2.4" fill="#ffffff" fill-opacity="0.45" text-anchor="end">devsrakesh.github.io</text>
+</svg>
