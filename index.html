@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rakesh Rajput — Solution Architect & Full-Stack Engineer</title>
+<meta name="description" content="Solution Architect and Full-Stack Engineer with 4+ years of experience designing cloud platforms on AWS, Kubernetes, and Terraform for clients in India and the UAE. Based in Bilaspur, Chhattisgarh, India." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #222222;
+    --secondary: #7B7B7B;
+    --tertiary: #F8F8F8;
+    --white: #FFFFFF;
+    --border: rgba(34, 34, 34, 0.08);
+    --max-width: 1280px;
+    --section-pad: clamp(72px, 10vw, 140px);
+    --gutter: clamp(20px, 4vw, 48px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--tertiary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--primary); color: var(--white); }
+
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============== NAV ============== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 0;
+    background: rgba(248, 248, 248, 0.82);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s ease;
+  }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--primary); transition: opacity 0.2s ease; }
+  .nav-links a:hover { opacity: 0.55; }
+  .nav-cta { font-size: 14px; border-bottom: 1px solid var(--primary); padding-bottom: 2px; transition: opacity 0.2s ease; }
+  .nav-cta:hover { opacity: 0.6; }
+
+  /* ============== HERO ============== */
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 140px 0 80px; overflow: hidden; }
+  .hero-side, .hero-year {
+    position: absolute; left: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--secondary);
+  }
+  .hero-side { top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center; white-space: nowrap; }
+  .hero-year { bottom: 60px; }
+  .hero-content { position: relative; z-index: 2; padding-left: clamp(20px, 6vw, 80px); }
+  .hero-stats { display: flex; gap: 56px; margin-bottom: 40px; }
+  .hero-stats .stat-num { font-size: clamp(28px, 3vw, 40px); font-weight: 200; letter-spacing: -0.02em; line-height: 1; }
+  .hero-stats .stat-label { font-size: 12px; color: var(--secondary); margin-top: 8px; letter-spacing: 0.02em; }
+  .hero-headline { font-size: clamp(96px, 18vw, 260px); font-weight: 100; line-height: 0.92; letter-spacing: -0.05em; margin-bottom: 24px; }
+  .hero-subtitle { font-size: clamp(15px, 1.2vw, 17px); color: var(--secondary); max-width: 600px; line-height: 1.7; }
+  .hero-subtitle b { color: var(--primary); font-weight: 500; }
+  .hero-scroll {
+    position: absolute; bottom: 60px; right: var(--gutter);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--primary);
+    display: inline-flex; align-items: center; gap: 8px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  /* ============== SECTIONS ============== */
+  .section { padding: var(--section-pad) 0; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--secondary); margin-bottom: 20px;
+  }
+  .section-title { font-size: clamp(40px, 5.5vw, 84px); font-weight: 200; letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 64px; max-width: 900px; }
+
+  /* ============== ABOUT ============== */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
+  .about-text { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.75; color: var(--primary); }
+  .about-text + .about-text { margin-top: 20px; color: var(--secondary); }
+
+  /* ============== STATS STRIP ============== */
+  .stats-strip { background: var(--primary); color: var(--white); padding: 96px 0; }
+  .stats-strip .stat-num { color: var(--white); }
+  .stats-strip .stat-label { color: rgba(255,255,255,0.55); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .stats-grid .stat-num { font-size: clamp(40px, 5vw, 72px); font-weight: 200; letter-spacing: -0.03em; line-height: 1; display: block; }
+  .stats-grid .stat-label { margin-top: 14px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; display: block; }
+
+  /* ============== SKILLS ============== */
+  .skill-cats { display: grid; gap: 0; }
+  .skill-cat { display: grid; grid-template-columns: 260px 1fr; gap: 48px; padding: 28px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.3s ease; }
+  .skill-cat:hover { padding-left: 12px; }
+  .skill-cat:first-child { padding-top: 0; }
+  .skill-cat h3 { font-size: 17px; font-weight: 500; color: var(--primary); }
+  .skill-cat p { font-size: 15px; color: var(--secondary); line-height: 1.7; }
+
+  /* ============== EXPERIENCE ============== */
+  .timeline { display: grid; gap: 0; }
+  .tl-item { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 40px 0; border-top: 1px solid var(--border); }
+  .tl-item:last-child { border-bottom: 1px solid var(--border); }
+  .tl-date { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.05em; color: var(--secondary); padding-top: 6px; }
+  .tl-role { font-size: clamp(22px, 2.2vw, 30px); font-weight: 400; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .tl-company { font-size: 14px; color: var(--secondary); margin-bottom: 18px; }
+  .tl-body { font-size: 15px; color: var(--primary); line-height: 1.75; max-width: 720px; }
+  .tl-stack { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--secondary); letter-spacing: 0.02em; }
+
+  /* ============== PARTNERS ============== */
+  .partners { padding: var(--section-pad) 0; background: var(--white); }
+  .company-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .company { padding: 36px 28px; border: 1px solid var(--border); transition: transform 0.3s ease, box-shadow 0.3s ease; background: var(--white); }
+  .company:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -16px rgba(34,34,34,0.12); }
+  .company-name { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .company-role { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--secondary); letter-spacing: 0.1em; line-height: 1.7; text-transform: uppercase; }
+
+  /* ============== PROJECTS ============== */
+  .proj-cat-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(20px, 1.9vw, 26px); font-weight: 400; letter-spacing: -0.01em;
+    color: var(--primary);
+    margin-top: 80px; margin-bottom: 28px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  }
+  .proj-cat-title:first-of-type { margin-top: 0; }
+  .proj-cat-count { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--secondary); letter-spacing: 0.1em; }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .projects-grid--3 { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .project { background: var(--white); padding: 36px; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease; display: flex; flex-direction: column; }
+  .project--compact { padding: 24px; }
+  .project:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -16px rgba(34, 34, 34, 0.14); }
+  .project-cat { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--secondary); margin-bottom: 14px; }
+  .project--compact .project-cat { font-size: 10px; margin-bottom: 10px; }
+  .project-name { font-size: 24px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .project--compact .project-name { font-size: 18px; margin-bottom: 10px; }
+  .project-desc { font-size: 14px; color: var(--secondary); line-height: 1.75; margin-bottom: 22px; flex-grow: 1; }
+  .project--compact .project-desc { font-size: 13px; line-height: 1.65; margin-bottom: 16px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 11px; background: var(--tertiary); color: var(--primary); border-radius: 100px; }
+  .project--compact .tag { font-size: 10px; padding: 4px 9px; }
+
+  /* ============== PUBLICATIONS ============== */
+  .pub-list { display: grid; gap: 0; }
+  .pub { padding: 28px 0; border-top: 1px solid var(--border); }
+  .pub:last-child { border-bottom: 1px solid var(--border); }
+  .pub-title { font-size: clamp(17px, 1.5vw, 20px); font-weight: 500; letter-spacing: -0.01em; margin-bottom: 10px; line-height: 1.4; }
+  .pub-meta { font-size: 14px; color: var(--secondary); line-height: 1.6; }
+  .pub-meta a { color: var(--primary); border-bottom: 1px solid var(--secondary); }
+  .pub-meta em { font-style: italic; }
+
+  /* ============== EDUCATION ============== */
+  .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; }
+  .edu-item { padding: 32px; background: var(--white); border: 1px solid var(--border); }
+  .edu-degree { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+  .edu-school { font-size: 14px; color: var(--secondary); margin-bottom: 4px; }
+  .edu-date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--secondary); }
+
+  /* ============== CONTACT ============== */
+  .contact { background: var(--primary); color: var(--white); padding: clamp(96px, 12vw, 160px) 0; }
+  .contact .section-label { color: rgba(255,255,255,0.45); }
+  .contact-title { font-size: clamp(48px, 7vw, 112px); font-weight: 200; letter-spacing: -0.04em; line-height: 1; margin-bottom: 24px; color: var(--white); }
+  .contact-lead { font-size: clamp(16px, 1.4vw, 19px); color: rgba(255,255,255,0.65); max-width: 620px; line-height: 1.7; margin-bottom: 64px; }
+
+  /* Contact layout */
+  .contact-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 80px; align-items: start; }
+  .contact-form { display: flex; flex-direction: column; gap: 28px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .form-group { display: flex; flex-direction: column; gap: 10px; }
+  .form-group label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    color: var(--white);
+    padding: 10px 0;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-bottom-color: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group select {
+    appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 24px;
+    background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.5) 50%), linear-gradient(135deg, rgba(255,255,255,0.5) 50%, transparent 50%);
+    background-position: calc(100% - 12px) center, calc(100% - 7px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  .form-group select option { color: var(--primary); background: var(--white); }
+  .form-submit {
+    align-self: flex-start;
+    background: var(--white); color: var(--primary);
+    border: none; padding: 16px 32px;
+    font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-top: 8px;
+  }
+  .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .form-note { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 8px; max-width: 560px; }
+  .form-note a { color: var(--white); border-bottom: 1px solid rgba(255,255,255,0.4); }
+
+  /* Contact info column */
+  .contact-info { display: flex; flex-direction: column; gap: 30px; padding-top: 8px; }
+  .contact-info-block { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .contact-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .contact-info-block a {
+    color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    padding-bottom: 1px;
+    display: inline-block;
+    align-self: flex-start;
+    transition: border-color 0.2s ease;
+  }
+  .contact-info-block a:hover { border-bottom-color: var(--white); }
+  .contact-email-large { font-size: clamp(18px, 1.6vw, 22px); font-weight: 400; letter-spacing: -0.005em; }
+
+  /* ============== FOOTER ============== */
+  .footer { padding: 32px 0; background: var(--primary); color: rgba(255,255,255,0.4); font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+  /* ============== REVEAL ============== */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 1100px) and (min-width: 981px) {
+    .projects-grid--3 { grid-template-columns: repeat(2, 1fr); }
+    .company-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .hero-side, .hero-year { display: none; }
+    .hero-content { padding-left: 0; }
+    .hero-scroll { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .skill-cat, .tl-item { grid-template-columns: 1fr; gap: 12px; }
+    .projects-grid, .projects-grid--3 { grid-template-columns: 1fr; gap: 20px; }
+    .edu-grid { grid-template-columns: 1fr; gap: 24px; }
+    .company-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-layout { grid-template-columns: 1fr; gap: 56px; }
+    .form-row { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 520px) {
+    .hero-stats { gap: 32px; }
+    .company-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#partners">Partners</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Research</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header id="top" class="hero">
+  <div class="hero-side">Solution Architect</div>
+  <div class="hero-year">2026</div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">+45</div>
+          <div class="stat-label">Projects delivered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">+4</div>
+          <div class="stat-label">Partner companies</div>
+        </div>
+      </div>
+      <h1 class="hero-headline">Hello</h1>
+      <p class="hero-subtitle">&mdash; It&rsquo;s <b>Rakesh</b>, a Solution Architect and Full-Stack Engineer building cloud platforms on AWS, Kubernetes, and Terraform. I also lead and mentor development teams across partner companies in India and the UAE.</p>
+    </div>
+  </div>
+
+  <a href="#about" class="hero-scroll">Scroll down &darr;</a>
+</header>
+
+<!-- ============== ABOUT ============== -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div>
+        <div class="section-label">About</div>
+        <h2 class="section-title">Architecting platforms, end&#8209;to&#8209;end.</h2>
+      </div>
+      <div>
+        <p class="about-text">
+          Solution-oriented Full-Stack Engineer with over four years of experience designing and delivering production-grade web platforms for clients in India and the United Arab Emirates.
+        </p>
+        <p class="about-text">
+          I specialize in AWS cloud architecture using ECS, EKS (Kubernetes), Terraform, and eksctl &mdash; with deployments fronted by Application Load Balancer and Route 53, and shipped through GitHub Actions CI/CD pipelines. Across the stack, I work with NestJS, Next.js, Node.js, TypeScript, MongoDB, and PostgreSQL, supported by observability tooling (Prometheus, Grafana, CloudWatch) and real-time integrations (Firebase Cloud Messaging, WhatsApp Business API). I am comfortable owning the full delivery lifecycle, from requirements gathering and system design through deployment, monitoring, and ongoing operations.
+        </p>
+        <p class="about-text">
+          Beyond hands-on engineering, I lead and mentor both internal development teams and a dedicated network of freelance developers across partner companies. My day-to-day also spans architecture decisions, code review, client billing and payment workflows, and delivering technical training sessions to client teams when required.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STATS STRIP ============== -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Years of experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">45+</span>
+        <span class="stat-label">Projects delivered</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Partner companies</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Research publications</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SKILLS ============== -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-label">Technical Skills</div>
+    <h2 class="section-title">Stack and tools I work with.</h2>
+    <div class="skill-cats reveal">
+      <div class="skill-cat">
+        <h3>Cloud &amp; Infrastructure</h3>
+        <p>AWS (ECS, EKS, ECR, EC2, ALB, Route 53, VPC, RDS, S3, CloudWatch), Vercel.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Infrastructure as Code &amp; Orchestration</h3>
+        <p>Terraform, eksctl, Kubernetes, Docker.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>CI/CD &amp; Observability</h3>
+        <p>GitHub Actions, Prometheus, Grafana, CloudWatch.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Linux &amp; Web Servers</h3>
+        <p>Linux administration, Nginx reverse proxy, PM2 process management, Certbot and Let&rsquo;s Encrypt SSL, DNS and domain mapping.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Backend &amp; APIs</h3>
+        <p>Node.js, NestJS, Express.js, REST API design, modular service architecture.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Frontend</h3>
+        <p>Next.js, Nuxt, Vue 3, React.js, Quasar, Pinia, Tailwind CSS, SCSS.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Data</h3>
+        <p>MongoDB, PostgreSQL (RDS), Redis, SQL, data modeling, data migration.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Languages</h3>
+        <p>JavaScript, TypeScript, Python, SQL, HTML5, CSS3.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Integrations</h3>
+        <p>Firebase Cloud Messaging, WhatsApp Business API, Git, GitHub, Postman.</p>
+      </div>
+      <div class="skill-cat">
+        <h3>Leadership &amp; Operations</h3>
+        <p>Team mentoring, code review, client billing and payments, technical training, project delivery management.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== EXPERIENCE ============== -->
+<section id="experience" class="section">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I have worked.</h2>
+    <div class="timeline reveal">
+
+      <article class="tl-item">
+        <div class="tl-date">Aug 2025 &mdash; Present</div>
+        <div>
+          <h3 class="tl-role">Senior Developer &amp; Solution Lead</h3>
+          <p class="tl-company">Good Old Delight &middot; Maharashtra, India</p>
+          <p class="tl-body">Leading end-to-end solution design and delivery of production SaaS platforms for clients in India and Dubai. Architecting and provisioning AWS ECS and EKS platforms using Terraform and eksctl, including private VPC, ALB, ECR, Route 53, and CloudWatch monitoring. Defining service boundaries, REST API contracts, database schemas, and GitHub Actions CI/CD pipelines. Leading, mentoring, and guiding both internal development teams and a dedicated network of freelance developers across partner companies for development, architecture, and best-practice issues. Managing client billing and payment workflows, and delivering client technical training sessions when required.</p>
+          <p class="tl-stack">NestJS &middot; Next.js &middot; TypeScript &middot; MongoDB &middot; PostgreSQL &middot; AWS ECS / EKS &middot; Terraform &middot; Docker &middot; GitHub Actions &middot; Prometheus &middot; Grafana</p>
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-date">Dec 2024 &mdash; Sep 2025</div>
+        <div>
+          <h3 class="tl-role">Software Engineer</h3>
+          <p class="tl-company">iKey.in &middot; Mumbai, India</p>
+          <p class="tl-body">Architected and led end-to-end development of the corporate website platform, including the NestJS backend, MongoDB data layer, and Next.js admin panel. Designed a modular NestJS service architecture, RESTful API contracts, and the AWS deployment topology on EC2, S3, and Vercel.</p>
+          <p class="tl-stack">Next.js &middot; NestJS &middot; TypeScript &middot; MongoDB &middot; AWS EC2 &middot; AWS S3 &middot; Vercel</p>
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-date">Sep 2023 &mdash; Jun 2024</div>
+        <div>
+          <h3 class="tl-role">Software Developer</h3>
+          <p class="tl-company">Housing Cart &middot; Bilaspur, India</p>
+          <p class="tl-body">Designed and built the backend admin platform and customer-facing real-estate marketplace. Architected a real-time notification pipeline integrating Firebase Cloud Messaging and the WhatsApp Business API. Designed the AWS EC2 and S3 deployment topology and authored data-cleaning utilities for property data ingestion.</p>
+          <p class="tl-stack">Next.js &middot; React &middot; Express &middot; Node.js &middot; MongoDB &middot; AWS &middot; Firebase &middot; WhatsApp API</p>
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-date">Sep 2022 &mdash; Sep 2023</div>
+        <div>
+          <h3 class="tl-role">JavaScript Developer</h3>
+          <p class="tl-company">CricStox &middot; Pune, India</p>
+          <p class="tl-body">Contributed to the technical design and delivery of an admin dashboard and a cross-platform mobile application for a sports stock-trading platform. Designed reusable components and centralized state management with Pinia across Vue, Nuxt, and Quasar surfaces.</p>
+          <p class="tl-stack">Vue &middot; Quasar &middot; Nuxt &middot; TypeScript &middot; Pinia</p>
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-date">May 2022 &mdash; Aug 2022</div>
+        <div>
+          <h3 class="tl-role">JavaScript Developer</h3>
+          <p class="tl-company">HotWax Systems &middot; Indore, India</p>
+          <p class="tl-body">Contributed to B2B product development and built foundational experience in enterprise delivery and Git and GitHub workflows.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== PARTNERS ============== -->
+<section id="partners" class="partners">
+  <div class="container">
+    <div class="section-label">Partner Companies</div>
+    <h2 class="section-title">Companies and teams I work with.</h2>
+    <div class="company-grid reveal">
+
+      <div class="company">
+        <div class="company-name">Good Old Delight</div>
+        <div class="company-role">Senior Developer &middot; Solution Architecture &middot; Team Leadership</div>
+      </div>
+
+      <div class="company">
+        <div class="company-name">EzSoft Tech</div>
+        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      </div>
+
+      <div class="company">
+        <div class="company-name">GTech Soft Solution</div>
+        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      </div>
+
+      <div class="company">
+        <div class="company-name">Digital Shakha</div>
+        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROJECTS ============== -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">All projects.</h2>
+
+    <h3 class="proj-cat-title">
+      <span>Cloud Architecture &mdash; AWS ECS</span>
+      <span class="proj-cat-count">06 projects</span>
+    </h3>
+    <div class="projects-grid reveal">
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; Dubai client</div>
+        <h3 class="project-name">MyBankSlip</h3>
+        <p class="project-desc">Accounting SaaS platform for a Dubai-based client. NestJS and MongoDB backend, deployed on AWS ECS with ECR, ALB, Route 53, a private VPC, and GitHub Actions CI/CD.</p>
+        <div class="project-tags"><span class="tag">NestJS</span><span class="tag">MongoDB</span><span class="tag">ECS</span><span class="tag">ALB</span><span class="tag">Route 53</span><span class="tag">GitHub Actions</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; Accounting SaaS</div>
+        <h3 class="project-name">Tally Cash Pro</h3>
+        <p class="project-desc">Accounting SaaS platform sharing the MyBankSlip reference architecture. NestJS and MongoDB delivered on AWS ECS with ECR, ALB, Route 53, private VPC, and GitHub Actions pipelines.</p>
+        <div class="project-tags"><span class="tag">NestJS</span><span class="tag">MongoDB</span><span class="tag">ECS</span><span class="tag">ECR</span><span class="tag">GitHub Actions</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; Reporting + Observability</div>
+        <h3 class="project-name">Monday Report</h3>
+        <p class="project-desc">Reporting platform with end-to-end ECS infrastructure provisioned through Terraform and released through GitHub Actions. Full observability via Grafana, Prometheus, and CloudWatch.</p>
+        <div class="project-tags"><span class="tag">ECS</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">CloudWatch</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; E-commerce</div>
+        <h3 class="project-name">Gift Factory</h3>
+        <p class="project-desc">End-to-end system design for an e-commerce platform. Deployed on AWS ECS with an RDS PostgreSQL data tier, ALB, Route 53, and a Terraform-provisioned private VPC.</p>
+        <div class="project-tags"><span class="tag">ECS</span><span class="tag">PostgreSQL</span><span class="tag">RDS</span><span class="tag">Terraform</span><span class="tag">VPC</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; HR Platform</div>
+        <h3 class="project-name">HRMS Application</h3>
+        <p class="project-desc">Human resource management platform deployed on AWS ECS with a private VPC, ALB, Route 53, ECR, and Terraform Infrastructure-as-Code.</p>
+        <div class="project-tags"><span class="tag">ECS</span><span class="tag">Terraform</span><span class="tag">VPC</span><span class="tag">ALB</span><span class="tag">ECR</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">AWS ECS &middot; Restaurant SaaS</div>
+        <h3 class="project-name">Eatery Cloud</h3>
+        <p class="project-desc">Cloud restaurant management SaaS deployed on AWS ECS using the standard reference architecture: private VPC, ALB, ECR, Route 53, and Terraform.</p>
+        <div class="project-tags"><span class="tag">ECS</span><span class="tag">Terraform</span><span class="tag">ALB</span><span class="tag">Route 53</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Kubernetes Platform &mdash; AWS EKS</span>
+      <span class="proj-cat-count">01 project</span>
+    </h3>
+    <div class="projects-grid reveal">
+
+      <article class="project">
+        <div class="project-cat">AWS EKS &middot; Dubai client</div>
+        <h3 class="project-name">EzChatting</h3>
+        <p class="project-desc">Real-time chat platform for a Dubai-based client. Designed and provisioned the AWS EKS Kubernetes architecture from scratch using Terraform and eksctl, including the private VPC, node groups, ALB ingress, ECR images, and Route 53 DNS.</p>
+        <div class="project-tags"><span class="tag">EKS</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">eksctl</span><span class="tag">VPC</span><span class="tag">ALB Ingress</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Backend Leadership &amp; EC2 Deployments</span>
+      <span class="proj-cat-count">05 projects</span>
+    </h3>
+    <div class="projects-grid projects-grid--3 reveal">
+
+      <article class="project project--compact">
+        <div class="project-cat">Backend Lead</div>
+        <h3 class="project-name">Chanakya Strategy</h3>
+        <p class="project-desc">Led backend development and managed the production deployment end-to-end.</p>
+        <div class="project-tags"><span class="tag">Backend Lead</span><span class="tag">Deployment</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Backend &middot; Integrations</div>
+        <h3 class="project-name">Predator</h3>
+        <p class="project-desc">Owned backend services, the admin panel, deployment, and third-party integrations.</p>
+        <div class="project-tags"><span class="tag">Backend</span><span class="tag">Admin Panel</span><span class="tag">Integrations</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">AWS EC2</div>
+        <h3 class="project-name">SmartGate</h3>
+        <p class="project-desc">Designed and managed the AWS EC2 deployment for the platform.</p>
+        <div class="project-tags"><span class="tag">EC2</span><span class="tag">AWS</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">EC2 &middot; Mentoring</div>
+        <h3 class="project-name">Dr. Indu</h3>
+        <p class="project-desc">Owned the AWS EC2 deployment and mentored developers on the deployment workflow.</p>
+        <div class="project-tags"><span class="tag">EC2</span><span class="tag">Mentoring</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">AWS EC2</div>
+        <h3 class="project-name">HappyFirst</h3>
+        <p class="project-desc">Owned the end-to-end AWS EC2 deployment for the platform.</p>
+        <div class="project-tags"><span class="tag">EC2</span><span class="tag">AWS</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Linux VM-Managed Services &mdash; Nginx, PM2, Certbot</span>
+      <span class="proj-cat-count">18 services</span>
+    </h3>
+    <div class="projects-grid projects-grid--3 reveal">
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Community</div>
+        <h3 class="project-name">Ask-BNI</h3>
+        <p class="project-desc">Community and networking platform backend operated on a Linux server with Nginx, PM2, and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; CRM</div>
+        <h3 class="project-name">EZ-Connect CRM</h3>
+        <p class="project-desc">CRM platform backend deployed on Linux with Nginx reverse proxy, PM2 process management, and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Backend</div>
+        <h3 class="project-name">S2M</h3>
+        <p class="project-desc">Backend service operated on Linux infrastructure with Nginx, PM2, and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Backend</div>
+        <h3 class="project-name">S2M Backend</h3>
+        <p class="project-desc">Companion backend service for the S2M platform, deployed on Linux with Nginx and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Backend</div>
+        <h3 class="project-name">Saheb Backend</h3>
+        <p class="project-desc">Node.js backend service deployed on Linux with Nginx reverse proxy and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Healthcare</div>
+        <h3 class="project-name">Umang Hospital</h3>
+        <p class="project-desc">Hospital management backend operated on Linux with Nginx reverse proxy and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Workflow</div>
+        <h3 class="project-name">AMS Service</h3>
+        <p class="project-desc">Attendance management backend service deployed on Linux with Nginx, PM2, and Let&rsquo;s Encrypt SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; API Platform</div>
+        <h3 class="project-name">API Pro Manager</h3>
+        <p class="project-desc">API management service deployed on Linux with Nginx and PM2 process management.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Web Platform</div>
+        <h3 class="project-name">Web Pro Manager</h3>
+        <p class="project-desc">Web management service operated on Linux with Nginx reverse proxy and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Workflow</div>
+        <h3 class="project-name">Attendance Management Service</h3>
+        <p class="project-desc">Attendance management backend deployed on Linux with Nginx, PM2, and domain mapping.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Backend</div>
+        <h3 class="project-name">Coronium</h3>
+        <p class="project-desc">Node.js service operated on Linux with Nginx reverse proxy and PM2 process management.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Matlix Suite</div>
+        <h3 class="project-name">Matlix Dashboard</h3>
+        <p class="project-desc">Dashboard service in the Matlix product suite, operated on Linux with Nginx and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Matlix Suite</div>
+        <h3 class="project-name">Matlix Service</h3>
+        <p class="project-desc">Core Matlix backend service deployed on Linux with Nginx reverse proxy and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Matlix Suite</div>
+        <h3 class="project-name">Matlix Web</h3>
+        <p class="project-desc">Matlix web service deployed on Linux with Nginx, PM2, and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Backend</div>
+        <h3 class="project-name">Motilal Service</h3>
+        <p class="project-desc">Client backend service operated on Linux with Nginx reverse proxy and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; Healthcare</div>
+        <h3 class="project-name">Patho Backend</h3>
+        <p class="project-desc">Pathology backend service operated on Linux with Nginx and Certbot SSL.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">Certbot</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; PLY Suite</div>
+        <h3 class="project-name">PLY Dashboard</h3>
+        <p class="project-desc">Dashboard service in the PLY suite, deployed on Linux with Nginx and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Linux &middot; PLY Suite</div>
+        <h3 class="project-name">PLY Service</h3>
+        <p class="project-desc">Backend service in the PLY suite, deployed on Linux with Nginx and PM2.</p>
+        <div class="project-tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">PM2</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Full-Stack Product Delivery</span>
+      <span class="proj-cat-count">04 projects</span>
+    </h3>
+    <div class="projects-grid reveal">
+
+      <article class="project">
+        <div class="project-cat">Real-Estate Marketplace</div>
+        <h3 class="project-name">HousingCart</h3>
+        <p class="project-desc">Property listings, lead-management admin, and a real-time notification pipeline using Firebase Cloud Messaging and the WhatsApp Business API. Live at <a href="https://housingcart.in" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">housingcart.in</a>.</p>
+        <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Firebase</span><span class="tag">WhatsApp API</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">Corporate Platform</div>
+        <h3 class="project-name">iKey</h3>
+        <p class="project-desc">Modular NestJS backend, MongoDB data layer, and Next.js admin panel. Designed REST API contracts with authentication and third-party integrations. Live at <a href="https://ikey.in" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">ikey.in</a>.</p>
+        <div class="project-tags"><span class="tag">NestJS</span><span class="tag">Next.js</span><span class="tag">MongoDB</span><span class="tag">AWS EC2</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">Mobile Application</div>
+        <h3 class="project-name">CricStox</h3>
+        <p class="project-desc">Cross-platform mobile application for virtual stock trading on cricket players, with live price feeds and portfolio tracking. Built with Quasar, Vue, TypeScript, and Pinia.</p>
+        <div class="project-tags"><span class="tag">Quasar</span><span class="tag">Vue</span><span class="tag">TypeScript</span><span class="tag">Pinia</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project-cat">Education Portal</div>
+        <h3 class="project-name">Vidwan Institute</h3>
+        <p class="project-desc">Designed and delivered the website and digital presence for a coaching institute, including hosting and ongoing maintenance. Live at <a href="https://www.vidwaninstitute.in" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">vidwaninstitute.in</a>.</p>
+        <div class="project-tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Vercel</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Freelance &amp; Personal Projects</span>
+      <span class="proj-cat-count">06 projects</span>
+    </h3>
+    <div class="projects-grid projects-grid--3 reveal">
+
+      <article class="project project--compact">
+        <div class="project-cat">Freelance &middot; E-commerce</div>
+        <h3 class="project-name">WigglyPop</h3>
+        <p class="project-desc">Freelance e-commerce project with full-stack ownership from frontend to deployment.</p>
+        <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Vercel</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Freelance &middot; R&amp;D</div>
+        <h3 class="project-name">DataMatrix Research</h3>
+        <p class="project-desc">Freelance R&amp;D data-management portal focused on structured data capture and reporting.</p>
+        <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">MongoDB</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Serverless &middot; API</div>
+        <h3 class="project-name">Weather API</h3>
+        <p class="project-desc">Serverless TypeScript weather API deployed on Vercel.</p>
+        <div class="project-tags"><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Vercel</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Healthcare &middot; Backend</div>
+        <h3 class="project-name">MediSync Service</h3>
+        <p class="project-desc">Healthcare appointment and patient-data backend built in TypeScript.</p>
+        <div class="project-tags"><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Vercel</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Landing Page</div>
+        <h3 class="project-name">Tea Talk Cafe</h3>
+        <p class="project-desc">Responsive cafe landing page with a clean modern design.</p>
+        <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Personal &middot; Portfolio</div>
+        <h3 class="project-name">Nuxt Personal Portfolio</h3>
+        <p class="project-desc">Personal portfolio built with Nuxt and deployed on Vercel. Live at <a href="https://portfolio-devsrakesh.vercel.app" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">portfolio-devsrakesh</a>.</p>
+        <div class="project-tags"><span class="tag">Nuxt</span><span class="tag">Vue</span><span class="tag">Vercel</span></div>
+      </article>
+
+    </div>
+
+    <h3 class="proj-cat-title">
+      <span>Open Source &amp; Utilities</span>
+      <span class="proj-cat-count">05 projects</span>
+    </h3>
+    <div class="projects-grid projects-grid--3 reveal">
+
+      <article class="project project--compact">
+        <div class="project-cat">Data Tools</div>
+        <h3 class="project-name">HousingCart Data Cleaning</h3>
+        <p class="project-desc">JavaScript data-cleaning utilities for property data ingestion and migration.</p>
+        <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">Node.js</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Admin Panel</div>
+        <h3 class="project-name">Terrafolk Admin</h3>
+        <p class="project-desc">TypeScript admin panel project.</p>
+        <div class="project-tags"><span class="tag">TypeScript</span><span class="tag">React</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Integration Boilerplate</div>
+        <h3 class="project-name">Firebase Setup</h3>
+        <p class="project-desc">Reusable Firebase integration boilerplate with a live demo.</p>
+        <div class="project-tags"><span class="tag">Firebase</span><span class="tag">JavaScript</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">Web App</div>
+        <h3 class="project-name">Typing Skill Test</h3>
+        <p class="project-desc">Typing-speed test web application.</p>
+        <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
+      </article>
+
+      <article class="project project--compact">
+        <div class="project-cat">UI Playground</div>
+        <h3 class="project-name">MUI Theme App</h3>
+        <p class="project-desc">Material UI theming and component playground application.</p>
+        <div class="project-tags"><span class="tag">Material UI</span><span class="tag">React</span></div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============== PUBLICATIONS ============== -->
+<section id="publications" class="section">
+  <div class="container">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Publications.</h2>
+    <div class="pub-list reveal">
+      <article class="pub">
+        <h3 class="pub-title">Support Vector Machine-Based Intrusion Detection Systems: A Comprehensive Survey on Kernel Functions and Optimization Strategies</h3>
+        <p class="pub-meta">R. Rajput, D. K. Singh &middot; <em>International Journal of Emerging Technologies and Innovative Research (JETIR)</em>, vol. 13, no. 3, pp. 510&ndash;517, March 2026 &middot; Paper ID: JETIRHQ06084 &middot; <a href="https://www.jetir.org/view?paper=JETIRHQ06084" target="_blank" rel="noopener">View paper</a></p>
+      </article>
+      <article class="pub">
+        <h3 class="pub-title">Hybrid Statistical Exploration and Feature Correlation Analysis for Cybersecurity Intrusion Detection Systems</h3>
+        <p class="pub-meta">R. Rajput, D. K. Singh &middot; Companion work on NSL-KDD KDDTest+ &middot; <em>Communicated</em></p>
+      </article>
+      <article class="pub">
+        <h3 class="pub-title">A Lightweight Hybrid Intrusion Detection System Using Genetic Algorithm Feature Selection and Five-Model Stacking Ensemble on CIC-IDS2017</h3>
+        <p class="pub-meta">R. Rajput, D. K. Singh &middot; <em>Communicated</em></p>
+      </article>
+      <article class="pub">
+        <h3 class="pub-title">Diabetes Mellitus PrediCare</h3>
+        <p class="pub-meta">Research publication on predictive analytics for Diabetes Mellitus.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== EDUCATION ============== -->
+<section id="education" class="section">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic background.</h2>
+    <div class="edu-grid reveal">
+      <div class="edu-item">
+        <div class="edu-degree">M.Tech, Computer Science and Engineering</div>
+        <div class="edu-school">Guru Ghasidas Vishwavidyalaya (Central University), Bilaspur</div>
+        <div class="edu-date">Sep 2024</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">B.E., Computer Engineering</div>
+        <div class="edu-school">Government Engineering College, Bilaspur, Chhattisgarh &middot; CGPA 7.96 / 10</div>
+        <div class="edu-date">2018 &mdash; 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Start a project</div>
+      <h2 class="contact-title">Let&rsquo;s build something great.</h2>
+      <p class="contact-lead">Have a project, consulting engagement, or team-mentoring requirement in mind? Share a few details below and I will get back to you with a tailored proposal.</p>
+
+      <div class="contact-layout">
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">Your name</label>
+              <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" placeholder="jane@company.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-company">Company (optional)</label>
+              <input type="text" id="cf-company" name="company" placeholder="Acme Inc.">
+            </div>
+            <div class="form-group">
+              <label for="cf-type">Project type</label>
+              <select id="cf-type" name="type" required>
+                <option value="Cloud Architecture (AWS / EKS / ECS)">Cloud Architecture (AWS / EKS / ECS)</option>
+                <option value="Full-Stack Development">Full-Stack Development</option>
+                <option value="DevOps and Deployment">DevOps and Deployment</option>
+                <option value="Consulting and Team Mentoring">Consulting and Team Mentoring</option>
+                <option value="Technical Training">Technical Training</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-budget">Budget range (USD)</label>
+              <select id="cf-budget" name="budget">
+                <option value="Less than $5,000">Less than $5,000</option>
+                <option value="$5,000 - $20,000">$5,000 - $20,000</option>
+                <option value="$20,000 - $50,000">$20,000 - $50,000</option>
+                <option value="$50,000+">$50,000+</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cf-timeline">Timeline</label>
+              <select id="cf-timeline" name="timeline">
+                <option value="ASAP">ASAP</option>
+                <option value="Within 1 month">Within 1 month</option>
+                <option value="1 - 3 months">1 - 3 months</option>
+                <option value="3+ months">3+ months</option>
+                <option value="Flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cf-msg">Tell me about your project</label>
+            <textarea id="cf-msg" name="message" rows="5" placeholder="Briefly describe your goals, scope, and any constraints..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send inquiry &rarr;</button>
+          <div id="form-note" class="form-note">On submit, your email client will open with the inquiry prefilled. If it does not open, you can write to me directly at <a href="mailto:baajigarrakesh@gmail.com">baajigarrakesh@gmail.com</a>.</div>
+        </form>
+
+        <aside class="contact-info">
+          <div class="contact-info-block">
+            <span class="contact-meta-label">Email</span>
+            <a class="contact-email-large" href="mailto:baajigarrakesh@gmail.com">baajigarrakesh@gmail.com</a>
+          </div>
+          <div class="contact-info-block">
+            <span class="contact-meta-label">Phone</span>
+            <a href="tel:+919993313608">+91 99933 13608</a>
+          </div>
+          <div class="contact-info-block">
+            <span class="contact-meta-label">Location</span>
+            <span>Bilaspur, Chhattisgarh, India</span>
+          </div>
+          <div class="contact-info-block">
+            <span class="contact-meta-label">Availability</span>
+            <span>Open to project work, consulting engagements, team mentoring, and client technical training.</span>
+          </div>
+          <div class="contact-info-block">
+            <span class="contact-meta-label">Connect</span>
+            <span>
+              <a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener">LinkedIn</a> &middot;
+              <a href="https://github.com/devsrakesh" target="_blank" rel="noopener">GitHub</a> &middot;
+              <a href="https://portfolio-devsrakesh.vercel.app" target="_blank" rel="noopener">Portfolio</a>
+            </span>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Designed and built with care &middot; Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // Active nav-link styling on scroll
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const onScroll = () => {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.offsetTop - 120;
+      if (window.scrollY >= top) current = s.id;
+    });
+    navLinks.forEach(l => {
+      l.style.opacity = l.getAttribute('href') === '#' + current ? '0.55' : '1';
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Contact form handler — composes a mailto: with all fields prefilled
+  const cform = document.getElementById('contact-form');
+  if (cform) {
+    cform.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(cform);
+      const name = (fd.get('name') || '').toString().trim();
+      const email = (fd.get('email') || '').toString().trim();
+      const company = (fd.get('company') || '').toString().trim();
+      const type = (fd.get('type') || '').toString();
+      const budget = (fd.get('budget') || '').toString();
+      const timeline = (fd.get('timeline') || '').toString();
+      const message = (fd.get('message') || '').toString().trim();
+
+      if (!name || !email || !message) {
+        alert('Please fill in your name, email, and message.');
+        return;
+      }
+
+      const subject = 'Project inquiry — ' + type + ' from ' + name;
+      const lines = [
+        'Name: ' + name,
+        'Email: ' + email,
+        company ? 'Company: ' + company : null,
+        'Project Type: ' + type,
+        'Budget: ' + budget,
+        'Timeline: ' + timeline,
+        '',
+        'Message:',
+        message
+      ].filter(Boolean);
+      const body = lines.join('\n');
+
+      const href = 'mailto:baajigarrakesh@gmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+      window.location.href = href;
+    });
+  }
+</script>
+
+</body>
+</html>
