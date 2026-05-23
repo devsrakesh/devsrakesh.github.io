@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Commit Like a Pro: The Habits That Make Your Git History Worth Reading — Rakesh Rajput</title>
+<meta name="description" content="Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so &#39;git blame&#39; actually helps the next person debug." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/commit-best-practices.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/commit-best-practices.html" />
+<meta property="og:title" content="Commit Like a Pro: The Habits That Make Your Git History Worth Reading" />
+<meta property="og:description" content="Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so &#39;git blame&#39; actually helps the next person debug." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-04-18" />
+<meta property="article:tag" content="git" />
+<meta property="article:tag" content="commits" />
+<meta property="article:tag" content="code-quality" />
+<meta property="article:tag" content="conventional-commits" />
+<meta property="article:tag" content="workflow" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Commit Like a Pro: The Habits That Make Your Git History Worth Reading" />
+<meta name="twitter:description" content="Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so &#39;git blame&#39; actually helps the next person debug." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Commit Like a Pro: The Habits That Make Your Git History Worth Reading",
+  "description": "Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so 'git blame' actually helps the next person debug.",
+  "datePublished": "2026-04-18",
+  "dateModified": "2026-04-18",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/commit-best-practices.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/commit-best-practices.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "git, commits, code-quality, conventional-commits, workflow"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-04-18">Apr 18, 2026</time>
+        <span class="tag">git</span><span class="tag">commits</span><span class="tag">code-quality</span><span class="tag">conventional-commits</span><span class="tag">workflow</span>
+      </div>
+      <h1 class="post-title">Commit Like a Pro: The Habits That Make Your Git History Worth Reading</h1>
+      <p class="post-excerpt">Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so &#39;git blame&#39; actually helps the next person debug.</p>
+    </header>
+
+    <div class="post-body">
+<p>A year from now you&#39;ll be reading <code>git blame</code> at 2 am, trying to figure out why a line of code exists. The commit message is the only context you have. If it says <code>&quot;fix&quot;</code>, you lose. If it says <code>&quot;fix(auth): reject expired refresh tokens — handles the OAuth provider returning HTTP 200 with expired flag instead of 401&quot;</code>, you win.</p>
+<p>This is the commit discipline I enforce across every project I lead — what the rules are, why they exist, and how I make tooling enforce them so nobody has to remember.</p>
+<h2>The two rules under everything</h2>
+<ol>
+<li><strong>One commit = one logical change.</strong> If the message needs the word &quot;and,&quot; you&#39;ve got two commits crammed into one.</li>
+<li><strong>Write for the person reading <code>git blame</code> in two years.</strong> That person is usually you, and you&#39;ll have forgotten everything.</li>
+</ol>
+<p>If you internalise these, the rest is mechanics.</p>
+<h2>Conventional Commits in 60 seconds</h2>
+<p><a href="https://www.conventionalcommits.org/">Conventional Commits</a> is the format I use on every repo:</p>
+<pre><code>&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+
+&lt;body&gt;
+
+&lt;footer&gt;
+</code></pre>
+<p>The types that matter:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>feat</code></td>
+<td>A user-visible new feature</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>A user-visible bug fix</td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>Code change that&#39;s neither a feature nor a fix (no behavior change)</td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>A performance improvement</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>Adding or fixing tests</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>Documentation only</td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>Tooling, build config, deps, etc.</td>
+</tr>
+<tr>
+<td><code>ci</code></td>
+<td>CI pipeline changes</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>Formatting only (no logic)</td>
+</tr>
+<tr>
+<td><code>build</code></td>
+<td>Build system changes (Webpack, Docker, etc.)</td>
+</tr>
+<tr>
+<td><code>revert</code></td>
+<td>Reverting a previous commit</td>
+</tr>
+</tbody></table>
+<p><code>BREAKING CHANGE:</code> in the body marks a major-version bump for semantic-release tooling. Use it sparingly and intentionally.</p>
+<h2>Real examples from production</h2>
+<p>Bad → good, all from refactors I&#39;ve actually shipped.</p>
+<p><strong>Bad:</strong></p>
+<pre><code>fix stuff
+</code></pre>
+<p><strong>Good:</strong></p>
+<pre><code>fix(notifications): retry FCM sends on 503 instead of bubbling the error
+
+The Firebase Cloud Messaging gateway occasionally returns 503 under load.
+Previously we treated that as a hard failure and dropped the notification.
+Now we retry up to 3 times with exponential backoff (250ms, 500ms, 1s)
+and only surface the error if all retries fail.
+
+Closes #142
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre><code>update stuff
+</code></pre>
+<p><strong>Good:</strong></p>
+<pre><code>refactor(auth): extract JWT verification into AuthGuard
+
+Move the duplicate verifyAccessToken() logic out of three controllers
+and into a single NestJS guard. No behaviour change — verified by
+existing integration tests and a manual run against staging.
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre><code>WIP
+</code></pre>
+<p><strong>Good:</strong>
+Squash it before merging. WIP commits should never reach <code>main</code>.</p>
+<h2>The 50/72 rule</h2>
+<ul>
+<li><strong>Subject line: max 50 characters</strong>, imperative mood (&quot;add&quot; not &quot;added&quot;), no trailing period.</li>
+<li><strong>Blank line between subject and body.</strong></li>
+<li><strong>Body: wrap at 72 characters</strong>, explain <em>why</em> (not what — the diff shows what).</li>
+</ul>
+<p>The 50/72 numbers aren&#39;t arbitrary — they&#39;re what fits cleanly in <code>git log --oneline</code> and GitHub&#39;s PR UI without truncation. Once you&#39;ve trained yourself, it&#39;s automatic.</p>
+<h2>Subject line — imperative mood</h2>
+<p>The trick: complete the sentence &quot;If applied, this commit will ___.&quot;</p>
+<p>✅ &quot;add WhatsApp opt-in flow&quot; — <em>If applied, this commit will add WhatsApp opt-in flow.</em> Reads correctly.
+❌ &quot;added WhatsApp opt-in flow&quot; — reads wrong in completion.
+❌ &quot;Adding WhatsApp opt-in flow&quot; — also reads wrong.
+❌ &quot;WhatsApp opt-in&quot; — too terse, not a verb.</p>
+<p>Git&#39;s own commit messages use the imperative. So do the Linux kernel&#39;s. It&#39;s not bikeshedding — it&#39;s the consistent grammar for &quot;this is a change.&quot;</p>
+<h2>Atomic commits — the &quot;git bisect&quot; test</h2>
+<p>Atomic = each commit is a self-contained, independently-revertable, independently-cherry-pickable change.</p>
+<p>The test: could you cleanly revert this commit alone and have the codebase still build and tests still pass? If no, it&#39;s not atomic.</p>
+<p>Why it matters: when production breaks and you need to <code>git bisect</code> to find the offending commit, atomic commits give you fast, useful bisects. Mega-commits give you &quot;the bug is somewhere in 2,400 lines.&quot;</p>
+<p><strong>Example of un-atomic:</strong> &quot;add feature X and refactor Y and fix typo in Z&quot; → split into 3 commits.</p>
+<p><strong>Example of atomic but trivially split unnecessarily:</strong> &quot;add type for User&quot; + &quot;add type for Order&quot; + &quot;add type for Product&quot; — fine to combine if they&#39;re a single logical concept (&quot;add user/order/product types for the new admin panel&quot;).</p>
+<p>The judgment call: would a reviewer want to see these together or separately? Optimise for the reviewer.</p>
+<h2>Body content — explain WHY</h2>
+<p>The diff already shows <em>what changed</em>. The commit body is for <em>why it changed</em>. Things to put there:</p>
+<ul>
+<li>The problem you were solving (link an issue if applicable)</li>
+<li>Why you chose this approach over an alternative</li>
+<li>Any side effects reviewers should know about</li>
+<li>Migration steps if data schema changes</li>
+<li>Performance numbers if it&#39;s a perf commit</li>
+<li>Links to relevant docs or discussion</li>
+</ul>
+<p>Things NOT to put:</p>
+<ul>
+<li>A rewording of the diff</li>
+<li>Marketing fluff (&quot;This awesome new feature...&quot;)</li>
+<li>The phrase &quot;various changes&quot; (just no)</li>
+<li>Multiple unrelated changes (split the commit)</li>
+</ul>
+<h2>Squash, merge, or rebase?</h2>
+<p>My defaults:</p>
+<ul>
+<li><strong>Squash-merge PRs into <code>main</code></strong> — <code>main</code> becomes one commit per feature. Easy to revert, easy to read, easy to cherry-pick to release branches.</li>
+<li><strong>Rebase your feature branch onto main</strong> to stay current — keeps history linear.</li>
+<li><strong>Merge commits</strong> — only when you&#39;re integrating two long-lived branches (e.g. <code>release/v2</code> into <code>main</code>).</li>
+</ul>
+<p>The fights over this are mostly cultural. Pick a default for your team and write it down so it doesn&#39;t get re-argued every quarter.</p>
+<h2>Enforce it with tools, not pleading</h2>
+<p>Humans forget. Tools don&#39;t.</p>
+<p><strong>commitlint</strong> + <strong>husky</strong> in every repo:</p>
+<pre><code class="language-bash">npm i -D @commitlint/cli @commitlint/config-conventional husky
+npx husky init
+</code></pre>
+<pre><code class="language-json">// commitlint.config.cjs
+module.exports = { extends: [&#39;@commitlint/config-conventional&#39;] };
+</code></pre>
+<pre><code class="language-bash"># .husky/commit-msg
+npx --no -- commitlint --edit &quot;$1&quot;
+</code></pre>
+<p>Now a commit like <code>&quot;fix stuff&quot;</code> is rejected at commit time. The team doesn&#39;t have to remember the rules — the tool enforces them.</p>
+<p><strong>CI check</strong> (so it works even for contributors without husky):</p>
+<pre><code class="language-yaml"># .github/workflows/commitlint.yml
+name: commitlint
+on: [pull_request]
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: wagoid/commitlint-github-action@v6
+</code></pre>
+<h2>The PR title is a commit title</h2>
+<p>When you squash-merge, GitHub uses the PR title as the squashed commit message. Treat PR titles like commit subjects — same 50-char limit, same imperative mood, same Conventional Commits format.</p>
+<p>I&#39;ve watched teams enforce commit conventions on every commit, then merge PRs titled <code>&quot;PR for feature stuff&quot;</code>. Pointless. The squash-merge commit <em>is</em> the only commit <code>main</code> sees — that&#39;s the one that has to be clean.</p>
+<h2>What I do with <code>--amend</code></h2>
+<p><code>git commit --amend --no-edit</code> is for two things:</p>
+<ol>
+<li>Adding a file you forgot to stage to your most recent commit.</li>
+<li>Fixing a typo in your most recent commit&#39;s message.</li>
+</ol>
+<p>Never amend a commit that&#39;s been pushed to a shared branch — you&#39;ll force-push someone else&#39;s work into the void. Only amend on your own un-pushed work.</p>
+<p>For older commits, use <code>git rebase -i HEAD~5</code> and <code>reword</code> (edit message) or <code>edit</code> (change content). Interactive rebase is the cleanup tool.</p>
+<h2>The semantic-release loop</h2>
+<p>Once Conventional Commits is enforced, you can wire <code>semantic-release</code> to:</p>
+<ul>
+<li>Bump version automatically (<code>feat:</code> → minor, <code>fix:</code> → patch, <code>BREAKING CHANGE:</code> → major)</li>
+<li>Generate a CHANGELOG from commit messages</li>
+<li>Tag the release</li>
+<li>Publish to npm / push a Docker tag</li>
+</ul>
+<pre><code class="language-yaml"># .github/workflows/release.yml
+name: release
+on:
+  push:
+    branches: [main]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+</code></pre>
+<p>Free release notes forever. Worth the setup cost.</p>
+<h2>What I don&#39;t bother enforcing</h2>
+<ul>
+<li><strong>Capitalisation of subject line.</strong> Lowercase is fine; mine usually is.</li>
+<li><strong>Bullet points vs. paragraphs in the body.</strong> Whatever&#39;s clearer.</li>
+<li><strong>Co-authored-by trailers.</strong> Nice when relevant, not worth a hook.</li>
+</ul>
+<p>Pick fights worth winning. The format rules above are; the bikeshed-able preferences aren&#39;t.</p>
+<hr>
+<p>That&#39;s it. Convention + tooling = consistent history. Six months from now, when you&#39;re hunting why a regression slipped into prod, you&#39;ll thank yourself for the discipline.</p>
+<p><em>Building a team&#39;s engineering practices from the ground up? I do this kind of process work alongside production delivery — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

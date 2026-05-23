@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Git &amp; GitHub for Working Engineers: The Workflow I Actually Use — Rakesh Rajput</title>
+<meta name="description" content="Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/git-and-github-practical-guide.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/git-and-github-practical-guide.html" />
+<meta property="og:title" content="Git &amp; GitHub for Working Engineers: The Workflow I Actually Use" />
+<meta property="og:description" content="Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-04-11" />
+<meta property="article:tag" content="git" />
+<meta property="article:tag" content="github" />
+<meta property="article:tag" content="devops" />
+<meta property="article:tag" content="workflow" />
+<meta property="article:tag" content="ci-cd" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Git &amp; GitHub for Working Engineers: The Workflow I Actually Use" />
+<meta name="twitter:description" content="Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Git & GitHub for Working Engineers: The Workflow I Actually Use",
+  "description": "Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services.",
+  "datePublished": "2026-04-11",
+  "dateModified": "2026-04-11",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/git-and-github-practical-guide.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/git-and-github-practical-guide.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "git, github, devops, workflow, ci-cd"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-04-11">Apr 11, 2026</time>
+        <span class="tag">git</span><span class="tag">github</span><span class="tag">devops</span><span class="tag">workflow</span><span class="tag">ci-cd</span>
+      </div>
+      <h1 class="post-title">Git &amp; GitHub for Working Engineers: The Workflow I Actually Use</h1>
+      <p class="post-excerpt">Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services.</p>
+    </header>
+
+    <div class="post-body">
+<p>Every developer has read the Git &quot;what is a commit&quot; tutorial. None of that helps when you&#39;ve just rebased on the wrong branch at 11 pm and your week of work is &quot;gone.&quot; This post is the Git workflow I actually use, the recovery moves I reach for when something goes wrong, and the GitHub Actions patterns I have running across NestJS and Next.js services on ECS and EKS.</p>
+<h2>One-time setup</h2>
+<p>Whenever I&#39;m on a new machine:</p>
+<pre><code class="language-bash">git config --global user.name &quot;Rakesh Rajput&quot;
+git config --global user.email &quot;developer.rakesh.rajput@gmail.com&quot;
+git config --global init.defaultBranch main
+git config --global pull.rebase true            # don&#39;t make merge commits on pull
+git config --global rebase.autoStash true       # auto-stash dirty changes during rebase
+git config --global push.autoSetupRemote true   # save the -u origin &lt;branch&gt; dance
+git config --global core.editor &quot;code --wait&quot;   # opens VS Code for commit messages
+
+# Signed commits — GitHub puts a &quot;Verified&quot; badge on them
+git config --global commit.gpgsign true
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+git config --global gpg.ssh.allowedSignersFile ~/.config/git/allowed_signers
+</code></pre>
+<p>SSH-based commit signing is the easy modern path — no GPG keychain pain.</p>
+<h2>My day-to-day loop</h2>
+<p>I work feature-branch-from-<code>main</code>, push, open a PR, squash-merge. Not because it&#39;s the &quot;best&quot; — because it&#39;s the simplest, leaves a clean <code>main</code> history, and works across every team I&#39;ve shipped on.</p>
+<pre><code class="language-bash">git checkout main &amp;&amp; git pull
+git checkout -b feat/whatsapp-notifications
+
+# ... work, commit small atomic chunks ...
+
+git push                                         # autoSetupRemote handles -u
+gh pr create --fill --base main                  # GitHub CLI — way faster than the UI
+</code></pre>
+<p>GitHub CLI (<code>gh</code>) is non-negotiable once you&#39;ve used it. PR creation, review, merge — all from terminal:</p>
+<pre><code class="language-bash">gh pr list
+gh pr checkout 42                                # checks out PR #42 locally
+gh pr view --web                                 # open PR in browser
+gh pr merge --squash --delete-branch             # merge and clean up
+gh pr checks                                     # CI status without opening browser
+</code></pre>
+<h2>Stop typing <code>git status</code> and <code>git log</code> like that</h2>
+<p>Aliases. Put these in <code>~/.gitconfig</code>:</p>
+<pre><code class="language-ini">[alias]
+  s = status -sb
+  co = checkout
+  ci = commit
+  br = branch
+  unstage = reset HEAD --
+  lg = log --graph --abbrev-commit --decorate --format=format:&#39;%C(yellow)%h%C(reset) - %C(white)%s%C(reset) %C(dim)— %an, %ar%C(reset)%C(auto)%d%C(reset)&#39; --all
+  amend = commit --amend --no-edit
+  wip = !git add -A &amp;&amp; git commit -m &#39;wip&#39;
+  undo = reset --soft HEAD~1
+  recent = for-each-ref --sort=-committerdate --count=10 --format=&#39;%(refname:short)&#39; refs/heads/
+</code></pre>
+<p><code>git lg</code> is the one I use most. Try it once on a busy repo and you won&#39;t go back.</p>
+<h2>Branches — what to keep, what to throw away</h2>
+<p>I keep these long-lived:</p>
+<ul>
+<li><code>main</code> — always deployable, protected, requires PR + passing checks.</li>
+<li><code>develop</code> — only when a team explicitly needs a staging integration branch. Most projects don&#39;t.</li>
+</ul>
+<p>Everything else is short-lived: <code>feat/...</code>, <code>fix/...</code>, <code>chore/...</code>, <code>refactor/...</code>. Delete after merge. Branch hoarding makes <code>git branch</code> useless.</p>
+<pre><code class="language-bash">git branch --merged main | grep -v &#39;^* main{{CONTENT}}#39; | xargs -n1 git branch -d   # nuke merged local branches
+git remote prune origin                                                    # remove dead remote-tracking refs
+</code></pre>
+<p>I run those weekly.</p>
+<h2>Rebase vs merge, settled</h2>
+<p>I rebase <strong>feature branches onto main</strong> to stay current, and <strong>squash-merge PRs into main</strong> so <code>main</code> is one commit per feature. Never merge <code>main</code> into a feature branch — that creates a merge commit you&#39;ll regret reading later.</p>
+<pre><code class="language-bash">git checkout feat/whatsapp
+git fetch origin
+git rebase origin/main             # replay my commits on top of the latest main
+# resolve conflicts, then:
+git push --force-with-lease        # NEVER --force, always --force-with-lease
+</code></pre>
+<p><code>--force-with-lease</code> refuses the push if someone else pushed to your branch in the meantime. <code>--force</code> doesn&#39;t ask — it just nukes their work. Make <code>--force-with-lease</code> muscle memory.</p>
+<h2>The recovery moves</h2>
+<p>This is the section that actually matters when something goes wrong.</p>
+<h3>&quot;I committed to the wrong branch&quot;</h3>
+<pre><code class="language-bash">git log -1                            # confirm the commit you want to move
+git reset --soft HEAD~1               # uncommit, keep changes staged
+git stash                             # park them
+git checkout correct-branch
+git stash pop
+git commit -m &quot;...&quot;
+</code></pre>
+<h3>&quot;I want my last commit&#39;s changes but not the commit&quot;</h3>
+<pre><code class="language-bash">git reset --soft HEAD~1               # uncommit, keep staged
+git reset HEAD~1                      # uncommit, keep unstaged
+git reset --hard HEAD~1               # uncommit, discard (dangerous)
+</code></pre>
+<h3>&quot;I deleted a branch I needed&quot;</h3>
+<p><code>reflog</code> is your time machine. Every move HEAD makes is recorded:</p>
+<pre><code class="language-bash">git reflog                            # find the SHA of the lost commit
+git checkout -b recovered-branch &lt;sha&gt;
+</code></pre>
+<p>Reflog entries last ~90 days by default. Almost nothing is truly lost in Git.</p>
+<h3>&quot;I rebased and trashed someone else&#39;s work on my branch&quot;</h3>
+<pre><code class="language-bash">git reflog                            # find your branch&#39;s SHA before the rebase
+git reset --hard &lt;pre-rebase-sha&gt;
+git push --force-with-lease
+</code></pre>
+<p>This is exactly why <code>--force-with-lease</code> and <code>reflog</code> exist together.</p>
+<h3>&quot;Merge conflict and I want to start the merge/rebase over&quot;</h3>
+<pre><code class="language-bash">git rebase --abort                    # bail out of a rebase
+git merge --abort                     # bail out of a merge
+git cherry-pick --abort               # bail out of a cherry-pick
+</code></pre>
+<h3>&quot;I accidentally added secrets to a commit&quot;</h3>
+<p>If you haven&#39;t pushed: amend the commit and remove the file.</p>
+<pre><code class="language-bash">git rm --cached .env
+echo &quot;.env&quot; &gt;&gt; .gitignore
+git commit --amend --no-edit
+</code></pre>
+<p>If you&#39;ve pushed: the secret is compromised. Rotate it first, then scrub the history with <code>git filter-repo</code> (modern replacement for <code>git filter-branch</code>). I&#39;ve written about <a href="/#projects">a real push-protection incident on this site</a> — short version: GitHub&#39;s secret scanning blocked the push, and the right answer was always &quot;rotate the key, then rewrite history.&quot;</p>
+<h2>.gitignore that actually works</h2>
+<p>The single biggest source of committed secrets is a missing <code>.gitignore</code>. Mine starts with:</p>
+<pre><code class="language-gitignore"># OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+coverage/
+
+# Env &amp; secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+
+# Logs
+*.log
+npm-debug.log*
+</code></pre>
+<p>Note <code>.env.*</code> followed by <code>!.env.example</code> — the negation lets you commit a documented example without leaking the real values.</p>
+<h2>Hooks: small things that save weeks</h2>
+<p>Husky + lint-staged on the client side, plus a server-side pre-receive hook in CI:</p>
+<pre><code class="language-json">// package.json
+{
+  &quot;scripts&quot;: {
+    &quot;prepare&quot;: &quot;husky&quot;
+  },
+  &quot;lint-staged&quot;: {
+    &quot;*.{ts,tsx,js,jsx}&quot;: [&quot;eslint --fix&quot;, &quot;prettier --write&quot;],
+    &quot;*.{json,md,yml,yaml}&quot;: [&quot;prettier --write&quot;]
+  }
+}
+</code></pre>
+<pre><code class="language-bash"># .husky/pre-commit
+npx lint-staged
+
+# .husky/commit-msg
+npx --no -- commitlint --edit &quot;$1&quot;
+</code></pre>
+<p>Result: nobody on the team can commit with broken formatting or a malformed message. The conversation about it stops happening because the tooling stops it.</p>
+<h2>My GitHub Actions baseline</h2>
+<p>Every Node service I deploy has this skeleton in <code>.github/workflows/</code>:</p>
+<pre><code class="language-yaml"># .github/workflows/ci.yml
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: &#39;npm&#39;
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test -- --coverage
+</code></pre>
+<pre><code class="language-yaml"># .github/workflows/deploy.yml
+name: deploy
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write          # for OIDC auth to AWS — no static keys
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-deploy
+          aws-region: ap-south-1
+      - name: Build and push to ECR
+        run: |
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 123.dkr.ecr.ap-south-1.amazonaws.com
+          docker build -t myapp:${{ github.sha }} .
+          docker tag myapp:${{ github.sha }} 123.dkr.ecr.ap-south-1.amazonaws.com/myapp:${{ github.sha }}
+          docker push 123.dkr.ecr.ap-south-1.amazonaws.com/myapp:${{ github.sha }}
+      - name: Force ECS service to redeploy
+        run: |
+          aws ecs update-service --cluster prod --service myapp --force-new-deployment
+</code></pre>
+<p>The two non-obvious things here:</p>
+<ol>
+<li><p><strong>OIDC over static keys.</strong> <code>aws-actions/configure-aws-credentials@v4</code> with <code>role-to-assume</code> lets GitHub authenticate to AWS via short-lived tokens. No <code>AWS_ACCESS_KEY_ID</code> in secrets to leak. Set up the trust policy in IAM once, never touch keys again.</p>
+</li>
+<li><p><strong><code>--force-new-deployment</code> after pushing a <code>:latest</code> tag</strong> is a common ECS pattern when you don&#39;t want to update the task definition every deploy. Cleaner approach: tag with the commit SHA, register a new task definition, and update the service to it — but the one-liner above is fine for smaller teams.</p>
+</li>
+</ol>
+<h2>Protect main like it pays your rent</h2>
+<p>GitHub branch protection rules I set on <code>main</code> for every production repo:</p>
+<ul>
+<li>Require pull request before merging</li>
+<li>Require at least 1 approval (2 if the team is large enough)</li>
+<li>Dismiss stale approvals when new commits are pushed</li>
+<li>Require status checks to pass: <code>ci / test</code>, <code>ci / lint</code></li>
+<li>Require branches to be up to date</li>
+<li>Require linear history (enforces squash or rebase)</li>
+<li>Require signed commits</li>
+<li>Restrict who can push (only admins, in emergency)</li>
+<li><strong>Block force pushes</strong></li>
+<li><strong>Block deletions</strong></li>
+</ul>
+<p>Set this up on day one of every repo. It&#39;s the difference between &quot;we have a process&quot; and &quot;Steve pushed straight to main on Friday afternoon.&quot;</p>
+<hr>
+<p>That&#39;s the working workflow. There&#39;s no certificate, no Git &quot;level 5&quot; — just the moves you do enough times to internalise, plus the recovery moves you wish you knew before you needed them.</p>
+<p><em>Need help wiring CI/CD properly across a fleet of services? I architect deployment pipelines for production AWS workloads — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

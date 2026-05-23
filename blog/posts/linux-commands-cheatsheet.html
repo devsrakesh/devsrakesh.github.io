@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Must-Know Linux Commands &amp; File System for Developers and DevOps — Rakesh Rajput</title>
+<meta name="description" content="The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/linux-commands-cheatsheet.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/linux-commands-cheatsheet.html" />
+<meta property="og:title" content="Must-Know Linux Commands &amp; File System for Developers and DevOps" />
+<meta property="og:description" content="The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-04-04" />
+<meta property="article:tag" content="linux" />
+<meta property="article:tag" content="devops" />
+<meta property="article:tag" content="shell" />
+<meta property="article:tag" content="bash" />
+<meta property="article:tag" content="fundamentals" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Must-Know Linux Commands &amp; File System for Developers and DevOps" />
+<meta name="twitter:description" content="The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Must-Know Linux Commands & File System for Developers and DevOps",
+  "description": "The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines.",
+  "datePublished": "2026-04-04",
+  "dateModified": "2026-04-04",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/linux-commands-cheatsheet.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/linux-commands-cheatsheet.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "linux, devops, shell, bash, fundamentals"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-04-04">Apr 4, 2026</time>
+        <span class="tag">linux</span><span class="tag">devops</span><span class="tag">shell</span><span class="tag">bash</span><span class="tag">fundamentals</span>
+      </div>
+      <h1 class="post-title">Must-Know Linux Commands &amp; File System for Developers and DevOps</h1>
+      <p class="post-excerpt">The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines.</p>
+    </header>
+
+    <div class="post-body">
+<p>If you can&#39;t drive a Linux box from the command line, you can&#39;t do DevOps. You can&#39;t reliably debug a production incident, can&#39;t tail a log, can&#39;t trace why your Node process is eating 12 GB of RAM. This post is the toolkit I expect every developer I work with to have in their muscle memory.</p>
+<p>I won&#39;t dump every flag of every command — <code>man</code> does that better than I can. Instead I&#39;ll cover the <strong>30 commands you&#39;ll actually use every week</strong>, grouped by what you&#39;re trying to accomplish.</p>
+<h2>The file system in 90 seconds</h2>
+<p>Linux organises everything under <code>/</code> (the root). A few directories you should recognise on sight:</p>
+<ul>
+<li><code>/etc/</code> — config files. Nginx, systemd, SSH, fstab, hosts.</li>
+<li><code>/var/log/</code> — log files. Almost every long-running service writes here.</li>
+<li><code>/usr/local/bin/</code> — binaries you installed manually (vs. <code>/usr/bin/</code> for the package manager&#39;s).</li>
+<li><code>/home/&lt;user&gt;/</code> — your user&#39;s home. <code>~</code> is shorthand for this.</li>
+<li><code>/tmp/</code> — scratch space, wiped on reboot.</li>
+<li><code>/opt/</code> — third-party application installs (Node from a tarball, JetBrains tooling, etc.).</li>
+<li><code>/proc/</code> and <code>/sys/</code> — virtual filesystems that expose kernel and process state as files. <code>cat /proc/cpuinfo</code> is real.</li>
+</ul>
+<p>The rule that catches juniors: <strong>paths are case-sensitive</strong> and <strong>everything is a file</strong> — sockets, devices, even running processes. Internalise that and the rest gets easier.</p>
+<h2>Navigation</h2>
+<pre><code class="language-bash">pwd                  # where am I?
+cd /var/log          # go there
+cd -                 # go back to where I just was
+cd                   # go to ~
+ls -lah              # long, all (incl. dotfiles), human-readable sizes
+tree -L 2            # directory tree, 2 levels deep
+</code></pre>
+<p><code>ls -lah</code> is the alias I use 50 times a day. Make it muscle memory.</p>
+<h2>Reading files</h2>
+<pre><code class="language-bash">cat app.log                       # whole file — fine for small files only
+less app.log                      # paged viewer (q to quit, / to search)
+head -n 50 app.log                # first 50 lines
+tail -n 100 app.log               # last 100 lines
+tail -f app.log                   # follow the file as it grows
+tail -F app.log                   # follow even through log rotation
+</code></pre>
+<p><code>tail -F</code> over <code>tail -f</code> is the move once you&#39;ve been burned by a logrotate cutting your follow off mid-incident.</p>
+<h2>Searching with grep, find, fzf</h2>
+<pre><code class="language-bash">grep -rn &quot;TODO&quot; src/              # recursive, with line numbers
+grep -v &quot;^#&quot; config.yaml          # exclude lines starting with #
+grep -E &quot;error|warn&quot; app.log      # extended regex (or use -P for Perl regex)
+
+find . -name &quot;*.env&quot; -type f      # find files by name
+find . -mtime -1                  # files modified in the last day
+find . -size +100M                # files larger than 100MB
+
+# Combine for power moves:
+find . -name &quot;*.log&quot; -exec grep -l &quot;ECONNREFUSED&quot; {} \;
+</code></pre>
+<p>If you don&#39;t already have <strong>ripgrep</strong> (<code>rg</code>) installed, install it. It&#39;s grep but 10x faster and respects <code>.gitignore</code> by default:</p>
+<pre><code class="language-bash">rg &quot;ECONNREFUSED&quot; --type js       # blazing fast, smart defaults
+</code></pre>
+<h2>File operations</h2>
+<pre><code class="language-bash">cp -rv src/ dest/                 # recursive, verbose
+mv old.txt new.txt                # rename or move
+rm -rf node_modules/              # the nuclear option — be CERTAIN
+mkdir -p a/b/c                    # create nested dirs in one go
+touch new-file.txt                # create empty file (or update mtime)
+ln -s /opt/myapp/current /usr/local/bin/myapp   # symlink
+</code></pre>
+<p>The <code>rm -rf</code> warning is real. There&#39;s no trash bin. I once watched a junior <code>rm -rf /</code> on a customer&#39;s production box because their script had <code>rm -rf $UNSET_VAR/</code>. Always quote your variables and <code>set -u</code> in scripts.</p>
+<h2>Permissions: the chmod model</h2>
+<p>Linux permissions are three triplets — <code>owner</code> / <code>group</code> / <code>everyone</code> — each carrying <code>r</code> (read = 4), <code>w</code> (write = 2), <code>x</code> (execute = 1). Add them up:</p>
+<ul>
+<li><code>755</code> = owner: rwx (7), others: rx (5) — typical for executables and directories</li>
+<li><code>644</code> = owner: rw (6), others: r (4) — typical for regular files</li>
+<li><code>600</code> = owner: rw, no one else — for secrets and private keys</li>
+</ul>
+<pre><code class="language-bash">chmod 600 ~/.ssh/id_ed25519       # SSH will refuse the key otherwise
+chmod +x deploy.sh                # make a script executable
+chown -R deploy:deploy /opt/app   # set owner + group recursively
+</code></pre>
+<p><code>ls -l</code> shows permissions as <code>-rwxr-xr-x</code> — translate it to <code>755</code> in your head until it&#39;s instant.</p>
+<h2>Processes</h2>
+<pre><code class="language-bash">ps aux | grep node                # who is running my Node process?
+ps -ef --forest                   # process tree
+top                               # live process viewer
+htop                              # nicer top (install it)
+kill &lt;pid&gt;                        # polite stop (SIGTERM)
+kill -9 &lt;pid&gt;                     # rude stop (SIGKILL) — last resort
+pkill -f &quot;node server.js&quot;         # kill by command pattern
+</code></pre>
+<p>The signal hierarchy:</p>
+<ul>
+<li><code>SIGHUP</code> (1) — reload config without restart (Nginx loves this)</li>
+<li><code>SIGINT</code> (2) — Ctrl-C</li>
+<li><code>SIGTERM</code> (15) — please clean up and exit (the polite default)</li>
+<li><code>SIGKILL</code> (9) — die now, no cleanup, no graceful shutdown</li>
+</ul>
+<p>If <code>SIGTERM</code> doesn&#39;t work, your app is ignoring it. Fix the app — don&#39;t reach for <code>-9</code> as a habit.</p>
+<h2>Background jobs</h2>
+<pre><code class="language-bash">long-command &amp;                    # run in background
+jobs                              # list backgrounded jobs
+fg %1                             # bring job 1 to foreground
+bg %1                             # resume in background
+disown -h %1                      # detach so it survives logout
+
+nohup ./worker &gt; worker.log 2&gt;&amp;1 &amp;   # immune to hangup, output to file
+
+# Better: just use tmux
+tmux new -s work                  # named session
+# Ctrl-b d to detach
+tmux attach -t work               # reattach later
+</code></pre>
+<p>For anything long-running, use <code>tmux</code> or <code>screen</code> — not nohup. You get scrolling, splits, and your terminal can drop without killing your work.</p>
+<h2>Pipes, redirects, and the Unix philosophy</h2>
+<p>This is the part juniors underuse. Tiny commands compose into power tools:</p>
+<pre><code class="language-bash"># Find the 5 largest files in /var
+du -ah /var | sort -rh | head -5
+
+# Count unique IPs in an access log
+awk &#39;{print $1}&#39; access.log | sort | uniq -c | sort -rn | head
+
+# Find processes hogging RAM
+ps aux --sort=-%mem | head -10
+
+# Tail logs through grep, save to file, watch live
+tail -F app.log | grep -E &quot;error|fatal&quot; | tee errors.log
+</code></pre>
+<p>The operators:</p>
+<ul>
+<li><code>|</code> — stdout of A becomes stdin of B</li>
+<li><code>&gt;</code> — overwrite file with stdout</li>
+<li><code>&gt;&gt;</code> — append</li>
+<li><code>2&gt;</code> — redirect stderr</li>
+<li><code>2&gt;&amp;1</code> — merge stderr into stdout (then you can pipe both)</li>
+<li><code>&lt;</code> — feed file into stdin</li>
+<li><code>tee</code> — both write to file AND pass through</li>
+</ul>
+<h2>Networking</h2>
+<pre><code class="language-bash">curl -sS https://httpbin.org/get                       # quick HTTP request
+curl -X POST -H &quot;Content-Type: application/json&quot; \
+  -d &#39;{&quot;name&quot;:&quot;r&quot;}&#39; https://api.example.com/v1/users   # POST with JSON
+curl -I https://example.com                            # just headers
+curl -L https://example.com                            # follow redirects
+
+wget https://example.com/file.tar.gz                   # downloads to disk
+
+ssh user@host                                           # remote login
+ssh -i ~/.ssh/key.pem ubuntu@1.2.3.4                   # with specific key
+scp file.txt ubuntu@host:/tmp/                         # copy file to remote
+rsync -avzP ./build/ ubuntu@host:/var/www/             # smart sync (preferred)
+
+ss -tulpn                                              # listening ports + PIDs (modern netstat)
+dig example.com                                        # DNS lookup
+dig +short example.com                                 # just the IPs
+nslookup example.com 8.8.8.8                           # query a specific resolver
+</code></pre>
+<p><code>ss</code> replaced <code>netstat</code> years ago — learn it.</p>
+<p><code>rsync -avzP</code> is one of the most underused commands. It only transfers what changed, compresses on the wire, shows progress, and is idempotent. Use it instead of <code>scp</code> for anything bigger than a single file.</p>
+<h2>Disk and system</h2>
+<pre><code class="language-bash">df -h                             # disk usage, mountpoints
+du -sh ./                         # size of current dir
+du -sh */ | sort -h               # size per subdir, sorted
+
+free -h                           # memory usage
+uptime                            # load average + uptime
+uname -a                          # kernel, host, architecture
+lsblk                             # block devices (partitions, mounts)
+mount                             # what&#39;s mounted where
+</code></pre>
+<p>Production debugging starts with <code>df -h</code>. A surprising number of &quot;the API is down&quot; tickets are &quot;the disk is full and Postgres can&#39;t write.&quot;</p>
+<h2>systemd: managing services</h2>
+<p>On any modern Linux, services are systemd units:</p>
+<pre><code class="language-bash">sudo systemctl status nginx       # is it running? when did it last restart?
+sudo systemctl start nginx
+sudo systemctl stop nginx
+sudo systemctl restart nginx
+sudo systemctl reload nginx       # SIGHUP — re-read config without restart
+sudo systemctl enable nginx       # auto-start on boot
+sudo systemctl disable nginx
+
+journalctl -u nginx -n 100        # last 100 lines of nginx logs
+journalctl -u nginx -f            # follow live
+journalctl -u nginx --since &quot;1 hour ago&quot;
+</code></pre>
+<p>For your own Node services, write a systemd unit instead of using PM2 — it&#39;s more native and handles restarts properly. (PM2 is fine; systemd is just one less abstraction.)</p>
+<h2>Text manipulation: sed, awk, jq</h2>
+<p>You&#39;ll use these in scripts and one-liners more than you think:</p>
+<pre><code class="language-bash"># sed: replace text in place
+sed -i &#39;s/oldhost/newhost/g&#39; config.yaml
+sed -n &#39;10,20p&#39; file.log          # print lines 10-20
+
+# awk: extract columns
+awk &#39;{print $2, $5}&#39; access.log   # print 2nd and 5th columns
+
+# jq: parse JSON
+curl -s https://api.github.com/users/devsrakesh | jq &#39;.public_repos&#39;
+kubectl get pods -o json | jq &#39;.items[].metadata.name&#39;
+</code></pre>
+<p><code>jq</code> is essential the moment you start working with APIs. Install it.</p>
+<h2>Shell rc files and aliases</h2>
+<p>Open <code>~/.zshrc</code> (or <code>~/.bashrc</code>) and put your aliases there:</p>
+<pre><code class="language-bash">alias ll=&#39;ls -lah&#39;
+alias gs=&#39;git status&#39;
+alias k=&#39;kubectl&#39;
+alias tf=&#39;terraform&#39;
+alias ports=&#39;ss -tulpn&#39;
+
+# Functions are aliases that take arguments
+mkcd() { mkdir -p &quot;$1&quot; &amp;&amp; cd &quot;$1&quot;; }
+</code></pre>
+<p>Reload: <code>source ~/.zshrc</code>.</p>
+<h2>The mindset shift</h2>
+<p>The reason senior engineers move so fast on a Linux box isn&#39;t that they remember more flags. It&#39;s that they:</p>
+<ol>
+<li><strong>Compose small commands</strong> instead of looking for a &quot;do everything&quot; tool.</li>
+<li><strong>Don&#39;t trust state they didn&#39;t verify</strong> — they <code>ls</code> after <code>mv</code>, <code>ps</code> after <code>kill</code>, <code>curl</code> to confirm DNS.</li>
+<li><strong>Read the manual</strong> — <code>man &lt;cmd&gt;</code> or <code>&lt;cmd&gt; --help</code>. Two minutes of <code>man rsync</code> saves an hour of stack overflow.</li>
+<li><strong>Script repeated work</strong> — the third time you type something, it goes in a script.</li>
+</ol>
+<p>Get the basics into your hands and the rest accrues naturally. I still learn new flags on tools I&#39;ve used for a decade.</p>
+<hr>
+<p><em>Working on a Linux server I might recognise? I&#39;m available for cloud architecture and DevOps engagements — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

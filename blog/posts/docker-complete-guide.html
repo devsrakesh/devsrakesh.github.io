@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Docker in Production: How I Containerise NestJS and Next.js Services — Rakesh Rajput</title>
+<meta name="description" content="Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/docker-complete-guide.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/docker-complete-guide.html" />
+<meta property="og:title" content="Docker in Production: How I Containerise NestJS and Next.js Services" />
+<meta property="og:description" content="Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-04-25" />
+<meta property="article:tag" content="docker" />
+<meta property="article:tag" content="devops" />
+<meta property="article:tag" content="nestjs" />
+<meta property="article:tag" content="nextjs" />
+<meta property="article:tag" content="containers" />
+<meta property="article:tag" content="production" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Docker in Production: How I Containerise NestJS and Next.js Services" />
+<meta name="twitter:description" content="Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker in Production: How I Containerise NestJS and Next.js Services",
+  "description": "Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services.",
+  "datePublished": "2026-04-25",
+  "dateModified": "2026-04-25",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/docker-complete-guide.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/docker-complete-guide.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "docker, devops, nestjs, nextjs, containers, production"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-04-25">Apr 25, 2026</time>
+        <span class="tag">docker</span><span class="tag">devops</span><span class="tag">nestjs</span><span class="tag">nextjs</span><span class="tag">containers</span><span class="tag">production</span>
+      </div>
+      <h1 class="post-title">Docker in Production: How I Containerise NestJS and Next.js Services</h1>
+      <p class="post-excerpt">Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services.</p>
+    </header>
+
+    <div class="post-body">
+<p>I containerise everything that ships — NestJS APIs, Next.js apps, Node workers, even the small Cron services. After several years of &quot;why is this image 1.4 GB&quot; and &quot;why does CI take 11 minutes to build,&quot; here&#39;s the Docker setup I land on and the rationale behind each decision.</p>
+<p>This isn&#39;t a &quot;what is a container&quot; post. It&#39;s the Dockerfile that actually goes to production.</p>
+<h2>The NestJS Dockerfile I use</h2>
+<pre><code class="language-dockerfile"># syntax=docker/dockerfile:1.7
+
+# ---- Stage 1: deps ----
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev --no-audit --no-fund
+
+# ---- Stage 2: build ----
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --no-audit --no-fund
+COPY . .
+RUN npm run build
+
+# ---- Stage 3: runtime ----
+FROM node:20-alpine AS runtime
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Non-root user for security
+RUN addgroup -S app &amp;&amp; adduser -S app -G app
+
+COPY --from=deps   --chown=app:app /app/node_modules ./node_modules
+COPY --from=build  --chown=app:app /app/dist          ./dist
+COPY --from=build  --chown=app:app /app/package.json  ./
+
+USER app
+EXPOSE 3000
+
+# Use the JSON form so SIGTERM reaches Node directly
+CMD [&quot;node&quot;, &quot;dist/main.js&quot;]
+</code></pre>
+<p>What&#39;s actually going on:</p>
+<ul>
+<li><strong><code># syntax=docker/dockerfile:1.7</code></strong> — opts into BuildKit features (cache mounts, <code>COPY --link</code>, etc.). Required for the <code>--mount=type=cache</code> line below.</li>
+<li><strong>Three stages — <code>deps</code>, <code>build</code>, <code>runtime</code>.</strong> The final image only contains what the runtime needs: production node_modules + the compiled <code>dist/</code>. No source code, no devDependencies, no <code>.git</code>, no junk.</li>
+<li><strong><code>node:20-alpine</code></strong> — <del>50 MB base vs. ~350 MB for <code>node:20</code>. Trade-off: Alpine uses musl libc, which occasionally trips up native modules. If you hit issues, switch to <code>node:20-slim</code> (</del>80 MB, glibc).</li>
+<li><strong><code>--mount=type=cache,target=/root/.npm</code></strong> — BuildKit cache mount. npm&#39;s cache persists across builds, so the second build is fast even though node_modules isn&#39;t cached in the image layer.</li>
+<li><strong><code>npm ci --omit=dev</code></strong> in deps stage — skip devDependencies for the runtime image.</li>
+<li><strong><code>npm ci</code></strong> (not <code>npm install</code>) — uses the lockfile exactly, deterministic.</li>
+<li><strong><code>--chown=app:app</code> on every COPY</strong> — files arrive owned by the non-root user, no separate <code>chown -R</code> layer needed.</li>
+<li><strong><code>USER app</code></strong> — last instruction before CMD. Container runs as non-root. If your app is compromised, the attacker isn&#39;t <code>root</code> inside the container.</li>
+<li><strong>JSON-array CMD</strong> — so the process gets SIGTERM directly when the orchestrator wants to stop it. With shell form (<code>CMD node dist/main.js</code>), Node runs as a child of <code>/bin/sh</code>, which doesn&#39;t forward signals. Result: 30-second hangs on every deploy while ECS waits for graceful shutdown.</li>
+</ul>
+<p>This Dockerfile produces a NestJS image around <strong>120 MB</strong> for a small/medium service. Not the smallest possible, but maintainable.</p>
+<h2>The Next.js Dockerfile (standalone output)</h2>
+<p>Next.js 14+ has a <code>standalone</code> output mode that copies only the required <code>node_modules</code>. Use it.</p>
+<pre><code class="language-js">// next.config.js
+module.exports = {
+  output: &#39;standalone&#39;,
+};
+</code></pre>
+<pre><code class="language-dockerfile"># syntax=docker/dockerfile:1.7
+
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --no-audit --no-fund
+
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+FROM node:20-alpine AS runtime
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+
+RUN addgroup -S app &amp;&amp; adduser -S app -G app
+
+COPY --from=build --chown=app:app /app/public ./public
+COPY --from=build --chown=app:app /app/.next/standalone ./
+COPY --from=build --chown=app:app /app/.next/static ./.next/static
+
+USER app
+EXPOSE 3000
+CMD [&quot;node&quot;, &quot;server.js&quot;]
+</code></pre>
+<p>This typically produces a <strong>~150 MB</strong> Next.js image. Without standalone output, you&#39;re looking at 400+ MB because the entire <code>node_modules</code> directory comes along.</p>
+<h2>.dockerignore is the file that actually matters</h2>
+<p>Half of &quot;my Docker build is slow&quot; complaints are a missing <code>.dockerignore</code>. Without it, Docker sends your entire repo (including <code>node_modules</code>, <code>.git</code>, <code>.next</code>) as build context to the daemon. Every. Single. Build.</p>
+<p>My baseline <code>.dockerignore</code>:</p>
+<pre><code class="language-gitignore">node_modules
+.next
+dist
+build
+coverage
+.git
+.github
+.gitignore
+.env*
+!.env.example
+*.log
+README.md
+docs/
+.vscode
+.idea
+.DS_Store
+Dockerfile
+.dockerignore
+</code></pre>
+<p>After adding this to a repo that didn&#39;t have it, I&#39;ve watched build context drop from 480 MB to 8 MB and build time drop from 90s to 12s. It&#39;s the single highest-leverage Docker change.</p>
+<h2>Local development with docker-compose</h2>
+<p>For HousingCart-style stacks, I keep a <code>docker-compose.dev.yml</code> that spins up dependencies (MongoDB, PostgreSQL, Redis) but runs the app natively for fast HMR:</p>
+<pre><code class="language-yaml"># docker-compose.dev.yml
+services:
+  mongo:
+    image: mongo:7
+    ports: [&quot;27017:27017&quot;]
+    volumes: [&quot;mongo-data:/data/db&quot;]
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;mongosh&quot;, &quot;--eval&quot;, &quot;db.adminCommand(&#39;ping&#39;)&quot;]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+    ports: [&quot;5432:5432&quot;]
+    volumes: [&quot;pg-data:/var/lib/postgresql/data&quot;]
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pg_isready -U app&quot;]
+      interval: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports: [&quot;6379:6379&quot;]
+
+volumes:
+  mongo-data:
+  pg-data:
+</code></pre>
+<p><code>docker compose -f docker-compose.dev.yml up -d</code> and you&#39;ve got a clean dev stack. New team member onboards in 5 minutes instead of 5 hours.</p>
+<p>Critical detail: <strong>named volumes</strong> (<code>mongo-data</code>, <code>pg-data</code>), not bind mounts. Bind mounts share file ownership with the host and break on Linux/Mac differences. Named volumes are isolated, fast, and <code>docker compose down -v</code> wipes them cleanly.</p>
+<p>The healthchecks matter when you have services that depend on each other. With Compose v2:</p>
+<pre><code class="language-yaml">  api:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+</code></pre>
+<p>The API container won&#39;t start until Postgres is ready to accept connections. No more &quot;the migration runs before Postgres is up&quot; race conditions.</p>
+<h2>Build args vs env vars — the difference that bites people</h2>
+<pre><code class="language-dockerfile">ARG NPM_TOKEN          # build-time only, available during build
+ENV NODE_ENV=production # baked into the image, available at runtime
+</code></pre>
+<ul>
+<li><code>ARG</code> is build-time. Available during <code>docker build</code>. Gone at runtime.</li>
+<li><code>ENV</code> is runtime. Baked into the image. Available when the container runs.</li>
+</ul>
+<p><strong>Never use <code>ENV</code> for secrets.</strong> They&#39;re visible in <code>docker history</code> and to anyone who pulls the image. Use BuildKit secrets for build-time secrets:</p>
+<pre><code class="language-dockerfile"># syntax=docker/dockerfile:1.7
+RUN --mount=type=secret,id=npm_token \
+    NPM_TOKEN=$(cat /run/secrets/npm_token) \
+    npm ci
+</code></pre>
+<pre><code class="language-bash">docker build --secret id=npm_token,env=NPM_TOKEN .
+</code></pre>
+<p>The secret never lands in any layer.</p>
+<h2>Caching strategy: order your Dockerfile correctly</h2>
+<p>Docker caches each layer. Cache invalidation cascades — change line 5 and lines 6-50 all rebuild.</p>
+<p>The pattern:</p>
+<ol>
+<li>Copy package files first</li>
+<li>Run install (this layer survives every code change)</li>
+<li>Copy source code last</li>
+<li>Build</li>
+</ol>
+<pre><code class="language-dockerfile">COPY package.json package-lock.json ./    # changes rarely
+RUN npm ci                                # cached unless lockfile changed
+COPY . .                                  # changes every commit
+RUN npm run build                         # re-runs every commit
+</code></pre>
+<p>If you <code>COPY . .</code> before <code>npm ci</code>, you invalidate the install layer on every single source change. Build time goes from 20 seconds to 2 minutes.</p>
+<h2>Logging and observability</h2>
+<p>Containers should log to stdout/stderr. Period. Not to files inside the container — they&#39;ll be lost when the container restarts.</p>
+<p>NestJS does this by default. For Next.js, your <code>console.log</code> works. For Node workers, use Pino:</p>
+<pre><code class="language-js">const logger = require(&#39;pino&#39;)({ level: process.env.LOG_LEVEL || &#39;info&#39; });
+logger.info({ orderId: 123 }, &#39;order placed&#39;);
+</code></pre>
+<p>The orchestrator (ECS, Kubernetes) picks up stdout and ships it to CloudWatch / Loki / wherever. Structured JSON logs are searchable — plain text isn&#39;t.</p>
+<h2>Healthchecks are not optional</h2>
+<pre><code class="language-dockerfile">HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 \
+    CMD wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1
+</code></pre>
+<p>Or expose a <code>/health</code> endpoint in NestJS:</p>
+<pre><code class="language-typescript">@Controller(&#39;health&#39;)
+export class HealthController {
+  @Get()
+  check() {
+    return { status: &#39;ok&#39;, uptime: process.uptime() };
+  }
+}
+</code></pre>
+<p>ALB target group health checks, ECS deployment health checks, and Kubernetes readiness probes all hit this endpoint. If it doesn&#39;t exist, the orchestrator can&#39;t tell when your container is ready vs. broken.</p>
+<p>For richer checks, NestJS has <code>@nestjs/terminus</code> which can verify DB connections, Redis, external dependencies. Use it.</p>
+<h2>Image size reduction checklist</h2>
+<p>If your image is &gt;200 MB and you can&#39;t explain why, run through this:</p>
+<ol>
+<li>✅ Multi-stage build separating build deps from runtime deps?</li>
+<li>✅ Using <code>alpine</code> or <code>slim</code> base?</li>
+<li>✅ <code>.dockerignore</code> excluding <code>node_modules</code>, <code>.git</code>, <code>dist</code>?</li>
+<li>✅ <code>npm ci --omit=dev</code> for the runtime stage?</li>
+<li>✅ Removed dev tools (curl, git, build tools) from runtime?</li>
+<li>✅ Combined RUN steps to reduce layers (each <code>RUN</code> is a layer)?</li>
+<li>✅ For Next.js, <code>output: &#39;standalone&#39;</code> set?</li>
+</ol>
+<p><code>dive</code> is the tool I use to audit image layers:</p>
+<pre><code class="language-bash">brew install dive
+dive myapp:latest
+</code></pre>
+<p>It shows which layer added what and where to trim.</p>
+<h2>docker run flags I actually use</h2>
+<pre><code class="language-bash">docker run \
+  --rm \                        # auto-remove on exit
+  -d \                          # detached
+  --name myapp \                # so you can docker logs it by name
+  -p 3000:3000 \                # publish port
+  --env-file .env \             # bulk env vars
+  --memory 512m \                # cap memory
+  --cpus 1 \                    # cap CPU
+  --restart unless-stopped \    # auto-restart on crash
+  --read-only \                 # immutable filesystem (security)
+  --tmpfs /tmp \                # writable tmpfs for the few places that need it
+  myapp:latest
+</code></pre>
+<p><code>--read-only</code> + <code>--tmpfs /tmp</code> is a security posture I default to in production — if the container is compromised, the attacker can&#39;t write to the filesystem.</p>
+<h2>What I don&#39;t do</h2>
+<ul>
+<li><strong>No <code>latest</code> tag in production.</strong> Every deploy uses the commit SHA. <code>latest</code> is mutable and untraceable.</li>
+<li><strong>No root user in the final image.</strong> USER app, every time.</li>
+<li><strong>No Docker-in-Docker for builds.</strong> Use GitHub Actions&#39; BuildKit support or AWS CodeBuild. DinD is a security and complexity tax.</li>
+<li><strong>No &quot;fat&quot; base images.</strong> <code>node:20</code> instead of <code>node:20-alpine</code> only if I&#39;ve hit a specific musl problem.</li>
+<li><strong>No Compose in production.</strong> Compose is a dev tool. For prod, use ECS / EKS / Nomad.</li>
+</ul>
+<hr>
+<p>The Dockerfile is one of the highest-leverage files in your repo. A bad one slows every PR, eats every deploy, and bloats every storage bill. A good one fades into the background and lets you ship.</p>
+<p><em>Containerising a Node service for production? I architect ECS / EKS deployments end-to-end — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

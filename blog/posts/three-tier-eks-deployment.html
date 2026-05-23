@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes — Rakesh Rajput</title>
+<meta name="description" content="End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/three-tier-eks-deployment.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/three-tier-eks-deployment.html" />
+<meta property="og:title" content="A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes" />
+<meta property="og:description" content="End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-05-16" />
+<meta property="article:tag" content="eks" />
+<meta property="article:tag" content="kubernetes" />
+<meta property="article:tag" content="aws" />
+<meta property="article:tag" content="terraform" />
+<meta property="article:tag" content="eksctl" />
+<meta property="article:tag" content="ingress" />
+<meta property="article:tag" content="3-tier" />
+<meta property="article:tag" content="architecture" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes" />
+<meta name="twitter:description" content="End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes",
+  "description": "End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch.",
+  "datePublished": "2026-05-16",
+  "dateModified": "2026-05-16",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/three-tier-eks-deployment.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/three-tier-eks-deployment.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "eks, kubernetes, aws, terraform, eksctl, ingress, 3-tier, architecture"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-05-16">May 16, 2026</time>
+        <span class="tag">eks</span><span class="tag">kubernetes</span><span class="tag">aws</span><span class="tag">terraform</span><span class="tag">eksctl</span><span class="tag">ingress</span><span class="tag">3-tier</span><span class="tag">architecture</span>
+      </div>
+      <h1 class="post-title">A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes</h1>
+      <p class="post-excerpt">End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch.</p>
+    </header>
+
+    <div class="post-body">
+<p>EzChatting was a realtime chat platform for a Dubai-based client. I designed and provisioned its AWS EKS architecture from scratch — every line of Terraform, every eksctl config, every Kubernetes manifest. This post is the architecture and the implementation, end-to-end.</p>
+<p>The shape is the classic 3-tier — <strong>frontend</strong> (Next.js) → <strong>backend</strong> (NestJS API + WebSocket gateway) → <strong>data</strong> (MongoDB on EBS, Redis on ElastiCache). What makes it interesting is everything in between: how requests get from <code>api.ezchat.example.com</code> to a specific Pod, how secrets stop being a checked-in YAML problem, how nodes scale to match demand, how the cluster doesn&#39;t die when one AZ does.</p>
+<h2>The architecture</h2>
+<div class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" role="img" aria-label="EKS 3-tier architecture diagram">
+  <style>
+    .box { fill: #ffffff; stroke: #222222; stroke-width: 1; }
+    .vpc { fill: #f8f8f8; stroke: #222222; stroke-width: 1; stroke-dasharray: 4 3; }
+    .az { fill: #ffffff; stroke: #c4c4c4; stroke-width: 1; stroke-dasharray: 2 2; }
+    .pod-fe { fill: #e8f0ff; stroke: #4a7dd3; stroke-width: 1; }
+    .pod-be { fill: #fff1e8; stroke: #c97a30; stroke-width: 1; }
+    .pod-db { fill: #ebf6ec; stroke: #4a8a52; stroke-width: 1; }
+    .external { fill: #222222; stroke: #222222; }
+    .label { font-family: 'Inter', sans-serif; font-size: 12px; fill: #222222; }
+    .label-small { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #7B7B7B; letter-spacing: 0.05em; }
+    .label-white { font-family: 'Inter', sans-serif; font-size: 12px; fill: #ffffff; }
+    .label-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #222222; }
+    .arrow { stroke: #222222; stroke-width: 1.2; fill: none; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#222222"/>
+    </marker>
+  </defs>
+
+  <!-- Internet -->
+  <rect class="external" x="280" y="14" width="160" height="36" rx="4"/>
+  <text class="label-white" x="360" y="37" text-anchor="middle">Internet</text>
+
+  <!-- Route 53 -->
+  <rect class="box" x="280" y="68" width="160" height="32" rx="4"/>
+  <text class="label-title" x="360" y="80" text-anchor="middle">Route 53</text>
+  <text class="label-small" x="360" y="93" text-anchor="middle">api.ezchat.example.com</text>
+
+  <!-- ALB -->
+  <rect class="box" x="260" y="116" width="200" height="34" rx="4"/>
+  <text class="label-title" x="360" y="129" text-anchor="middle">Application Load Balancer</text>
+  <text class="label-small" x="360" y="142" text-anchor="middle">ACM cert · target-type=ip</text>
+
+  <!-- VPC -->
+  <rect class="vpc" x="40" y="174" width="640" height="338" rx="8"/>
+  <text class="label-small" x="56" y="192">VPC  10.0.0.0/16</text>
+
+  <!-- AZ A -->
+  <rect class="az" x="60" y="206" width="290" height="220" rx="6"/>
+  <text class="label-small" x="74" y="222">AZ  ap-south-1a</text>
+
+  <!-- AZ B -->
+  <rect class="az" x="370" y="206" width="290" height="220" rx="6"/>
+  <text class="label-small" x="384" y="222">AZ  ap-south-1b</text>
+
+  <!-- Tier 1 — Frontend pods -->
+  <rect class="pod-fe" x="78" y="240" width="120" height="44" rx="4"/>
+  <text class="label-title" x="138" y="255" text-anchor="middle">Frontend Pod</text>
+  <text class="label-small" x="138" y="270" text-anchor="middle">Next.js · standalone</text>
+
+  <rect class="pod-fe" x="212" y="240" width="120" height="44" rx="4"/>
+  <text class="label-title" x="272" y="255" text-anchor="middle">Frontend Pod</text>
+  <text class="label-small" x="272" y="270" text-anchor="middle">Next.js · standalone</text>
+
+  <rect class="pod-fe" x="388" y="240" width="120" height="44" rx="4"/>
+  <text class="label-title" x="448" y="255" text-anchor="middle">Frontend Pod</text>
+  <text class="label-small" x="448" y="270" text-anchor="middle">Next.js · standalone</text>
+
+  <rect class="pod-fe" x="522" y="240" width="120" height="44" rx="4"/>
+  <text class="label-title" x="582" y="255" text-anchor="middle">Frontend Pod</text>
+  <text class="label-small" x="582" y="270" text-anchor="middle">Next.js · standalone</text>
+
+  <!-- Tier 2 — Backend pods -->
+  <rect class="pod-be" x="78" y="302" width="120" height="44" rx="4"/>
+  <text class="label-title" x="138" y="317" text-anchor="middle">Backend Pod</text>
+  <text class="label-small" x="138" y="332" text-anchor="middle">NestJS · API + WS</text>
+
+  <rect class="pod-be" x="212" y="302" width="120" height="44" rx="4"/>
+  <text class="label-title" x="272" y="317" text-anchor="middle">Backend Pod</text>
+  <text class="label-small" x="272" y="332" text-anchor="middle">NestJS · API + WS</text>
+
+  <rect class="pod-be" x="388" y="302" width="120" height="44" rx="4"/>
+  <text class="label-title" x="448" y="317" text-anchor="middle">Backend Pod</text>
+  <text class="label-small" x="448" y="332" text-anchor="middle">NestJS · API + WS</text>
+
+  <rect class="pod-be" x="522" y="302" width="120" height="44" rx="4"/>
+  <text class="label-title" x="582" y="317" text-anchor="middle">Backend Pod</text>
+  <text class="label-small" x="582" y="332" text-anchor="middle">NestJS · API + WS</text>
+
+  <!-- Tier 3 — Data -->
+  <rect class="pod-db" x="78" y="364" width="254" height="44" rx="4"/>
+  <text class="label-title" x="205" y="379" text-anchor="middle">MongoDB Pod (StatefulSet)</text>
+  <text class="label-small" x="205" y="394" text-anchor="middle">EBS gp3 · 100GB · primary</text>
+
+  <rect class="pod-db" x="388" y="364" width="254" height="44" rx="4"/>
+  <text class="label-title" x="515" y="379" text-anchor="middle">MongoDB Pod (StatefulSet)</text>
+  <text class="label-small" x="515" y="394" text-anchor="middle">EBS gp3 · 100GB · secondary</text>
+
+  <!-- ElastiCache (outside VPC visualisation simplified) -->
+  <rect class="box" x="240" y="438" width="240" height="32" rx="4"/>
+  <text class="label-title" x="360" y="451" text-anchor="middle">ElastiCache Redis (cluster mode)</text>
+  <text class="label-small" x="360" y="464" text-anchor="middle">pub/sub + session store</text>
+
+  <!-- Add-ons strip -->
+  <rect class="box" x="60" y="490" width="600" height="34" rx="4"/>
+  <text class="label-small" x="68" y="510">ECR · External DNS · External Secrets Operator · ALB Controller · Karpenter · Prometheus · Grafana · CloudWatch</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 360 50 V 68" marker-end="url(#arrow)"/>
+  <path class="arrow" d="M 360 100 V 116" marker-end="url(#arrow)"/>
+  <path class="arrow" d="M 360 150 V 174" marker-end="url(#arrow)"/>
+</svg>
+</div>
+
+<p>A few non-obvious things in this diagram:</p>
+<ul>
+<li><strong>Target-type IP on the ALB.</strong> Pods are addressed directly, not via NodePort. Lower latency, simpler routing, no surprise from <code>kube-proxy</code>.</li>
+<li><strong>MongoDB on a StatefulSet with EBS</strong> — not RDS, because the client wanted Mongo and AWS DocumentDB has too many quirks. Each replica has its own EBS volume.</li>
+<li><strong>ElastiCache Redis cluster</strong> for pub/sub between API replicas — required for Socket.IO sticky sessions to work across pods.</li>
+<li><strong>No NAT gateway in this diagram for clarity</strong> — there&#39;s one per AZ in reality, for pods to reach the internet (ECR, secrets manager, etc).</li>
+</ul>
+<h2>The VPC (Terraform)</h2>
+<p>I provision the VPC with the official AWS VPC module — battle-tested, fewer foot-guns:</p>
+<pre><code class="language-hcl"># terraform/vpc.tf
+module &quot;vpc&quot; {
+  source  = &quot;terraform-aws-modules/vpc/aws&quot;
+  version = &quot;~&gt; 5.0&quot;
+
+  name = &quot;ezchat-vpc&quot;
+  cidr = &quot;10.0.0.0/16&quot;
+
+  azs             = [&quot;ap-south-1a&quot;, &quot;ap-south-1b&quot;, &quot;ap-south-1c&quot;]
+  private_subnets = [&quot;10.0.1.0/24&quot;, &quot;10.0.2.0/24&quot;, &quot;10.0.3.0/24&quot;]
+  public_subnets  = [&quot;10.0.101.0/24&quot;, &quot;10.0.102.0/24&quot;, &quot;10.0.103.0/24&quot;]
+
+  enable_nat_gateway   = true
+  single_nat_gateway   = false       # one per AZ — production grade
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  # Tags required by AWS Load Balancer Controller for subnet discovery
+  public_subnet_tags = {
+    &quot;kubernetes.io/role/elb&quot;           = &quot;1&quot;
+    &quot;kubernetes.io/cluster/ezchat-eks&quot; = &quot;shared&quot;
+  }
+  private_subnet_tags = {
+    &quot;kubernetes.io/role/internal-elb&quot;  = &quot;1&quot;
+    &quot;kubernetes.io/cluster/ezchat-eks&quot; = &quot;shared&quot;
+  }
+}
+</code></pre>
+<p>Three AZs, three private subnets (for nodes + pods), three public subnets (for the ALB and NAT). The subnet tags matter — without them the AWS Load Balancer Controller can&#39;t discover where to put load balancers.</p>
+<p>For staging environments, <code>single_nat_gateway = true</code> cuts the NAT cost by 66%. For production, keep one per AZ — a NAT outage in one AZ shouldn&#39;t take down pods in the other two.</p>
+<h2>The cluster (eksctl)</h2>
+<p>I use <strong>eksctl</strong> for the cluster itself (faster iteration, decent defaults) and Terraform for everything around it (VPC, IAM, ECR, RDS).</p>
+<pre><code class="language-yaml"># eksctl/cluster.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ezchat-eks
+  region: ap-south-1
+  version: &quot;1.30&quot;
+
+vpc:
+  id: vpc-XXX                     # from Terraform output
+  subnets:
+    private:
+      ap-south-1a: { id: subnet-aaa }
+      ap-south-1b: { id: subnet-bbb }
+      ap-south-1c: { id: subnet-ccc }
+    public:
+      ap-south-1a: { id: subnet-ddd }
+      ap-south-1b: { id: subnet-eee }
+      ap-south-1c: { id: subnet-fff }
+
+iam:
+  withOIDC: true                   # required for IRSA (IAM roles for service accounts)
+
+managedNodeGroups:
+  - name: workers-2a
+    instanceType: t3.large
+    minSize: 1
+    maxSize: 4
+    desiredCapacity: 2
+    privateNetworking: true
+    availabilityZones: [&quot;ap-south-1a&quot;]
+    labels: { role: worker }
+    iam:
+      withAddonPolicies:
+        cloudWatch: true
+        ebs: true
+        autoScaler: true
+
+  - name: workers-2b
+    instanceType: t3.large
+    minSize: 1
+    maxSize: 4
+    desiredCapacity: 2
+    privateNetworking: true
+    availabilityZones: [&quot;ap-south-1b&quot;]
+    labels: { role: worker }
+    iam:
+      withAddonPolicies:
+        cloudWatch: true
+        ebs: true
+        autoScaler: true
+
+addons:
+  - name: vpc-cni
+  - name: coredns
+  - name: kube-proxy
+  - name: aws-ebs-csi-driver
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: [&quot;api&quot;, &quot;audit&quot;, &quot;authenticator&quot;, &quot;controllerManager&quot;, &quot;scheduler&quot;]
+</code></pre>
+<pre><code class="language-bash">eksctl create cluster -f eksctl/cluster.yaml
+</code></pre>
+<p>15 minutes later you have a working EKS cluster across three AZs with logging, EBS support, and the right IAM scaffolding.</p>
+<p>The split node groups (one per AZ) is deliberate. Karpenter or Cluster Autoscaler can later scale these independently. If <code>ap-south-1a</code> has a regional issue, the <code>workers-2b</code> and <code>workers-2c</code> groups keep running.</p>
+<h2>The add-ons (Helm)</h2>
+<p>After the cluster exists, install the in-cluster tooling:</p>
+<pre><code class="language-bash">helm repo add eks https://aws.github.io/eks-charts
+helm repo add external-dns https://kubernetes-sigs.github.io/external-dns
+helm repo add external-secrets https://charts.external-secrets.io
+helm repo add karpenter oci://public.ecr.aws/karpenter
+helm repo update
+
+# AWS Load Balancer Controller
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=ezchat-eks \
+  --set serviceAccount.create=true \
+  --set serviceAccount.name=aws-load-balancer-controller
+
+# External DNS
+helm install external-dns external-dns/external-dns \
+  -n kube-system \
+  --set provider=aws \
+  --set txtOwnerId=ezchat-eks \
+  --set domainFilters[0]=ezchat.example.com
+
+# External Secrets Operator
+helm install external-secrets external-secrets/external-secrets \
+  -n external-secrets --create-namespace
+
+# Karpenter (or Cluster Autoscaler)
+helm install karpenter oci://public.ecr.aws/karpenter/karpenter \
+  -n karpenter --create-namespace \
+  --set settings.clusterName=ezchat-eks
+</code></pre>
+<p>Each needs an IAM role via IRSA — I&#39;m skipping the IAM YAML for brevity but it&#39;s standard policy attachment for ALB Controller, route53 record write for ExternalDNS, secretsmanager:GetSecretValue for ESO, etc.</p>
+<h2>The application namespace</h2>
+<pre><code class="language-yaml"># k8s/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chat
+  labels:
+    app.kubernetes.io/name: ezchat
+</code></pre>
+<p>Everything app-related goes in <code>chat</code>. Add-ons stay in <code>kube-system</code> / <code>external-secrets</code> / <code>karpenter</code>. Don&#39;t mix.</p>
+<h2>Tier 1 — Frontend (Next.js)</h2>
+<pre><code class="language-yaml"># k8s/frontend/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: frontend, namespace: chat }
+spec:
+  replicas: 2
+  strategy: { type: RollingUpdate, rollingUpdate: { maxSurge: 1, maxUnavailable: 0 } }
+  selector: { matchLabels: { app: frontend } }
+  template:
+    metadata: { labels: { app: frontend } }
+    spec:
+      serviceAccountName: frontend
+      containers:
+        - name: web
+          image: 123.dkr.ecr.ap-south-1.amazonaws.com/ezchat-web:v1.42.0
+          ports: [{ containerPort: 3000, name: http }]
+          env:
+            - { name: NEXT_PUBLIC_API_URL, value: https://api.ezchat.example.com }
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+          readinessProbe: { httpGet: { path: /api/health, port: http }, periodSeconds: 5 }
+          livenessProbe:  { httpGet: { path: /api/health, port: http }, periodSeconds: 30 }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: frontend, namespace: chat }
+spec:
+  selector: { app: frontend }
+  ports: [{ port: 80, targetPort: http }]
+</code></pre>
+<h2>Tier 2 — Backend (NestJS + WebSocket)</h2>
+<p>The backend is two endpoints baked into one image — REST API and Socket.IO gateway. Same Deployment, same Service:</p>
+<pre><code class="language-yaml"># k8s/backend/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: api, namespace: chat }
+spec:
+  replicas: 3
+  selector: { matchLabels: { app: api } }
+  template:
+    metadata: { labels: { app: api } }
+    spec:
+      serviceAccountName: api
+      containers:
+        - name: api
+          image: 123.dkr.ecr.ap-south-1.amazonaws.com/ezchat-api:v1.42.0
+          ports: [{ containerPort: 3000, name: http }]
+          env:
+            - { name: NODE_ENV, value: production }
+            - { name: MONGO_URI,  value: &quot;mongodb://mongo-0.mongo.chat.svc.cluster.local:27017,mongo-1.mongo.chat.svc.cluster.local:27017/chat?replicaSet=rs0&quot; }
+            - { name: REDIS_HOST, value: &quot;ezchat-redis.xxxx.cache.amazonaws.com&quot; }
+          envFrom:
+            - { secretRef: { name: api-secrets } }
+          resources:
+            requests: { cpu: 200m, memory: 512Mi }
+            limits:   { cpu: 1000m, memory: 1Gi }
+          readinessProbe: { httpGet: { path: /health/ready, port: http } }
+          livenessProbe:  { httpGet: { path: /health/live,  port: http } }
+</code></pre>
+<p>NestJS&#39;s WebSocket gateway (using Socket.IO Redis adapter) shares Pub/Sub state across Pods via ElastiCache — that&#39;s how a message from a user on Pod A reaches a user on Pod B.</p>
+<h2>Tier 3 — MongoDB (StatefulSet)</h2>
+<pre><code class="language-yaml"># k8s/data/mongo.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: { name: mongo, namespace: chat }
+spec:
+  serviceName: mongo
+  replicas: 3
+  selector: { matchLabels: { app: mongo } }
+  template:
+    metadata: { labels: { app: mongo } }
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: mongo
+          image: mongo:7
+          command:
+            - mongod
+            - --replSet=rs0
+            - --bind_ip_all
+          ports: [{ containerPort: 27017 }]
+          volumeMounts: [{ name: data, mountPath: /data/db }]
+          resources:
+            requests: { cpu: 500m, memory: 2Gi }
+            limits:   { cpu: 2,    memory: 4Gi }
+  volumeClaimTemplates:
+    - metadata: { name: data }
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: ebs-gp3
+        resources: { requests: { storage: 100Gi } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: mongo, namespace: chat }
+spec:
+  clusterIP: None                  # headless service — required for StatefulSet
+  selector: { app: mongo }
+  ports: [{ port: 27017 }]
+</code></pre>
+<p>Each Pod gets a stable DNS name (<code>mongo-0.mongo.chat.svc.cluster.local</code>) and its own 100 GB EBS volume. Replica set initialization is a one-time job:</p>
+<pre><code class="language-bash">kubectl exec -n chat mongo-0 -- mongosh --eval &#39;
+  rs.initiate({
+    _id: &quot;rs0&quot;,
+    members: [
+      { _id: 0, host: &quot;mongo-0.mongo.chat.svc.cluster.local:27017&quot; },
+      { _id: 1, host: &quot;mongo-1.mongo.chat.svc.cluster.local:27017&quot; },
+      { _id: 2, host: &quot;mongo-2.mongo.chat.svc.cluster.local:27017&quot; }
+    ]
+  })&#39;
+</code></pre>
+<p>For production, I now lean toward <strong>DocumentDB</strong> if Mongo-on-StatefulSet starts being operational overhead the team can&#39;t carry. Pick your tradeoffs.</p>
+<h2>The Ingress</h2>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ezchat
+  namespace: chat
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: &#39;[{&quot;HTTPS&quot;:443}]&#39;
+    alb.ingress.kubernetes.io/ssl-redirect: &#39;443&#39;
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:123:certificate/xxx
+    alb.ingress.kubernetes.io/healthcheck-path: /api/health
+    external-dns.alpha.kubernetes.io/hostname: api.ezchat.example.com,app.ezchat.example.com
+spec:
+  rules:
+    - host: api.ezchat.example.com
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: api, port: { number: 80 } } } }
+    - host: app.ezchat.example.com
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: frontend, port: { number: 80 } } } }
+</code></pre>
+<p>One ALB, two hostnames, two services. ExternalDNS sees the <code>external-dns.alpha.kubernetes.io/hostname</code> annotation and creates the Route 53 records automatically.</p>
+<h2>What I&#39;d do differently next time</h2>
+<p>Honest list:</p>
+<ul>
+<li><strong>Use Karpenter from day one</strong>, not Cluster Autoscaler. Karpenter is dramatically faster at provisioning capacity for spiky workloads.</li>
+<li><strong>Use ArgoCD for app deployment</strong>. We deployed via <code>kubectl apply -k</code> from CI. Works, but ArgoCD gives you free drift detection and a sane rollback UX.</li>
+<li><strong>Skip MongoDB on StatefulSet</strong> unless the client requires it. The operational overhead of running a stateful database in Kubernetes — backup, restore, replica set surgery — is more than most teams can absorb. DocumentDB or Atlas externalises that.</li>
+<li><strong>Put cert-manager in even if you have ACM.</strong> ACM only works for ALBs and CloudFront. cert-manager covers internal services, dev environments, anywhere you want auto-renewing certificates without touching ACM.</li>
+</ul>
+<p>That&#39;s the system. ~30 YAML files, ~600 lines of Terraform, ~150 lines of eksctl config. Repeatable, recoverable, debuggable.</p>
+<p><em>Designing a Kubernetes platform for your team? This is exactly the kind of work I do — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

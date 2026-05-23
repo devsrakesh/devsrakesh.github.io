@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot — Rakesh Rajput</title>
+<meta name="description" content="End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let&#39;s Encrypt SSL, and the systemd hardening I actually use in production." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/aws-ec2-nginx-certbot-deployment.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/aws-ec2-nginx-certbot-deployment.html" />
+<meta property="og:title" content="Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot" />
+<meta property="og:description" content="End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let&#39;s Encrypt SSL, and the systemd hardening I actually use in production." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-05-09" />
+<meta property="article:tag" content="aws" />
+<meta property="article:tag" content="ec2" />
+<meta property="article:tag" content="nginx" />
+<meta property="article:tag" content="certbot" />
+<meta property="article:tag" content="pm2" />
+<meta property="article:tag" content="nestjs" />
+<meta property="article:tag" content="nextjs" />
+<meta property="article:tag" content="deployment" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot" />
+<meta name="twitter:description" content="End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let&#39;s Encrypt SSL, and the systemd hardening I actually use in production." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot",
+  "description": "End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let's Encrypt SSL, and the systemd hardening I actually use in production.",
+  "datePublished": "2026-05-09",
+  "dateModified": "2026-05-09",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/aws-ec2-nginx-certbot-deployment.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/aws-ec2-nginx-certbot-deployment.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "aws, ec2, nginx, certbot, pm2, nestjs, nextjs, deployment"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-05-09">May 9, 2026</time>
+        <span class="tag">aws</span><span class="tag">ec2</span><span class="tag">nginx</span><span class="tag">certbot</span><span class="tag">pm2</span><span class="tag">nestjs</span><span class="tag">nextjs</span><span class="tag">deployment</span>
+      </div>
+      <h1 class="post-title">Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot</h1>
+      <p class="post-excerpt">End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let&#39;s Encrypt SSL, and the systemd hardening I actually use in production.</p>
+    </header>
+
+    <div class="post-body">
+<p>Before you reach for ECS or EKS, there&#39;s still a place for a single EC2 instance running your Node service behind Nginx. It&#39;s how I&#39;ve run dozens of services — including HousingCart, iKey, and most of the Linux-managed services in my portfolio. Cheap, predictable, and easy to debug when something goes wrong at 2 am.</p>
+<p>This post is the <strong>exact</strong> sequence I run when I provision a new EC2 box for a NestJS API or a Next.js app. Copy-paste ready.</p>
+<h2>The stack</h2>
+<ul>
+<li><strong>EC2</strong> — Ubuntu 22.04 LTS, t3.small or t3.medium, 20 GB gp3 EBS.</li>
+<li><strong>Nginx</strong> — reverse proxy, HTTP/2, gzip, SSL termination.</li>
+<li><strong>Certbot</strong> — Let&#39;s Encrypt SSL with auto-renewal.</li>
+<li><strong>Node 20</strong> via NodeSource.</li>
+<li><strong>PM2</strong> — process manager + boot integration.</li>
+<li><strong>UFW</strong> — firewall (or AWS Security Groups; usually both).</li>
+<li><strong>fail2ban</strong> — brute-force protection on SSH.</li>
+</ul>
+<p>I deploy systemd-native for new services now, but PM2 is still my default when handing the server to a junior team to operate.</p>
+<h2>Provisioning the instance</h2>
+<p>Security Group rules:</p>
+<ul>
+<li><strong>22/tcp</strong> from your IP only (or zero — use Systems Manager Session Manager and skip SSH altogether)</li>
+<li><strong>80/tcp</strong> from <code>0.0.0.0/0</code></li>
+<li><strong>443/tcp</strong> from <code>0.0.0.0/0</code></li>
+</ul>
+<p>Never open 22 to the world. SSH key auth + non-default port helps; restricting source CIDR helps more.</p>
+<p>EBS volume: gp3, 20 GB minimum. The default 8 GB will fill up the first time you <code>npm install</code> a Next.js app.</p>
+<p>Elastic IP attached to the instance — so your DNS doesn&#39;t break when you stop/start the box.</p>
+<p>Route 53 A record (<code>api.example.com</code>) → Elastic IP.</p>
+<h2>First-boot hardening</h2>
+<p>SSH in (or use Session Manager) and run:</p>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install -y curl wget git build-essential unzip htop ncdu jq ufw fail2ban
+sudo timedatectl set-timezone UTC
+
+# Create a non-root user for the app
+sudo adduser --disabled-password --gecos &quot;&quot; deploy
+sudo usermod -aG sudo deploy
+sudo mkdir -p /home/deploy/.ssh
+sudo cp ~/.ssh/authorized_keys /home/deploy/.ssh/
+sudo chown -R deploy:deploy /home/deploy/.ssh
+sudo chmod 700 /home/deploy/.ssh
+sudo chmod 600 /home/deploy/.ssh/authorized_keys
+</code></pre>
+<p>SSH hardening — edit <code>/etc/ssh/sshd_config</code>:</p>
+<pre><code>PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+</code></pre>
+<pre><code class="language-bash">sudo systemctl restart ssh
+</code></pre>
+<p>UFW (firewall):</p>
+<pre><code class="language-bash">sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow OpenSSH
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw --force enable
+sudo ufw status verbose
+</code></pre>
+<p>UFW is &quot;belt&quot; — the Security Group is &quot;braces.&quot; Both at once.</p>
+<p>fail2ban with defaults catches SSH brute-force attempts. Just enable:</p>
+<pre><code class="language-bash">sudo systemctl enable --now fail2ban
+sudo fail2ban-client status sshd       # confirm it&#39;s watching
+</code></pre>
+<h2>Install Node 20 and PM2</h2>
+<pre><code class="language-bash">curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version
+npm --version
+
+sudo npm install -g pm2
+pm2 --version
+</code></pre>
+<p>PM2 boot integration so your app starts on reboot:</p>
+<pre><code class="language-bash">pm2 startup systemd -u deploy --hp /home/deploy
+# Run the command pm2 prints — it sets up the systemd unit
+</code></pre>
+<h2>Install and configure Nginx</h2>
+<pre><code class="language-bash">sudo apt install -y nginx
+sudo systemctl enable --now nginx
+</code></pre>
+<p>The site config for a NestJS API. <code>/etc/nginx/sites-available/api.example.com</code>:</p>
+<pre><code class="language-nginx">server {
+    listen 80;
+    listen [::]:80;
+    server_name api.example.com;
+
+    # Let&#39;s Encrypt challenge
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name api.example.com;
+
+    # SSL certs (Certbot will fill these in)
+    ssl_certificate     /etc/letsencrypt/live/api.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.example.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Security headers
+    add_header Strict-Transport-Security &quot;max-age=63072000; includeSubDomains; preload&quot; always;
+    add_header X-Frame-Options DENY always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy &quot;strict-origin-when-cross-origin&quot; always;
+    add_header Permissions-Policy &quot;geolocation=(), microphone=(), camera=()&quot; always;
+
+    # Body size — adjust for your file upload needs
+    client_max_body_size 25m;
+
+    # Gzip
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml application/json application/javascript application/xml+rss application/atom+xml image/svg+xml;
+
+    # Proxy to the Node app
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+
+        # WebSocket support (Socket.IO, NestJS gateways)
+        proxy_set_header Upgrade           $http_upgrade;
+        proxy_set_header Connection        &quot;upgrade&quot;;
+
+        proxy_read_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_connect_timeout 5s;
+    }
+}
+</code></pre>
+<p>Enable and test:</p>
+<pre><code class="language-bash">sudo ln -sf /etc/nginx/sites-available/api.example.com /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t                          # ALWAYS test before reload
+sudo systemctl reload nginx
+</code></pre>
+<p>For Next.js, the config is identical except <code>proxy_pass</code> points to whatever port <code>next start</code> listens on (usually 3000), and you may want to add caching for static assets:</p>
+<pre><code class="language-nginx">location /_next/static/ {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_cache_valid 200 1y;
+    add_header Cache-Control &quot;public, max-age=31536000, immutable&quot;;
+}
+</code></pre>
+<h2>Let&#39;s Encrypt with Certbot</h2>
+<pre><code class="language-bash">sudo apt install -y certbot python3-certbot-nginx
+sudo mkdir -p /var/www/certbot
+
+sudo certbot --nginx -d api.example.com \
+    --non-interactive --agree-tos --email you@example.com \
+    --redirect
+</code></pre>
+<p>Certbot edits your Nginx config to add the cert paths and the HTTPS redirect. It also installs a systemd timer that auto-renews. Verify:</p>
+<pre><code class="language-bash">sudo systemctl list-timers | grep certbot
+sudo certbot renew --dry-run            # confirm renewal works
+</code></pre>
+<p>The cert renews itself every ~60 days. You set it once and forget.</p>
+<h2>Deploy the app</h2>
+<pre><code class="language-bash">sudo -iu deploy             # become the deploy user
+cd ~
+git clone git@github.com:devsrakesh/api.git
+cd api
+
+# Set up SSH deploy key in GitHub if private repo
+ssh-keygen -t ed25519 -C &quot;deploy@$(hostname)&quot; -f ~/.ssh/id_ed25519 -N &quot;&quot;
+cat ~/.ssh/id_ed25519.pub        # add to GitHub repo → Deploy keys
+
+npm ci --omit=dev               # production deps only
+npm run build                    # produces dist/
+
+# Create the env file
+nano .env                        # paste production env vars
+chmod 600 .env                   # only deploy user can read
+</code></pre>
+<p>Start with PM2:</p>
+<pre><code class="language-bash">pm2 start dist/main.js --name api --instances max --exec-mode cluster
+pm2 save                         # persist across reboots
+pm2 status
+pm2 logs api
+</code></pre>
+<p><code>--instances max</code> uses all CPU cores, <code>--exec-mode cluster</code> enables Node cluster mode (load-balanced workers behind one port). For a t3.small (2 vCPU), you&#39;ll get 2 workers.</p>
+<h2>The deploy script</h2>
+<p>I drop this at <code>/home/deploy/api/deploy.sh</code>:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+cd /home/deploy/api
+
+echo &quot;▸ Pulling latest...&quot;
+git fetch origin main
+git reset --hard origin/main
+
+echo &quot;▸ Installing deps...&quot;
+npm ci --omit=dev
+
+echo &quot;▸ Building...&quot;
+npm run build
+
+echo &quot;▸ Reloading PM2...&quot;
+pm2 reload api --update-env
+
+echo &quot;✓ Deployed $(git rev-parse --short HEAD)&quot;
+</code></pre>
+<pre><code class="language-bash">chmod +x deploy.sh
+./deploy.sh
+</code></pre>
+<p><code>pm2 reload</code> (not restart) does a zero-downtime reload — it starts new workers, swaps them in, then stops the old workers. Connections never drop.</p>
+<p>For full CI/CD, wire this into GitHub Actions:</p>
+<pre><code class="language-yaml"># .github/workflows/deploy.yml
+name: deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: deploy
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: /home/deploy/api/deploy.sh
+</code></pre>
+<h2>Log management</h2>
+<p>PM2 writes logs to <code>~/.pm2/logs/</code> by default. Rotate them or fill the disk:</p>
+<pre><code class="language-bash">pm2 install pm2-logrotate
+pm2 set pm2-logrotate:max_size 10M
+pm2 set pm2-logrotate:retain 7
+pm2 set pm2-logrotate:compress true
+</code></pre>
+<p>For long-term retention, ship logs to CloudWatch with the CloudWatch agent or use Filebeat → Elasticsearch. Don&#39;t trust the EC2 disk for log history beyond a week.</p>
+<h2>Monitoring</h2>
+<p>The 80/20 of EC2 monitoring:</p>
+<ul>
+<li><strong>CloudWatch agent</strong> — push system metrics (memory, disk — CPU is collected by default)</li>
+<li><strong>CloudWatch alarms</strong> — on CPU &gt;80% for 10 min, disk free &lt;10%, status check failed</li>
+<li><strong>PM2 plus</strong> — free tier gives you a dashboard of your processes</li>
+<li><strong>Uptime monitor</strong> — a service like UptimeRobot or BetterStack pinging <code>/health</code> from outside AWS. AWS noticing your instance is dead is no good if AWS itself is the problem.</li>
+</ul>
+<p>CloudWatch agent install:</p>
+<pre><code class="language-bash">wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+sudo dpkg -i amazon-cloudwatch-agent.deb
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+</code></pre>
+<p>The wizard generates a config in <code>/opt/aws/amazon-cloudwatch-agent/etc/</code>. Start the agent and metrics start appearing in CloudWatch within a minute.</p>
+<h2>The systemd alternative to PM2</h2>
+<p>For new services, I increasingly skip PM2 and use systemd directly. Less abstraction, fewer moving parts.</p>
+<pre><code class="language-ini"># /etc/systemd/system/api.service
+[Unit]
+Description=Chat API
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/home/deploy/api
+EnvironmentFile=/home/deploy/api/.env
+ExecStart=/usr/bin/node /home/deploy/api/dist/main.js
+Restart=on-failure
+RestartSec=5s
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ReadWritePaths=/home/deploy/api/uploads
+StandardOutput=append:/var/log/api.log
+StandardError=append:/var/log/api.log
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl enable --now api
+sudo systemctl status api
+sudo journalctl -u api -f
+</code></pre>
+<p>Restarts, log capture, boot integration — all native. No cluster mode out of the box (use Node&#39;s <code>cluster</code> module in code, or front Nginx with <code>upstream</code> blocks pointing to multiple ports).</p>
+<h2>Snapshot before you touch anything</h2>
+<pre><code class="language-bash"># from your laptop with AWS CLI
+aws ec2 create-snapshot --volume-id vol-XXX --description &quot;before nginx config change $(date +%F)&quot;
+</code></pre>
+<p>Snapshot before any config change, any upgrade, any &quot;I think this will work but...&quot; Yes, you&#39;re using AMIs and Auto Scaling Groups eventually — for now, snapshots are 30-second insurance.</p>
+<h2>When to leave EC2</h2>
+<p>I move services off plain EC2 to ECS/EKS when one of these is true:</p>
+<ul>
+<li>I need to run &gt;3 instances of the same service (orchestration becomes painful manually)</li>
+<li>I need blue/green or canary deploys</li>
+<li>I need autoscaling on actual demand, not &quot;I&#39;ll resize the instance manually&quot;</li>
+<li>The team is large enough that &quot;SSH into the box&quot; is a security/audit problem</li>
+</ul>
+<p>For a single service, single instance, low-to-medium traffic — EC2 + Nginx + PM2 + Certbot is still the cleanest setup. Don&#39;t overengineer it.</p>
+<hr>
+<p>The recipe above has shipped well over a dozen production Node services for me. Boring, predictable, debuggable.</p>
+<p><em>Need a Node service on a real domain by Friday? I deploy production EC2 setups on a fixed-fee basis — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>

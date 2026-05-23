@@ -1,0 +1,12 @@
+{
+  "name": "rakesh-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal portfolio site for Rakesh Rajput with a Markdown-based blog.",
+  "scripts": {
+    "build:blog": "node scripts/blog-build.mjs"
+  },
+  "devDependencies": {
+    "marked": "^14.1.4"
+  }
+}

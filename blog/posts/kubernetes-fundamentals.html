@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Kubernetes for Working Engineers: The Manifests I Actually Ship — Rakesh Rajput</title>
+<meta name="description" content="Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/kubernetes-fundamentals.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/kubernetes-fundamentals.html" />
+<meta property="og:title" content="Kubernetes for Working Engineers: The Manifests I Actually Ship" />
+<meta property="og:description" content="Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-05-02" />
+<meta property="article:tag" content="kubernetes" />
+<meta property="article:tag" content="k8s" />
+<meta property="article:tag" content="eks" />
+<meta property="article:tag" content="devops" />
+<meta property="article:tag" content="helm" />
+<meta property="article:tag" content="production" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kubernetes for Working Engineers: The Manifests I Actually Ship" />
+<meta name="twitter:description" content="Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kubernetes for Working Engineers: The Manifests I Actually Ship",
+  "description": "Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform.",
+  "datePublished": "2026-05-02",
+  "dateModified": "2026-05-02",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/kubernetes-fundamentals.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/kubernetes-fundamentals.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": "kubernetes, k8s, eks, devops, helm, production"
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#partners">Partners</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-05-02">May 2, 2026</time>
+        <span class="tag">kubernetes</span><span class="tag">k8s</span><span class="tag">eks</span><span class="tag">devops</span><span class="tag">helm</span><span class="tag">production</span>
+      </div>
+      <h1 class="post-title">Kubernetes for Working Engineers: The Manifests I Actually Ship</h1>
+      <p class="post-excerpt">Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform.</p>
+    </header>
+
+    <div class="post-body">
+<p>I provisioned the AWS EKS cluster behind a realtime chat platform (EzChatting) from scratch — Terraform for the VPC and cluster, eksctl for node groups, ALB Controller for ingress, ECR for images, manifests checked into the same repo as the app. This post is the <em>manifest layer</em> of that work: what I actually deploy, in what order, with what guard-rails.</p>
+<p>Skip this post if you&#39;ve never run <code>kubectl</code>. Read it if you&#39;ve got the basics down and want to see what a real production setup looks like.</p>
+<h2>The mental model</h2>
+<p>Kubernetes objects fall into a few layers:</p>
+<ul>
+<li><strong>Workloads</strong> — <code>Deployment</code>, <code>StatefulSet</code>, <code>DaemonSet</code>, <code>Job</code>, <code>CronJob</code>. These run your code.</li>
+<li><strong>Networking</strong> — <code>Service</code>, <code>Ingress</code>, <code>NetworkPolicy</code>. These expose / restrict your code.</li>
+<li><strong>Config</strong> — <code>ConfigMap</code>, <code>Secret</code>. These configure your code.</li>
+<li><strong>Scaling</strong> — <code>HorizontalPodAutoscaler</code>, <code>PodDisruptionBudget</code>. These keep your code resilient.</li>
+</ul>
+<p>Everything else (Operators, CRDs, ServiceMesh, etc.) is built on these primitives.</p>
+<h2>The base Deployment</h2>
+<pre><code class="language-yaml"># k8s/api/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: chat
+  labels:
+    app: api
+    tier: backend
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: backend
+    spec:
+      serviceAccountName: api
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: api
+          image: 123456789012.dkr.ecr.ap-south-1.amazonaws.com/chat-api:v1.42.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: &quot;3000&quot;
+          envFrom:
+            - configMapRef:
+                name: api-config
+            - secretRef:
+                name: api-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 2
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [&quot;ALL&quot;]
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: api
+</code></pre>
+<p>Every line in there earns its place. Let me unpack the non-obvious ones.</p>
+<h3><code>maxSurge: 1, maxUnavailable: 0</code></h3>
+<p>During a rolling update, allow one extra pod above replicas (= 4 running briefly), but never go below <code>replicas</code> available. Zero-downtime deploys at the cost of a bit of headroom.</p>
+<h3>Liveness vs. readiness — they&#39;re different things</h3>
+<ul>
+<li><strong>Readiness</strong> — &quot;Can I receive traffic right now?&quot; If no, the Service stops routing to me. Fails frequently and recovers (e.g. a brief DB blip).</li>
+<li><strong>Liveness</strong> — &quot;Am I deadlocked / broken?&quot; If yes, kill me and restart. Fails rarely and should be a real &quot;this pod is hosed&quot; signal.</li>
+</ul>
+<p>Common mistake: using the same endpoint for both. Don&#39;t. A slow DB shouldn&#39;t cause Kubernetes to kill your pods — that just amplifies the outage. Readiness should check &quot;can I serve traffic&quot; (DB reachable, cache warm). Liveness should be a simple &quot;the process is alive and responsive.&quot;</p>
+<h3><code>requests</code> vs. <code>limits</code></h3>
+<ul>
+<li><strong>Requests</strong> — what the scheduler reserves. Determines which node you land on.</li>
+<li><strong>Limits</strong> — the hard cap. CPU gets throttled, memory gets OOM-killed.</li>
+</ul>
+<p>The judgement call:</p>
+<ul>
+<li><strong>Memory</strong>: set <code>request == limit</code>. Memory is incompressible — a pod above limit gets killed. You want predictable.</li>
+<li><strong>CPU</strong>: set <code>request</code> based on steady-state, <code>limit</code> higher (or omit) so bursts work. CPU is compressible — throttling slows you down but doesn&#39;t kill you.</li>
+</ul>
+<p>Setting <code>request: cpu: 100m, limit: cpu: 1000m</code> lets the pod use up to 1 vCPU when available but only reserves 0.1 vCPU on the node.</p>
+<h3><code>readOnlyRootFilesystem: true</code></h3>
+<p>Belongs in security. If your app gets compromised, the attacker can&#39;t write to the filesystem. For apps that need temp dirs, mount an <code>emptyDir</code> volume:</p>
+<pre><code class="language-yaml">volumeMounts:
+  - name: tmp
+    mountPath: /tmp
+volumes:
+  - name: tmp
+    emptyDir: {}
+</code></pre>
+<h3><code>topologySpreadConstraints</code></h3>
+<p>Spread pods across availability zones. Without this, the scheduler can pile all 3 pods into one zone. When that zone has an outage, you have zero pods running.</p>
+<h2>The Service</h2>
+<pre><code class="language-yaml"># k8s/api/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: chat
+spec:
+  type: ClusterIP
+  selector:
+    app: api
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+</code></pre>
+<p><code>ClusterIP</code> is the default and the right choice 95% of the time. Services in the same cluster reach this via <code>http://api.chat.svc.cluster.local:80</code> (or just <code>http://api</code> from the same namespace).</p>
+<p><code>LoadBalancer</code> and <code>NodePort</code> are for direct internet exposure — don&#39;t use them. Use Ingress.</p>
+<h2>Ingress (AWS Load Balancer Controller)</h2>
+<p>On EKS, I run the <a href="https://kubernetes-sigs.github.io/aws-load-balancer-controller/">AWS Load Balancer Controller</a> which provisions an ALB per Ingress:</p>
+<pre><code class="language-yaml"># k8s/api/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api
+  namespace: chat
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: &#39;[{&quot;HTTPS&quot;:443}]&#39;
+    alb.ingress.kubernetes.io/ssl-redirect: &#39;443&#39;
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:123:certificate/abcd
+    alb.ingress.kubernetes.io/healthcheck-path: /health/ready
+spec:
+  rules:
+    - host: api.ezchat.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
+</code></pre>
+<p><code>target-type: ip</code> is critical — it lets the ALB target Pod IPs directly, skipping the NodePort hop. Lower latency, simpler routing.</p>
+<p>The ACM certificate ARN points to a cert in the same region. Route 53 record for <code>api.ezchat.example.com</code> is an alias to the ALB&#39;s DNS name — managed by ExternalDNS or Terraform.</p>
+<h2>ConfigMaps and Secrets</h2>
+<pre><code class="language-yaml"># k8s/api/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: chat
+data:
+  LOG_LEVEL: info
+  CORS_ORIGIN: https://app.ezchat.example.com
+  MONGO_URI: mongodb://mongo.chat.svc.cluster.local:27017/chat
+</code></pre>
+<p>Reference via <code>envFrom: configMapRef:</code> in the Deployment, as shown above.</p>
+<p>For Secrets, I use <strong>External Secrets Operator</strong> synced to AWS Secrets Manager. Manifest:</p>
+<pre><code class="language-yaml">apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: api-secrets
+  namespace: chat
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-secrets-manager
+    kind: ClusterSecretStore
+  target:
+    name: api-secrets
+  data:
+    - secretKey: JWT_SECRET
+      remoteRef:
+        key: chat/prod/jwt-secret
+    - secretKey: STRIPE_KEY
+      remoteRef:
+        key: chat/prod/stripe-key
+</code></pre>
+<p>The actual secret values live in AWS Secrets Manager (or HashiCorp Vault, or whatever). The Kubernetes Secret is just a synced cache. Rotating in Secrets Manager → automatic refresh in cluster.</p>
+<p>Never check <code>kind: Secret</code> manifests with plain <code>data:</code> into Git. Even base64-encoded, they&#39;re effectively plaintext.</p>
+<h2>HPA — autoscaling</h2>
+<pre><code class="language-yaml">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api
+  namespace: chat
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300    # don&#39;t scale down impulsively
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0      # scale up immediately
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 30
+</code></pre>
+<p>Default behavior is fine, but tuning <code>stabilizationWindowSeconds</code> matters. Default 5 min scale-down avoids thrashing on bursty workloads. Scaling up should be aggressive — the cost of an extra pod for 5 minutes is way less than the cost of a queue backing up.</p>
+<p>For HTTP-bound services, scale on RPS via the Prometheus adapter or KEDA, not CPU. CPU is a lagging indicator.</p>
+<h2>PDB — protect against involuntary disruption</h2>
+<pre><code class="language-yaml">apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api
+  namespace: chat
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: api
+</code></pre>
+<p>When a node drains (cluster upgrade, autoscaler scale-down, manual <code>kubectl drain</code>), Kubernetes respects the PDB. Without one, all 3 pods could be evicted simultaneously and your service goes dark. With <code>minAvailable: 2</code>, at most one pod is gone at a time.</p>
+<h2>NetworkPolicies (the security thing nobody enables)</h2>
+<p>By default, every pod can talk to every other pod in the cluster. NetworkPolicies restrict that:</p>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-allow
+  namespace: chat
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+        - namespaceSelector:
+            matchLabels:
+              name: chat-ingress
+      ports:
+        - protocol: TCP
+          port: 3000
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: mongo
+      ports:
+        - protocol: TCP
+          port: 27017
+    - to:                              # allow DNS
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+</code></pre>
+<p>This API pod can only be reached by frontend pods or ingress, and can only call MongoDB and DNS. If the API is compromised, the blast radius is contained.</p>
+<p>EKS needs the AWS VPC CNI with NetworkPolicy support enabled, or Calico. Worth it.</p>
+<h2>Helm? Kustomize? Plain YAML?</h2>
+<p>I use <strong>Kustomize</strong> for almost everything now. Plain YAML for tiny single-environment projects, Helm only when I need to package something for distribution.</p>
+<p>Kustomize layout:</p>
+<pre><code>k8s/
+├── base/
+│   ├── api/
+│   │   ├── deployment.yaml
+│   │   ├── service.yaml
+│   │   ├── configmap.yaml
+│   │   ├── hpa.yaml
+│   │   ├── pdb.yaml
+│   │   └── kustomization.yaml
+│   └── kustomization.yaml
+└── overlays/
+    ├── staging/
+    │   ├── kustomization.yaml         # patches: lower replicas, staging configmap
+    │   └── replicas-patch.yaml
+    └── prod/
+        ├── kustomization.yaml
+        └── replicas-patch.yaml
+</code></pre>
+<pre><code class="language-yaml"># overlays/prod/kustomization.yaml
+resources:
+  - ../../base
+patches:
+  - path: replicas-patch.yaml
+images:
+  - name: chat-api
+    newTag: v1.42.0
+</code></pre>
+<p>Deploy: <code>kubectl apply -k k8s/overlays/prod</code>. One command, full environment.</p>
+<p>Helm shines when you&#39;re maintaining a chart for someone else (a database operator, a third-party tool you publish). For internal apps, Kustomize is less ceremony.</p>
+<h2>The kubectl moves I use daily</h2>
+<pre><code class="language-bash">kubectl get pods -n chat -o wide        # which nodes are pods on?
+kubectl describe pod api-xyz -n chat    # full event log, restart reason
+kubectl logs -f api-xyz -n chat         # tail logs
+kubectl logs -p api-xyz -n chat         # previous container (crashed pod)
+kubectl exec -it api-xyz -n chat -- sh  # shell into pod
+kubectl port-forward svc/api 8080:80 -n chat   # tunnel a service locally
+
+# debug a service that should be reachable but isn&#39;t
+kubectl run debug --rm -it --image=alpine -- sh
+# from inside: wget -qO- http://api.chat.svc.cluster.local
+
+# rollout management
+kubectl rollout status deployment/api -n chat
+kubectl rollout history deployment/api -n chat
+kubectl rollout undo deployment/api -n chat                # roll back last deploy
+kubectl rollout undo deployment/api --to-revision=42 -n chat
+
+# resource pressure
+kubectl top nodes
+kubectl top pods -n chat --sort-by=memory
+</code></pre>
+<p>Alias <code>k=kubectl</code> in your shell. <code>kubectl</code> is the most-typed command on any cluster.</p>
+<h2>Operational checklist for any new service</h2>
+<p>Before I declare a service &quot;production-ready&quot; on EKS:</p>
+<ul>
+<li>✅ Liveness AND readiness probes, with different endpoints</li>
+<li>✅ Resource requests AND limits set</li>
+<li>✅ <code>runAsNonRoot: true</code>, <code>readOnlyRootFilesystem: true</code></li>
+<li>✅ HPA with sensible min/max</li>
+<li>✅ PDB with <code>minAvailable: 1</code> or higher</li>
+<li>✅ <code>topologySpreadConstraints</code> across zones</li>
+<li>✅ ConfigMap for non-secrets, ExternalSecret for secrets</li>
+<li>✅ NetworkPolicy restricting ingress and egress</li>
+<li>✅ ServiceAccount with the minimum IAM role via IRSA</li>
+<li>✅ ALB Ingress with HTTPS, ACM cert, healthcheck path</li>
+<li>✅ Prometheus ServiceMonitor or annotation for metrics scraping</li>
+<li>✅ CloudWatch Container Insights enabled at cluster level</li>
+</ul>
+<p>Skipping any one of these is fine for an MVP. Skipping all of them is how you get a 3 am page about a single-zone outage.</p>
+<h2>What I run alongside the app</h2>
+<p>A production EKS cluster isn&#39;t just your app pods. Mine usually has:</p>
+<ul>
+<li><strong>AWS Load Balancer Controller</strong> — for ALB/NLB-backed Ingress</li>
+<li><strong>External DNS</strong> — auto-manages Route 53 records from Ingress hosts</li>
+<li><strong>External Secrets Operator</strong> — syncs Secrets Manager into k8s Secrets</li>
+<li><strong>Cluster Autoscaler</strong> or <strong>Karpenter</strong> — scales nodes to match pod demand</li>
+<li><strong>Metrics Server</strong> — required for HPA</li>
+<li><strong>Prometheus</strong> + <strong>Grafana</strong> (or AMP/AMG) — metrics</li>
+<li><strong>Loki</strong> or <strong>CloudWatch Logs</strong> — logs</li>
+<li><strong>cert-manager</strong> — only if you&#39;re not using ACM (rare on EKS)</li>
+</ul>
+<p>Each gets its own Helm chart, its own values, its own upgrade discipline. Treat the cluster&#39;s add-ons like infrastructure code — Terraform or Argo CD, not <code>helm install</code> by hand.</p>
+<hr>
+<p>This is what production Kubernetes looks like once you&#39;ve made all the mistakes. There&#39;s no &quot;K8s level 10&quot; — just the discipline of putting every guard-rail in place and keeping the manifests boring.</p>
+<p><em>Architecting a Kubernetes platform from scratch? I designed and provisioned the EKS cluster behind a Dubai-based realtime chat platform with Terraform and eksctl — <a href="/#contact">start a project</a>.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>
