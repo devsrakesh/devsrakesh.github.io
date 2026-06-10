@@ -71,6 +71,7 @@
       <li><a href="/#projects">Projects</a></li>
       <li><a href="/#publications">Research</a></li>
       <li><a href="/blog/" aria-current="page">Blog</a></li>
+      <li><a href="/courses/">Courses</a></li>
     </ul>
     <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
   </div>
@@ -87,91 +88,18 @@
 <main class="blog-list-section">
   <div class="container">
     <div class="cat-filter" role="tablist" aria-label="Filter posts by category">
-      <button class="cat-chip is-active" data-category="all" type="button">All <span class="cat-count">8</span></button>
-      <button class="cat-chip" data-category="aws-cloud" type="button">AWS &amp; Cloud <span class="cat-count">2</span></button>
-      <button class="cat-chip" data-category="devops" type="button">DevOps <span class="cat-count">2</span></button>
-      <button class="cat-chip" data-category="git-workflow" type="button">Git &amp; Workflow <span class="cat-count">2</span></button>
-      <button class="cat-chip" data-category="kubernetes" type="button">Kubernetes <span class="cat-count">2</span></button>
+      <button class="cat-chip is-active" data-category="all" type="button">All <span class="cat-count">1</span></button>
+      <button class="cat-chip" data-category="uncategorised" type="button">Uncategorised <span class="cat-count">1</span></button>
     </div>
     <div class="post-list">
 
-      <article class="post-item" data-category="aws-cloud">
-        <div class="post-date">May 23, 2026</div>
+      <article class="post-item" data-category="uncategorised">
+        <div class="post-date">Jun 10, 2026</div>
         <div>
-          <div class="post-category">AWS &amp; Cloud</div>
-          <a class="post-title-link" href="posts/three-tier-ecs-deployment.html">A 3-Tier ECS Deployment: Production Architecture with Fargate, ALB, and RDS</a>
-          <p class="post-excerpt">Real production ECS Fargate architecture — VPC, ALB, ECR, RDS Postgres, GitHub Actions deploys. The 3-tier pattern I run for accounting SaaS platforms in NestJS + Next.js.</p>
-          <div class="post-tags"><span class="tag">ecs</span><span class="tag">fargate</span><span class="tag">aws</span><span class="tag">terraform</span><span class="tag">alb</span><span class="tag">rds</span><span class="tag">3-tier</span><span class="tag">architecture</span><span class="tag">ci-cd</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="kubernetes">
-        <div class="post-date">May 16, 2026</div>
-        <div>
-          <div class="post-category">Kubernetes</div>
-          <a class="post-title-link" href="posts/three-tier-eks-deployment.html">A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes</a>
-          <p class="post-excerpt">End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch.</p>
-          <div class="post-tags"><span class="tag">eks</span><span class="tag">kubernetes</span><span class="tag">aws</span><span class="tag">terraform</span><span class="tag">eksctl</span><span class="tag">ingress</span><span class="tag">3-tier</span><span class="tag">architecture</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="aws-cloud">
-        <div class="post-date">May 9, 2026</div>
-        <div>
-          <div class="post-category">AWS &amp; Cloud</div>
-          <a class="post-title-link" href="posts/aws-ec2-nginx-certbot-deployment.html">Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot</a>
-          <p class="post-excerpt">End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let&#39;s Encrypt SSL, and the systemd hardening I actually use in production.</p>
-          <div class="post-tags"><span class="tag">aws</span><span class="tag">ec2</span><span class="tag">nginx</span><span class="tag">certbot</span><span class="tag">pm2</span><span class="tag">nestjs</span><span class="tag">nextjs</span><span class="tag">deployment</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="kubernetes">
-        <div class="post-date">May 2, 2026</div>
-        <div>
-          <div class="post-category">Kubernetes</div>
-          <a class="post-title-link" href="posts/kubernetes-fundamentals.html">Kubernetes for Working Engineers: The Manifests I Actually Ship</a>
-          <p class="post-excerpt">Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform.</p>
-          <div class="post-tags"><span class="tag">kubernetes</span><span class="tag">k8s</span><span class="tag">eks</span><span class="tag">devops</span><span class="tag">helm</span><span class="tag">production</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="devops">
-        <div class="post-date">Apr 25, 2026</div>
-        <div>
-          <div class="post-category">DevOps</div>
-          <a class="post-title-link" href="posts/docker-complete-guide.html">Docker in Production: How I Containerise NestJS and Next.js Services</a>
-          <p class="post-excerpt">Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services.</p>
-          <div class="post-tags"><span class="tag">docker</span><span class="tag">devops</span><span class="tag">nestjs</span><span class="tag">nextjs</span><span class="tag">containers</span><span class="tag">production</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="git-workflow">
-        <div class="post-date">Apr 18, 2026</div>
-        <div>
-          <div class="post-category">Git &amp; Workflow</div>
-          <a class="post-title-link" href="posts/commit-best-practices.html">Commit Like a Pro: The Habits That Make Your Git History Worth Reading</a>
-          <p class="post-excerpt">Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so &#39;git blame&#39; actually helps the next person debug.</p>
-          <div class="post-tags"><span class="tag">git</span><span class="tag">commits</span><span class="tag">code-quality</span><span class="tag">conventional-commits</span><span class="tag">workflow</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="git-workflow">
-        <div class="post-date">Apr 11, 2026</div>
-        <div>
-          <div class="post-category">Git &amp; Workflow</div>
-          <a class="post-title-link" href="posts/git-and-github-practical-guide.html">Git &amp; GitHub for Working Engineers: The Workflow I Actually Use</a>
-          <p class="post-excerpt">Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services.</p>
-          <div class="post-tags"><span class="tag">git</span><span class="tag">github</span><span class="tag">devops</span><span class="tag">workflow</span><span class="tag">ci-cd</span></div>
-        </div>
-      </article>
-
-      <article class="post-item" data-category="devops">
-        <div class="post-date">Apr 4, 2026</div>
-        <div>
-          <div class="post-category">DevOps</div>
-          <a class="post-title-link" href="posts/linux-commands-cheatsheet.html">Must-Know Linux Commands &amp; File System for Developers and DevOps</a>
-          <p class="post-excerpt">The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines.</p>
-          <div class="post-tags"><span class="tag">linux</span><span class="tag">devops</span><span class="tag">shell</span><span class="tag">bash</span><span class="tag">fundamentals</span></div>
+          <div class="post-category">Uncategorised</div>
+          <a class="post-title-link" href="posts/coding.html">Coding</a>
+          <p class="post-excerpt"></p>
+          
         </div>
       </article>
     </div>

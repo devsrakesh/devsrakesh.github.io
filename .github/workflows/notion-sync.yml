@@ -1,0 +1,56 @@
+name: Synchronize Notion Course Content
+
+on:
+  schedule:
+    # Runs every 6 hours (at minute 0 of hour 0, 6, 12, 18)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    # Allows you to trigger the sync manually from the GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-size: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Course Build & Sync
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_COURSE_PAGE_ID: ${{ secrets.NOTION_COURSE_PAGE_ID }}
+        run: npm run build:courses
+
+      - name: Run Blog Build
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_BLOG_PAGE_ID: ${{ secrets.NOTION_BLOG_PAGE_ID }}
+        run: npm run build:blog
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the generated files and index changes
+          git add courses/ blog/ index.html scripts/templates/
+          
+          # Commit only if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes in course content or templates detected."
+          else
+            git commit -m "chore: auto-sync course and blog content from Notion/Markdown [skip ci]"
+            git push origin main
+          fi

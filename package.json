@@ -4,9 +4,10 @@
   "private": true,
   "description": "Personal portfolio site for Rakesh Rajput with a Markdown-based blog.",
   "scripts": {
-    "build:blog": "node scripts/blog-build.mjs"
+    "build:blog": "node scripts/blog-build.mjs",
+    "build:courses": "node scripts/course-build.mjs"
   },
-  "devDependencies": {
-    "marked": "^14.1.4"
+  "dependencies": {
+    "@notionhq/client": "^5.22.0"
   }
 }
