@@ -1,6 +1,7 @@
 ---
 title: "A 3-Tier ECS Deployment: Production Architecture with Fargate, ALB, and RDS"
 date: 2026-05-23
+category: AWS & Cloud
 excerpt: "Real production ECS Fargate architecture — VPC, ALB, ECR, RDS Postgres, GitHub Actions deploys. The 3-tier pattern I run for accounting SaaS platforms in NestJS + Next.js."
 tags: [ecs, fargate, aws, terraform, alb, rds, 3-tier, architecture, ci-cd]
 ---

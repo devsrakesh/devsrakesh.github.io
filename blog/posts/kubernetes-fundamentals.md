@@ -1,6 +1,7 @@
 ---
 title: "Kubernetes for Working Engineers: The Manifests I Actually Ship"
 date: 2026-05-02
+category: Kubernetes
 excerpt: "Real production Kubernetes — Deployments, Services, Ingress, HPA, ConfigMaps, Secrets, probes, resource limits — explained through the manifests I run on EKS for a Dubai-based realtime chat platform."
 tags: [kubernetes, k8s, eks, devops, helm, production]
 ---

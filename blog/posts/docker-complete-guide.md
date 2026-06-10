@@ -1,6 +1,7 @@
 ---
 title: "Docker in Production: How I Containerise NestJS and Next.js Services"
 date: 2026-04-25
+category: DevOps
 excerpt: "Multi-stage Dockerfiles, image size reduction, BuildKit caching, and the docker-compose workflows I use for local dev across MongoDB, PostgreSQL, and Redis-backed services."
 tags: [docker, devops, nestjs, nextjs, containers, production]
 ---

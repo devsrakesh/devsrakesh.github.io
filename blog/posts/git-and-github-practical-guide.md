@@ -1,6 +1,7 @@
 ---
 title: "Git & GitHub for Working Engineers: The Workflow I Actually Use"
 date: 2026-04-11
+category: Git & Workflow
 excerpt: "Not a Git tutorial — the workflow, the recovery moves, and the GitHub Actions patterns I run in production across a portfolio of NestJS and Next.js services."
 tags: [git, github, devops, workflow, ci-cd]
 ---

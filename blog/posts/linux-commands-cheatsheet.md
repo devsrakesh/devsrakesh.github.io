@@ -1,6 +1,7 @@
 ---
 title: "Must-Know Linux Commands & File System for Developers and DevOps"
 date: 2026-04-04
+category: DevOps
 excerpt: "The Linux toolkit every working developer and DevOps engineer should have in their muscle memory — navigation, files, processes, networking, permissions, and pipelines."
 tags: [linux, devops, shell, bash, fundamentals]
 ---

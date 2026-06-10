@@ -101,6 +101,7 @@ for (const file of mdFiles) {
   const title = meta.title || slug;
   const excerpt = meta.excerpt || '';
   const date = meta.date || '';
+  const category = meta.category || 'Uncategorised';
   const tags = Array.isArray(meta.tags) ? meta.tags : meta.tags ? [meta.tags] : [];
 
   const html = marked.parse(body);
@@ -119,22 +120,40 @@ for (const file of mdFiles) {
     .replace(/\{\{CONTENT\}\}/g, html);
 
   fs.writeFileSync(path.join(POSTS_DIR, `${slug}.html`), out);
-  posts.push({ slug, title, excerpt, date, tags });
+  posts.push({ slug, title, excerpt, date, category, tags });
 }
 
 posts.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
+// Build category list (ordered by post count, ties broken alphabetically)
+const categoryCounts = {};
+for (const p of posts) categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1;
+const categoryList = Object.keys(categoryCounts).sort((a, b) => {
+  const diff = categoryCounts[b] - categoryCounts[a];
+  return diff !== 0 ? diff : a.localeCompare(b);
+});
+
+const categorySlug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const filterHtml = [
+  `<button class="cat-chip is-active" data-category="all" type="button">All <span class="cat-count">${posts.length}</span></button>`,
+  ...categoryList.map((c) => `<button class="cat-chip" data-category="${categorySlug(c)}" type="button">${escapeHtml(c)} <span class="cat-count">${categoryCounts[c]}</span></button>`),
+].join('\n      ');
+
 const listHtml = posts.map((p) => `
-      <article class="post-item">
+      <article class="post-item" data-category="${categorySlug(p.category)}">
         <div class="post-date">${escapeHtml(formatDate(p.date))}</div>
         <div>
+          <div class="post-category">${escapeHtml(p.category)}</div>
           <a class="post-title-link" href="posts/${p.slug}.html">${escapeHtml(p.title)}</a>
           <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
           ${p.tags.length ? `<div class="post-tags">${chips(p.tags)}</div>` : ''}
         </div>
       </article>`).join('\n');
 
-const indexOut = indexTemplate.replace(/\{\{POSTS\}\}/g, listHtml);
+const indexOut = indexTemplate
+  .replace(/\{\{CATEGORIES\}\}/g, filterHtml)
+  .replace(/\{\{POSTS\}\}/g, listHtml);
 fs.writeFileSync(path.join(BLOG_DIR, 'index.html'), indexOut);
 
 console.log(`✓ Built ${posts.length} post${posts.length === 1 ? '' : 's'} + blog/index.html`);

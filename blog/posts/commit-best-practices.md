@@ -1,6 +1,7 @@
 ---
 title: "Commit Like a Pro: The Habits That Make Your Git History Worth Reading"
 date: 2026-04-18
+category: Git & Workflow
 excerpt: "Conventional Commits, atomic changes, and the 50/72 rule — the commit discipline I enforce across NestJS and Next.js services so 'git blame' actually helps the next person debug."
 tags: [git, commits, code-quality, conventional-commits, workflow]
 ---

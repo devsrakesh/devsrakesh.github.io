@@ -1,6 +1,7 @@
 ---
 title: "Deploying NestJS and Next.js to AWS EC2 with Nginx, PM2, and Certbot"
 date: 2026-05-09
+category: AWS & Cloud
 excerpt: "End-to-end EC2 deployment for Node services — Ubuntu setup, Nginx reverse proxy with HTTP/2, PM2 process management, Let's Encrypt SSL, and the systemd hardening I actually use in production."
 tags: [aws, ec2, nginx, certbot, pm2, nestjs, nextjs, deployment]
 ---

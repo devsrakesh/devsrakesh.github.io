@@ -68,7 +68,6 @@
       <li><a href="/#about">About</a></li>
       <li><a href="/#skills">Skills</a></li>
       <li><a href="/#experience">Experience</a></li>
-      <li><a href="/#partners">Partners</a></li>
       <li><a href="/#projects">Projects</a></li>
       <li><a href="/#publications">Research</a></li>
       <li><a href="/blog/" aria-current="page">Blog</a></li>
@@ -87,11 +86,36 @@
 
 <main class="blog-list-section">
   <div class="container">
+    <div class="cat-filter" role="tablist" aria-label="Filter posts by category">
+      {{CATEGORIES}}
+    </div>
     <div class="post-list">
 {{POSTS}}
     </div>
+    <p class="post-empty" hidden>No posts in this category yet.</p>
   </div>
 </main>
+
+<script>
+  (function () {
+    var chips = document.querySelectorAll('.cat-chip');
+    var posts = document.querySelectorAll('.post-item');
+    var empty = document.querySelector('.post-empty');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var cat = chip.getAttribute('data-category');
+        chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+        var shown = 0;
+        posts.forEach(function (p) {
+          var match = cat === 'all' || p.getAttribute('data-category') === cat;
+          p.hidden = !match;
+          if (match) shown++;
+        });
+        if (empty) empty.hidden = shown !== 0;
+      });
+    });
+  })();
+</script>
 
 <footer class="footer">
   <div class="container footer-inner">

@@ -1,6 +1,7 @@
 ---
 title: "A 3-Tier EKS Deployment: How I Built EzChatting on AWS Kubernetes"
 date: 2026-05-16
+category: Kubernetes
 excerpt: "End-to-end walkthrough of a production EKS 3-tier deployment — VPC, EKS, ALB Ingress, ExternalDNS, ECR, MongoDB on EBS, secrets via ESO. Provisioned with Terraform and eksctl from scratch."
 tags: [eks, kubernetes, aws, terraform, eksctl, ingress, 3-tier, architecture]
 ---

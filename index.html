@@ -243,14 +243,6 @@
   .tl-body { font-size: 15px; color: var(--primary); line-height: 1.75; max-width: 720px; }
   .tl-stack { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--secondary); letter-spacing: 0.02em; }
 
-  /* ============== PARTNERS ============== */
-  .partners { padding: var(--section-pad) 0; background: var(--white); }
-  .company-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .company { padding: 36px 28px; border: 1px solid var(--border); transition: transform 0.3s ease, box-shadow 0.3s ease; background: var(--white); }
-  .company:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -16px rgba(34,34,34,0.12); }
-  .company-name { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 14px; }
-  .company-role { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--secondary); letter-spacing: 0.1em; line-height: 1.7; text-transform: uppercase; }
-
   /* ============== PROJECTS ============== */
   .proj-cat-title {
     font-family: 'Inter', sans-serif;
@@ -276,6 +268,49 @@
   .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 11px; background: var(--tertiary); color: var(--primary); border-radius: 100px; }
   .project--compact .tag { font-size: 10px; padding: 4px 9px; }
+
+  /* ============== CASE STUDIES ============== */
+  .case-studies { padding: var(--section-pad) 0; background: var(--tertiary); }
+  .case-study {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 40px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .case-study:hover { box-shadow: 0 30px 60px -28px rgba(34,34,34,0.14); transform: translateY(-3px); }
+  .case-study:last-child { margin-bottom: 0; }
+  .cs-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary); margin-bottom: 12px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .cs-meta a { border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cs-meta a:hover { color: var(--primary); }
+  .cs-title { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 20px; line-height: 1.18; }
+  .cs-block { margin-bottom: 18px; }
+  .cs-block:last-child { margin-bottom: 0; }
+  .cs-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary); margin-bottom: 6px; }
+  .cs-text { font-size: 14px; color: var(--primary); line-height: 1.7; }
+  .cs-results { margin: 0; padding-left: 18px; }
+  .cs-results li { font-size: 14px; color: var(--primary); line-height: 1.7; margin-bottom: 4px; }
+  .cs-placeholder {
+    background: linear-gradient(90deg, rgba(255,210,90,0.25), rgba(255,210,90,0.1));
+    border-bottom: 1px dashed rgba(160,120,0,0.5);
+    color: rgba(140,100,0,0.95);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .cs-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .cs-tags .tag { font-size: 10px; padding: 4px 9px; }
+  .cs-arch { background: var(--white); border: 1px solid var(--border); padding: 18px; border-radius: 4px; }
+  .cs-arch svg { width: 100%; height: auto; display: block; }
+  .cs-arch-cap { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--secondary); margin-top: 10px; text-align: center; }
+  @media (max-width: 880px) {
+    .case-study { grid-template-columns: 1fr; padding: 28px; gap: 28px; }
+  }
 
   /* ============== PUBLICATIONS ============== */
   .pub-list { display: grid; gap: 0; }
@@ -371,7 +406,21 @@
 
   /* ============== FOOTER ============== */
   .footer { padding: 32px 0; background: var(--primary); color: rgba(255,255,255,0.4); font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
-  .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+
+  /* ============== SOCIAL ICONS ============== */
+  .social-icons { display: inline-flex; align-items: center; gap: 14px; }
+  .social-icons a { display: inline-flex; align-items: center; justify-content: center; color: inherit; opacity: 0.7; transition: opacity 0.2s ease, transform 0.2s ease; }
+  .social-icons a:hover { opacity: 1; transform: translateY(-2px); }
+  .social-icons svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+  .nav-social { display: inline-flex; align-items: center; gap: 14px; margin-right: 4px; }
+  .nav-social a { display: inline-flex; color: var(--primary); opacity: 0.65; transition: opacity 0.2s ease; }
+  .nav-social a:hover { opacity: 1; }
+  .nav-social svg { width: 16px; height: 16px; fill: currentColor; display: block; }
+  .nav-right { display: inline-flex; align-items: center; gap: 18px; }
+  @media (max-width: 720px) {
+    .nav-social { display: none; }
+  }
 
   /* ============== REVEAL ============== */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -480,12 +529,25 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#partners">Partners</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#publications">Research</a></li>
       <li><a href="/blog/">Blog</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Start a project &nearr;</a>
+    <div class="nav-right">
+      <div class="nav-social" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener me" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a href="https://github.com/devsrakesh" target="_blank" rel="noopener me" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        </a>
+        <a href="https://wa.me/919993313608" target="_blank" rel="noopener me" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.5c.2-.2.2-.3.4-.5.1-.2.1-.4 0-.5L9 7.5c-.2-.5-.4-.4-.6-.4h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2"/></svg>
+        </a>
+      </div>
+      <a href="#contact" class="nav-cta">Start a project &nearr;</a>
+    </div>
   </div>
 </nav>
 
@@ -502,13 +564,9 @@
           <div class="stat-num">+45</div>
           <div class="stat-label">Projects delivered</div>
         </div>
-        <div class="stat">
-          <div class="stat-num">+4</div>
-          <div class="stat-label">Partner companies</div>
-        </div>
       </div>
       <h1 class="hero-headline">Hello</h1>
-      <p class="hero-subtitle">&mdash; It&rsquo;s <b>Rakesh</b>, a Solution Architect and Full-Stack Engineer building cloud platforms on AWS, Kubernetes, and Terraform. I also lead and mentor development teams across partner companies in India and the UAE.</p>
+      <p class="hero-subtitle">&mdash; It&rsquo;s <b>Rakesh</b>, a Solution Architect and Full-Stack Engineer building cloud platforms on AWS, Kubernetes, and Terraform. I also lead and mentor development teams delivering for clients in India and the UAE.</p>
     </div>
   </div>
 
@@ -531,7 +589,7 @@
           I specialize in AWS cloud architecture using ECS, EKS (Kubernetes), Terraform, and eksctl &mdash; with deployments fronted by Application Load Balancer and Route 53, and shipped through GitHub Actions CI/CD pipelines. Across the stack, I work with NestJS, Next.js, Node.js, TypeScript, MongoDB, and PostgreSQL, supported by observability tooling (Prometheus, Grafana, CloudWatch) and real-time integrations (Firebase Cloud Messaging, WhatsApp Business API). I am comfortable owning the full delivery lifecycle, from requirements gathering and system design through deployment, monitoring, and ongoing operations.
         </p>
         <p class="about-text">
-          Beyond hands-on engineering, I lead and mentor both internal development teams and a dedicated network of freelance developers across partner companies. My day-to-day also spans architecture decisions, code review, client billing and payment workflows, and delivering technical training sessions to client teams when required.
+          Beyond hands-on engineering, I lead and mentor both internal development teams and a dedicated network of freelance developers. My day-to-day also spans architecture decisions, code review, client billing and payment workflows, and delivering technical training sessions to client teams when required.
         </p>
       </div>
     </div>
@@ -549,10 +607,6 @@
       <div class="stat">
         <span class="stat-num">45+</span>
         <span class="stat-label">Projects delivered</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">4+</span>
-        <span class="stat-label">Partner companies</span>
       </div>
       <div class="stat">
         <span class="stat-num">4</span>
@@ -602,7 +656,7 @@
       </div>
       <div class="skill-cat">
         <h3>Integrations</h3>
-        <p>Firebase Cloud Messaging, WhatsApp Business API, Git, GitHub, Postman.</p>
+        <p>Razorpay, payment gateways, Firebase Cloud Messaging, WhatsApp Business API, Git, GitHub, Postman.</p>
       </div>
       <div class="skill-cat">
         <h3>Leadership &amp; Operations</h3>
@@ -624,7 +678,7 @@
         <div>
           <h3 class="tl-role">Senior Developer &amp; Solution Lead</h3>
           <p class="tl-company">Good Old Delight &middot; Maharashtra, India</p>
-          <p class="tl-body">Leading end-to-end solution design and delivery of production SaaS platforms for clients in India and Dubai. Architecting and provisioning AWS ECS and EKS platforms using Terraform and eksctl, including private VPC, ALB, ECR, Route 53, and CloudWatch monitoring. Defining service boundaries, REST API contracts, database schemas, and GitHub Actions CI/CD pipelines. Leading, mentoring, and guiding both internal development teams and a dedicated network of freelance developers across partner companies for development, architecture, and best-practice issues. Managing client billing and payment workflows, and delivering client technical training sessions when required.</p>
+          <p class="tl-body">Leading end-to-end solution design and delivery of production SaaS platforms for clients in India and Dubai. Architecting and provisioning AWS ECS and EKS platforms using Terraform and eksctl, including private VPC, ALB, ECR, Route 53, and CloudWatch monitoring. Defining service boundaries, REST API contracts, database schemas, and GitHub Actions CI/CD pipelines. Leading, mentoring, and guiding both internal development teams and a dedicated network of freelance developers for development, architecture, and best-practice issues. Managing client billing and payment workflows, and delivering client technical training sessions when required.</p>
           <p class="tl-stack">NestJS &middot; Next.js &middot; TypeScript &middot; MongoDB &middot; PostgreSQL &middot; AWS ECS / EKS &middot; Terraform &middot; Docker &middot; GitHub Actions &middot; Prometheus &middot; Grafana</p>
         </div>
       </article>
@@ -636,15 +690,6 @@
           <p class="tl-company">iKey.in &middot; Mumbai, India</p>
           <p class="tl-body">Architected and led end-to-end development of the corporate website platform, including the NestJS backend, MongoDB data layer, and Next.js admin panel. Designed a modular NestJS service architecture, RESTful API contracts, and the AWS deployment topology on EC2, S3, and Vercel.</p>
           <p class="tl-stack">Next.js &middot; NestJS &middot; TypeScript &middot; MongoDB &middot; AWS EC2 &middot; AWS S3 &middot; Vercel</p>
-        </div>
-      </article>
-
-      <article class="tl-item">
-        <div class="tl-date">2024</div>
-        <div>
-          <h3 class="tl-role">Software Developer</h3>
-          <p class="tl-company">Technolitics India</p>
-          <p class="tl-body">Contributed to full-stack development on client engagements.</p>
         </div>
       </article>
 
@@ -681,34 +726,484 @@
   </div>
 </section>
 
-<!-- ============== PARTNERS ============== -->
-<section id="partners" class="partners">
+<!-- ============== CASE STUDIES ============== -->
+<section id="case-studies" class="case-studies">
   <div class="container">
-    <div class="section-label">Partner Companies</div>
-    <h2 class="section-title">Companies and teams I work with.</h2>
-    <div class="company-grid reveal">
+    <div class="section-label">Case Studies</div>
+    <h2 class="section-title">Real production work, end-to-end.</h2>
+    <p class="about-text" style="max-width:680px;margin-bottom:48px;">A closer look at five platforms I designed, built, and shipped — the problem, the architecture decisions, the tech, and the outcomes.</p>
 
-      <div class="company">
-        <div class="company-name">Good Old Delight</div>
-        <div class="company-role">Senior Developer &middot; Solution Architecture &middot; Team Leadership</div>
+    <!-- ============== Case Study 1: EzChatting (EKS) ============== -->
+    <article class="case-study reveal">
+      <div>
+        <div class="cs-meta">
+          <span>01 / AWS EKS &middot; Dubai client</span>
+        </div>
+        <h3 class="cs-title">EzChatting — realtime chat on AWS Kubernetes</h3>
+
+        <div class="cs-block">
+          <div class="cs-label">Problem</div>
+          <p class="cs-text">A Dubai-based client needed a realtime chat platform with low-latency message delivery, end-to-end secure WebSocket connections, and the ability to scale horizontally as user counts grew. They needed a true production Kubernetes setup — not a toy cluster.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Solution</div>
+          <p class="cs-text">Designed and provisioned a 3-tier AWS EKS architecture from scratch. Terraform for the VPC and EKS control plane; eksctl for managed node groups; AWS Load Balancer Controller for ingress; ExternalDNS for Route 53; External Secrets Operator for secrets sourced from AWS Secrets Manager. Kubernetes manifests covered Deployments, Services, HPA, ConfigMaps, probes, and resource limits — checked into the same repo as the app.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Tech</div>
+          <div class="cs-tags">
+            <span class="tag">AWS EKS</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">eksctl</span><span class="tag">ALB Ingress</span><span class="tag">ExternalDNS</span><span class="tag">External Secrets</span><span class="tag">ECR</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">NestJS</span><span class="tag">Next.js</span><span class="tag">WebSockets</span><span class="tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Results</div>
+          <ul class="cs-results">
+            <li>Multi-AZ pod scheduling across <span class="cs-placeholder">[AZ count]</span> availability zones for resilience</li>
+            <li>Peak concurrent WebSocket connections: <span class="cs-placeholder">[peak connections]</span></li>
+            <li>p95 message delivery latency: <span class="cs-placeholder">[latency ms]</span></li>
+            <li>Zero-downtime rolling deployments via GitHub Actions + EKS</li>
+            <li>Secrets externalised — no credentials checked into Git</li>
+          </ul>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Lessons</div>
+          <p class="cs-text">External Secrets Operator paid for itself on day one — secrets rotation became a Secrets Manager change, not a redeploy. Multi-AZ node groups + Pod Disruption Budgets are what make "the cluster survives an AZ outage" actually true.</p>
+        </div>
       </div>
 
-      <div class="company">
-        <div class="company-name">EzSoft Tech</div>
-        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      <div>
+        <div class="cs-arch">
+          <svg viewBox="0 0 480 380" role="img" aria-label="EzChatting EKS architecture diagram">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+              </marker>
+            </defs>
+            <style>
+              .b{fill:#fff;stroke:#222;stroke-width:1.2}
+              .l{font:500 11px 'JetBrains Mono',monospace;fill:#222}
+              .s{font:500 10px 'JetBrains Mono',monospace;fill:#666}
+              .g{stroke:#999;stroke-dasharray:3 3;fill:none}
+              .line{stroke:#222;stroke-width:1;fill:none}
+            </style>
+            <text x="240" y="18" class="l" text-anchor="middle">Users (Web + Mobile)</text>
+            <rect x="180" y="26" width="120" height="26" class="b"/>
+            <text x="240" y="44" class="l" text-anchor="middle">HTTPS / WSS</text>
+            <line x1="240" y1="52" x2="240" y2="68" class="line" marker-end="url(#arr)"/>
+            <rect x="180" y="70" width="120" height="26" class="b"/>
+            <text x="240" y="88" class="l" text-anchor="middle">Route 53</text>
+            <line x1="240" y1="96" x2="240" y2="112" class="line" marker-end="url(#arr)"/>
+            <rect x="180" y="114" width="120" height="26" class="b"/>
+            <text x="240" y="132" class="l" text-anchor="middle">ALB Ingress</text>
+            <rect x="40" y="160" width="400" height="160" class="g"/>
+            <text x="50" y="178" class="s">VPC · private subnets · 3 AZs</text>
+            <rect x="60" y="190" width="110" height="44" class="b"/>
+            <text x="115" y="208" class="l" text-anchor="middle">Next.js</text>
+            <text x="115" y="222" class="s" text-anchor="middle">frontend pods</text>
+            <rect x="185" y="190" width="110" height="44" class="b"/>
+            <text x="240" y="208" class="l" text-anchor="middle">NestJS API</text>
+            <text x="240" y="222" class="s" text-anchor="middle">REST pods</text>
+            <rect x="310" y="190" width="110" height="44" class="b"/>
+            <text x="365" y="208" class="l" text-anchor="middle">WS Gateway</text>
+            <text x="365" y="222" class="s" text-anchor="middle">WebSocket pods</text>
+            <line x1="240" y1="140" x2="115" y2="190" class="line" marker-end="url(#arr)"/>
+            <line x1="240" y1="140" x2="240" y2="190" class="line" marker-end="url(#arr)"/>
+            <line x1="240" y1="140" x2="365" y2="190" class="line" marker-end="url(#arr)"/>
+            <rect x="100" y="252" width="130" height="40" class="b"/>
+            <text x="165" y="270" class="l" text-anchor="middle">MongoDB</text>
+            <text x="165" y="282" class="s" text-anchor="middle">on EBS volumes</text>
+            <rect x="250" y="252" width="130" height="40" class="b"/>
+            <text x="315" y="270" class="l" text-anchor="middle">Redis</text>
+            <text x="315" y="282" class="s" text-anchor="middle">ElastiCache</text>
+            <line x1="240" y1="234" x2="165" y2="252" class="line" marker-end="url(#arr)"/>
+            <line x1="365" y1="234" x2="315" y2="252" class="line" marker-end="url(#arr)"/>
+            <rect x="30" y="340" width="130" height="26" class="b"/>
+            <text x="95" y="358" class="l" text-anchor="middle">ECR</text>
+            <rect x="175" y="340" width="130" height="26" class="b"/>
+            <text x="240" y="358" class="l" text-anchor="middle">GitHub Actions</text>
+            <rect x="320" y="340" width="130" height="26" class="b"/>
+            <text x="385" y="358" class="l" text-anchor="middle">Secrets Manager</text>
+          </svg>
+          <div class="cs-arch-cap">3-tier EKS · Multi-AZ · GitHub Actions CI/CD</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============== Case Study 2: MyBankSlip (ECS Fargate) ============== -->
+    <article class="case-study reveal">
+      <div>
+        <div class="cs-meta">
+          <span>02 / AWS ECS Fargate &middot; Dubai client</span>
+        </div>
+        <h3 class="cs-title">MyBankSlip — accounting SaaS on ECS Fargate</h3>
+
+        <div class="cs-block">
+          <div class="cs-label">Problem</div>
+          <p class="cs-text">A Dubai accounting SaaS client needed production-grade infrastructure without the operational overhead of EKS. The platform handles financial data, so isolation, encryption, and audit trails were non-negotiable — but the team was small and couldn't justify a full Kubernetes operator on the payroll.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Solution</div>
+          <p class="cs-text">A 3-tier ECS Fargate deployment: private VPC across 2 AZs, ALB in public subnets, Fargate tasks in private subnets, MongoDB Atlas peered into the VPC, ECR for images, Route 53 + ACM for TLS. Terraform for everything; GitHub Actions for blue-green-style task definition deploys with health checks. The same reference architecture was reused for Tally Cash Pro and Monday Report.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Tech</div>
+          <div class="cs-tags">
+            <span class="tag">ECS Fargate</span><span class="tag">ALB</span><span class="tag">ECR</span><span class="tag">RDS / MongoDB</span><span class="tag">Route 53</span><span class="tag">ACM</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">NestJS</span><span class="tag">Next.js</span><span class="tag">CloudWatch</span>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Results</div>
+          <ul class="cs-results">
+            <li>Deployment time reduced from <span class="cs-placeholder">[before]</span> to <span class="cs-placeholder">[after]</span> minutes via GitHub Actions</li>
+            <li>Monthly AWS bill: <span class="cs-placeholder">[USD/month]</span> at production scale</li>
+            <li>Reference architecture reused across <span class="cs-placeholder">[N]</span> client platforms — cut new-project setup to days, not weeks</li>
+            <li>Zero-downtime rolling task replacement with ALB health checks</li>
+          </ul>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Lessons</div>
+          <p class="cs-text">For 90% of small-to-mid SaaS workloads, ECS Fargate is the right answer — not EKS. You don't pay the operator tax, but you keep containers, blue-green deploys, and IaC. Pick EKS only when you actually need control plane access.</p>
+        </div>
       </div>
 
-      <div class="company">
-        <div class="company-name">GTech Soft Solution</div>
-        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      <div>
+        <div class="cs-arch">
+          <svg viewBox="0 0 480 380" role="img" aria-label="MyBankSlip ECS Fargate architecture diagram">
+            <defs>
+              <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+              </marker>
+            </defs>
+            <style>
+              .b2{fill:#fff;stroke:#222;stroke-width:1.2}
+              .l2{font:500 11px 'JetBrains Mono',monospace;fill:#222}
+              .s2{font:500 10px 'JetBrains Mono',monospace;fill:#666}
+              .g2{stroke:#999;stroke-dasharray:3 3;fill:none}
+              .line2{stroke:#222;stroke-width:1;fill:none}
+            </style>
+            <text x="240" y="18" class="l2" text-anchor="middle">Users</text>
+            <line x1="240" y1="24" x2="240" y2="40" class="line2" marker-end="url(#arr2)"/>
+            <rect x="180" y="42" width="120" height="26" class="b2"/>
+            <text x="240" y="60" class="l2" text-anchor="middle">Route 53 + ACM</text>
+            <line x1="240" y1="68" x2="240" y2="84" class="line2" marker-end="url(#arr2)"/>
+            <rect x="40" y="90" width="400" height="240" class="g2"/>
+            <text x="50" y="108" class="s2">VPC · 2 AZs · public + private subnets</text>
+            <rect x="160" y="118" width="160" height="32" class="b2"/>
+            <text x="240" y="138" class="l2" text-anchor="middle">Application Load Balancer</text>
+            <line x1="240" y1="150" x2="240" y2="172" class="line2" marker-end="url(#arr2)"/>
+            <rect x="60" y="180" width="170" height="60" class="b2"/>
+            <text x="145" y="200" class="l2" text-anchor="middle">ECS Fargate</text>
+            <text x="145" y="216" class="s2" text-anchor="middle">NestJS API task</text>
+            <text x="145" y="230" class="s2" text-anchor="middle">private subnet</text>
+            <rect x="250" y="180" width="170" height="60" class="b2"/>
+            <text x="335" y="200" class="l2" text-anchor="middle">ECS Fargate</text>
+            <text x="335" y="216" class="s2" text-anchor="middle">Next.js task</text>
+            <text x="335" y="230" class="s2" text-anchor="middle">private subnet</text>
+            <rect x="160" y="262" width="160" height="50" class="b2"/>
+            <text x="240" y="282" class="l2" text-anchor="middle">MongoDB Atlas</text>
+            <text x="240" y="298" class="s2" text-anchor="middle">VPC-peered</text>
+            <line x1="145" y1="240" x2="220" y2="262" class="line2" marker-end="url(#arr2)"/>
+            <line x1="335" y1="240" x2="260" y2="262" class="line2" marker-end="url(#arr2)"/>
+            <rect x="40" y="340" width="130" height="26" class="b2"/>
+            <text x="105" y="358" class="l2" text-anchor="middle">ECR</text>
+            <rect x="175" y="340" width="130" height="26" class="b2"/>
+            <text x="240" y="358" class="l2" text-anchor="middle">GitHub Actions</text>
+            <rect x="310" y="340" width="130" height="26" class="b2"/>
+            <text x="375" y="358" class="l2" text-anchor="middle">CloudWatch</text>
+          </svg>
+          <div class="cs-arch-cap">ECS Fargate · 2 AZs · Terraform IaC</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============== Case Study 3: Monday Report (ECS + Observability) ============== -->
+    <article class="case-study reveal">
+      <div>
+        <div class="cs-meta">
+          <span>03 / AWS ECS &middot; Observability platform</span>
+        </div>
+        <h3 class="cs-title">Monday Report — reporting platform with full observability</h3>
+
+        <div class="cs-block">
+          <div class="cs-label">Problem</div>
+          <p class="cs-text">The client's previous reporting system was a black box — when a report failed or was slow, nobody could explain why. They needed every API call, every database query, and every error traced and dashboarded so operations could spot regressions before customers complained.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Solution</div>
+          <p class="cs-text">ECS Fargate service instrumented with Prometheus client libraries, scraped by a managed Prometheus deployment, visualised in Grafana. All container stdout shipped to CloudWatch Logs with structured JSON. Alarms wired to CloudWatch + Grafana alerting. Terraform built the cluster, the Prometheus stack, and the dashboards as code — observability lives in the repo, not in someone's head.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Tech</div>
+          <div class="cs-tags">
+            <span class="tag">ECS</span><span class="tag">Terraform</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">CloudWatch</span><span class="tag">GitHub Actions</span><span class="tag">NestJS</span><span class="tag">Structured logging</span>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Results</div>
+          <ul class="cs-results">
+            <li>Mean time to detect (MTTD) production issues: <span class="cs-placeholder">[before]</span> → <span class="cs-placeholder">[after]</span></li>
+            <li>Number of Grafana dashboards delivered: <span class="cs-placeholder">[N dashboards]</span></li>
+            <li>Custom Prometheus metrics tracked: <span class="cs-placeholder">[N metrics]</span></li>
+            <li>Dashboards-as-code — version-controlled, reviewable, reproducible</li>
+          </ul>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Lessons</div>
+          <p class="cs-text">Observability isn't a phase-2 add-on. Building dashboards alongside the app — same PR, same review — saves weeks of "we'll instrument it later" debt. Alert on user-facing signals (latency, errors, saturation), not on internal CPU.</p>
+        </div>
       </div>
 
-      <div class="company">
-        <div class="company-name">Digital Shakha</div>
-        <div class="company-role">Solution Architecture &middot; Team Mentoring &middot; Development Consulting</div>
+      <div>
+        <div class="cs-arch">
+          <svg viewBox="0 0 480 380" role="img" aria-label="Monday Report architecture with observability stack">
+            <defs>
+              <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+              </marker>
+            </defs>
+            <style>
+              .b3{fill:#fff;stroke:#222;stroke-width:1.2}
+              .l3{font:500 11px 'JetBrains Mono',monospace;fill:#222}
+              .s3{font:500 10px 'JetBrains Mono',monospace;fill:#666}
+              .g3{stroke:#999;stroke-dasharray:3 3;fill:none}
+              .line3{stroke:#222;stroke-width:1;fill:none}
+              .dotted{stroke:#888;stroke-width:1;fill:none;stroke-dasharray:2 3}
+            </style>
+            <text x="240" y="20" class="l3" text-anchor="middle">Users</text>
+            <line x1="240" y1="26" x2="240" y2="42" class="line3" marker-end="url(#arr3)"/>
+            <rect x="180" y="46" width="120" height="26" class="b3"/>
+            <text x="240" y="64" class="l3" text-anchor="middle">ALB</text>
+            <line x1="240" y1="72" x2="240" y2="88" class="line3" marker-end="url(#arr3)"/>
+            <rect x="160" y="94" width="160" height="50" class="b3"/>
+            <text x="240" y="114" class="l3" text-anchor="middle">ECS Fargate</text>
+            <text x="240" y="130" class="s3" text-anchor="middle">NestJS · /metrics endpoint</text>
+            <rect x="40" y="170" width="400" height="130" class="g3"/>
+            <text x="50" y="188" class="s3">Observability stack</text>
+            <rect x="60" y="200" width="110" height="40" class="b3"/>
+            <text x="115" y="220" class="l3" text-anchor="middle">Prometheus</text>
+            <text x="115" y="232" class="s3" text-anchor="middle">scrape · TSDB</text>
+            <rect x="185" y="200" width="110" height="40" class="b3"/>
+            <text x="240" y="220" class="l3" text-anchor="middle">Grafana</text>
+            <text x="240" y="232" class="s3" text-anchor="middle">dashboards</text>
+            <rect x="310" y="200" width="110" height="40" class="b3"/>
+            <text x="365" y="220" class="l3" text-anchor="middle">CloudWatch</text>
+            <text x="365" y="232" class="s3" text-anchor="middle">logs · alarms</text>
+            <line x1="170" y1="144" x2="115" y2="200" class="dotted" marker-end="url(#arr3)"/>
+            <line x1="240" y1="144" x2="365" y2="200" class="dotted" marker-end="url(#arr3)"/>
+            <line x1="170" y1="220" x2="185" y2="220" class="line3" marker-end="url(#arr3)"/>
+            <rect x="100" y="260" width="280" height="30" class="b3"/>
+            <text x="240" y="280" class="l3" text-anchor="middle">Alerts → Slack · Email · PagerDuty</text>
+            <line x1="240" y1="240" x2="240" y2="260" class="line3" marker-end="url(#arr3)"/>
+            <rect x="100" y="340" width="130" height="26" class="b3"/>
+            <text x="165" y="358" class="l3" text-anchor="middle">Terraform IaC</text>
+            <rect x="250" y="340" width="130" height="26" class="b3"/>
+            <text x="315" y="358" class="l3" text-anchor="middle">GitHub Actions</text>
+          </svg>
+          <div class="cs-arch-cap">ECS + Prometheus + Grafana + CloudWatch</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============== Case Study 4: HousingCart ============== -->
+    <article class="case-study reveal">
+      <div>
+        <div class="cs-meta">
+          <span>04 / Real-estate marketplace</span>
+          <a href="https://housingcart.in" target="_blank" rel="noopener">housingcart.in &nearr;</a>
+        </div>
+        <h3 class="cs-title">HousingCart — real-estate platform with realtime notifications</h3>
+
+        <div class="cs-block">
+          <div class="cs-label">Problem</div>
+          <p class="cs-text">The team needed a working real-estate marketplace with two non-trivial problems: ingesting messy property data from multiple third-party sources, and pushing realtime notifications to leads across both push and WhatsApp without dropping messages.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Solution</div>
+          <p class="cs-text">Designed and built the backend admin platform and the customer-facing marketplace. Express + MongoDB on AWS EC2, Next.js frontend, S3 for media. A real-time notification pipeline integrated Firebase Cloud Messaging for in-app push and the WhatsApp Business API for outbound messaging, with fallback paths between channels. Custom JavaScript ETL utilities cleaned and normalised property data before ingestion.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Tech</div>
+          <div class="cs-tags">
+            <span class="tag">Next.js</span><span class="tag">Express</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">AWS EC2</span><span class="tag">AWS S3</span><span class="tag">Firebase FCM</span><span class="tag">WhatsApp Business API</span><span class="tag">Nginx</span><span class="tag">PM2</span>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Results</div>
+          <ul class="cs-results">
+            <li>Property listings ingested and cleaned: <span class="cs-placeholder">[count]</span></li>
+            <li>Notification delivery success rate: <span class="cs-placeholder">[% delivered]</span></li>
+            <li>Lead conversion lift after realtime notifications: <span class="cs-placeholder">[lift %]</span></li>
+            <li>Monthly active users: <span class="cs-placeholder">[MAU]</span></li>
+          </ul>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Lessons</div>
+          <p class="cs-text">Third-party data is always messier than the schema docs promise — invest in the ETL early. And: WhatsApp Business API has stricter template approval and rate limits than FCM, so design notification flows assuming one channel can be temporarily unavailable.</p>
+        </div>
       </div>
 
-    </div>
+      <div>
+        <div class="cs-arch">
+          <svg viewBox="0 0 480 380" role="img" aria-label="HousingCart architecture diagram">
+            <defs>
+              <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+              </marker>
+            </defs>
+            <style>
+              .b4{fill:#fff;stroke:#222;stroke-width:1.2}
+              .l4{font:500 11px 'JetBrains Mono',monospace;fill:#222}
+              .s4{font:500 10px 'JetBrains Mono',monospace;fill:#666}
+              .g4{stroke:#999;stroke-dasharray:3 3;fill:none}
+              .line4{stroke:#222;stroke-width:1;fill:none}
+            </style>
+            <rect x="60" y="20" width="160" height="32" class="b4"/>
+            <text x="140" y="40" class="l4" text-anchor="middle">Web users</text>
+            <rect x="260" y="20" width="160" height="32" class="b4"/>
+            <text x="340" y="40" class="l4" text-anchor="middle">Lead / Admin</text>
+            <line x1="140" y1="52" x2="180" y2="80" class="line4" marker-end="url(#arr4)"/>
+            <line x1="340" y1="52" x2="300" y2="80" class="line4" marker-end="url(#arr4)"/>
+            <rect x="160" y="82" width="160" height="34" class="b4"/>
+            <text x="240" y="102" class="l4" text-anchor="middle">Nginx + PM2 · EC2</text>
+            <rect x="40" y="140" width="180" height="54" class="b4"/>
+            <text x="130" y="160" class="l4" text-anchor="middle">Next.js frontend</text>
+            <text x="130" y="176" class="s4" text-anchor="middle">listings · search</text>
+            <text x="130" y="188" class="s4" text-anchor="middle">admin panel</text>
+            <rect x="260" y="140" width="180" height="54" class="b4"/>
+            <text x="350" y="160" class="l4" text-anchor="middle">Express API</text>
+            <text x="350" y="176" class="s4" text-anchor="middle">REST · notifications</text>
+            <text x="350" y="188" class="s4" text-anchor="middle">ETL workers</text>
+            <line x1="220" y1="116" x2="130" y2="140" class="line4" marker-end="url(#arr4)"/>
+            <line x1="260" y1="116" x2="350" y2="140" class="line4" marker-end="url(#arr4)"/>
+            <rect x="40" y="220" width="120" height="40" class="b4"/>
+            <text x="100" y="240" class="l4" text-anchor="middle">MongoDB</text>
+            <text x="100" y="252" class="s4" text-anchor="middle">listings · leads</text>
+            <rect x="180" y="220" width="120" height="40" class="b4"/>
+            <text x="240" y="240" class="l4" text-anchor="middle">S3</text>
+            <text x="240" y="252" class="s4" text-anchor="middle">images · media</text>
+            <line x1="100" y1="220" x2="100" y2="194" class="line4" marker-end="url(#arr4)"/>
+            <line x1="240" y1="220" x2="240" y2="194" class="line4" marker-end="url(#arr4)"/>
+            <rect x="40" y="290" width="400" height="70" class="g4"/>
+            <text x="50" y="308" class="s4">Realtime notification pipeline</text>
+            <rect x="60" y="318" width="170" height="32" class="b4"/>
+            <text x="145" y="338" class="l4" text-anchor="middle">Firebase FCM (push)</text>
+            <rect x="250" y="318" width="170" height="32" class="b4"/>
+            <text x="335" y="338" class="l4" text-anchor="middle">WhatsApp Business API</text>
+            <line x1="350" y1="194" x2="145" y2="318" class="line4" marker-end="url(#arr4)"/>
+            <line x1="350" y1="194" x2="335" y2="318" class="line4" marker-end="url(#arr4)"/>
+          </svg>
+          <div class="cs-arch-cap">EC2 · MongoDB · FCM · WhatsApp Business API</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============== Case Study 5: Gift Factory ============== -->
+    <article class="case-study reveal">
+      <div>
+        <div class="cs-meta">
+          <span>05 / AWS ECS &middot; E-commerce</span>
+        </div>
+        <h3 class="cs-title">Gift Factory — e-commerce platform on AWS ECS</h3>
+
+        <div class="cs-block">
+          <div class="cs-label">Problem</div>
+          <p class="cs-text">An e-commerce client needed a scalable platform with reliable transactional data, predictable cost as orders grew, and full Infrastructure-as-Code so the environment could be rebuilt or migrated without tribal knowledge.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Solution</div>
+          <p class="cs-text">End-to-end system design on AWS ECS — private VPC across multiple subnets, ALB in public subnets, ECS service in private subnets, RDS PostgreSQL in isolated subnets with backups and Multi-AZ failover, Route 53 for DNS, ACM for TLS. Every resource provisioned via Terraform modules so the entire environment is reproducible.</p>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Tech</div>
+          <div class="cs-tags">
+            <span class="tag">ECS</span><span class="tag">RDS PostgreSQL</span><span class="tag">ALB</span><span class="tag">Route 53</span><span class="tag">ACM</span><span class="tag">Terraform</span><span class="tag">VPC</span><span class="tag">GitHub Actions</span><span class="tag">NestJS</span>
+          </div>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Results</div>
+          <ul class="cs-results">
+            <li>Peak orders processed per day: <span class="cs-placeholder">[orders/day]</span></li>
+            <li>RDS Multi-AZ failover for transactional resilience</li>
+            <li>Cost optimised by <span class="cs-placeholder">[% savings]</span> after right-sizing ECS task definitions</li>
+            <li>Full environment reproducible from Terraform in <span class="cs-placeholder">[time]</span></li>
+          </ul>
+        </div>
+
+        <div class="cs-block">
+          <div class="cs-label">Lessons</div>
+          <p class="cs-text">For e-commerce, the relational model wins — RDS PostgreSQL beats document stores for inventory, orders, and refunds where you need joins and transactions. And keep RDS in an isolated subnet — never publicly reachable, even via the ALB.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="cs-arch">
+          <svg viewBox="0 0 480 380" role="img" aria-label="Gift Factory ECS architecture diagram">
+            <defs>
+              <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+              </marker>
+            </defs>
+            <style>
+              .b5{fill:#fff;stroke:#222;stroke-width:1.2}
+              .l5{font:500 11px 'JetBrains Mono',monospace;fill:#222}
+              .s5{font:500 10px 'JetBrains Mono',monospace;fill:#666}
+              .g5{stroke:#999;stroke-dasharray:3 3;fill:none}
+              .line5{stroke:#222;stroke-width:1;fill:none}
+            </style>
+            <text x="240" y="20" class="l5" text-anchor="middle">Customers</text>
+            <line x1="240" y1="26" x2="240" y2="42" class="line5" marker-end="url(#arr5)"/>
+            <rect x="180" y="46" width="120" height="26" class="b5"/>
+            <text x="240" y="64" class="l5" text-anchor="middle">Route 53 + ACM</text>
+            <line x1="240" y1="72" x2="240" y2="88" class="line5" marker-end="url(#arr5)"/>
+            <rect x="40" y="94" width="400" height="220" class="g5"/>
+            <text x="50" y="112" class="s5">VPC · 3 subnet tiers (public · private · isolated)</text>
+            <rect x="160" y="122" width="160" height="32" class="b5"/>
+            <text x="240" y="142" class="l5" text-anchor="middle">ALB (public)</text>
+            <line x1="240" y1="154" x2="240" y2="176" class="line5" marker-end="url(#arr5)"/>
+            <rect x="60" y="182" width="170" height="56" class="b5"/>
+            <text x="145" y="202" class="l5" text-anchor="middle">ECS Service</text>
+            <text x="145" y="218" class="s5" text-anchor="middle">NestJS · storefront</text>
+            <text x="145" y="230" class="s5" text-anchor="middle">private subnet</text>
+            <rect x="250" y="182" width="170" height="56" class="b5"/>
+            <text x="335" y="202" class="l5" text-anchor="middle">ECS Service</text>
+            <text x="335" y="218" class="s5" text-anchor="middle">admin · orders</text>
+            <text x="335" y="230" class="s5" text-anchor="middle">private subnet</text>
+            <rect x="120" y="260" width="240" height="46" class="b5"/>
+            <text x="240" y="280" class="l5" text-anchor="middle">RDS PostgreSQL (Multi-AZ)</text>
+            <text x="240" y="296" class="s5" text-anchor="middle">isolated subnet · automated backups</text>
+            <line x1="145" y1="238" x2="200" y2="260" class="line5" marker-end="url(#arr5)"/>
+            <line x1="335" y1="238" x2="280" y2="260" class="line5" marker-end="url(#arr5)"/>
+            <rect x="40" y="340" width="130" height="26" class="b5"/>
+            <text x="105" y="358" class="l5" text-anchor="middle">ECR</text>
+            <rect x="175" y="340" width="130" height="26" class="b5"/>
+            <text x="240" y="358" class="l5" text-anchor="middle">Terraform</text>
+            <rect x="310" y="340" width="130" height="26" class="b5"/>
+            <text x="375" y="358" class="l5" text-anchor="middle">GitHub Actions</text>
+          </svg>
+          <div class="cs-arch-cap">ECS · RDS Postgres · Multi-AZ · Terraform</div>
+        </div>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -1161,6 +1656,20 @@
 <footer class="footer">
   <div class="container footer-inner">
     <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <div class="social-icons" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener me" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+      <a href="https://github.com/devsrakesh" target="_blank" rel="noopener me" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+      </a>
+      <a href="https://wa.me/919993313608" target="_blank" rel="noopener me" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7l.5-.5c.2-.2.2-.3.4-.5.1-.2.1-.4 0-.5L9 7.5c-.2-.5-.4-.4-.6-.4h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2"/></svg>
+      </a>
+      <a href="mailto:startupfreak01@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+      </a>
+    </div>
     <span>Designed and built with care &middot; Bilaspur, Chhattisgarh, India</span>
   </div>
 </footer>
