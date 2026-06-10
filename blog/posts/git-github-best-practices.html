@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZEG7EVY91Z');
+</script>
+
+<title>Git &amp; GitHub Best Practices — Rakesh Rajput</title>
+<meta name="description" content="Pick one strategy and document it in the README...." />
+<meta name="author" content="Rakesh Rajput" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="https://devsrakesh.github.io/blog/posts/git-github-best-practices.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://devsrakesh.github.io/blog/posts/git-github-best-practices.html" />
+<meta property="og:title" content="Git &amp; GitHub Best Practices" />
+<meta property="og:description" content="Pick one strategy and document it in the README...." />
+<meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
+<meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
+<meta property="article:author" content="Rakesh Rajput" />
+<meta property="article:published_time" content="2026-06-10" />
+
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Git &amp; GitHub Best Practices" />
+<meta name="twitter:description" content="Pick one strategy and document it in the README...." />
+<meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Git & GitHub Best Practices",
+  "description": "Pick one strategy and document it in the README....",
+  "datePublished": "2026-06-10",
+  "dateModified": "2026-06-10",
+  "image": "https://devsrakesh.github.io/og-image.png",
+  "url": "https://devsrakesh.github.io/blog/posts/git-github-best-practices.html",
+  "mainEntityOfPage": "https://devsrakesh.github.io/blog/posts/git-github-best-practices.html",
+  "author": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Rakesh Rajput",
+    "url": "https://devsrakesh.github.io/"
+  },
+  "keywords": ""
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23222'/%3E%3Ctext x='50' y='68' font-family='Inter,Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/blog/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="logo">Rakesh.</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#skills">Skills</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#publications">Research</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+      <li><a href="/courses/">Courses</a></li>
+    </ul>
+    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
+  </div>
+</nav>
+
+<article class="post">
+  <div class="container post-container">
+    <a href="/blog/" class="post-back">&larr; All writing</a>
+
+    <header class="post-header">
+      <div class="post-meta-row">
+        <time class="post-date" datetime="2026-06-10">Jun 10, 2026</time>
+        
+      </div>
+      <h1 class="post-title">Git &amp; GitHub Best Practices</h1>
+      <p class="post-excerpt">Pick one strategy and document it in the README....</p>
+    </header>
+
+    <div class="post-body">
+<h3>1) Repository setup</h3>
+<ul>
+<li>Add a clear <strong>README</strong> with purpose, quick start, and links to docs.</li>
+<li>Include a <strong>LICENSE</strong> (MIT, Apache-2.0, or your organization’s standard).</li>
+<li>Maintain a <strong>.gitignore</strong> (use GitHub templates for your stack).</li>
+<li>Prefer a <strong>single source of truth</strong> for documentation: either <code>/docs</code> or the wiki, not both.</li>
+</ul>
+<h3>2) Branching strategy (keep it simple)</h3>
+<p>Pick one strategy and document it in the README.</p>
+<ul>
+<li><strong>Trunk-based</strong> (recommended for most teams):</li>
+<li><strong>GitFlow</strong> (only if you truly need it):</li>
+</ul>
+<p><strong>Best practice:</strong> Use short-lived branches named consistently:</p>
+<ul>
+<li><code>feature/add-search</code></li>
+<li><code>fix/login-timeout</code></li>
+<li><code>chore/update-deps</code></li>
+</ul>
+<h3>3) Commit hygiene</h3>
+<ul>
+<li>Make commits <strong>small and focused</strong>: one logical change per commit.</li>
+<li>Write <strong>meaningful messages</strong>. A simple, effective format:</li>
+<li>Avoid committing generated files, secrets, or large binaries.</li>
+<li></li>
+</ul>
+<img src="https://images.unsplash.com/photo-1654277041218-84424c78f0ae?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" alt="Blog image" />
+<h3>4) Pull requests that reviewers love</h3>
+<ul>
+<li>Keep PRs <strong>small</strong> (ideally under a few hundred lines).</li>
+<li>Use a PR template with:</li>
+<li>Ask for review only when:</li>
+</ul>
+<h3>5) Code review norms</h3>
+<ul>
+<li>Review the <em>code</em> and the <em>design intent</em>.</li>
+<li>Prefer suggestions and questions over commands.</li>
+<li>Look for:</li>
+</ul>
+<h3>6) Protect <code>main</code></h3>
+<p>In GitHub settings, enable branch protections:</p>
+<ul>
+<li>Require PRs before merge</li>
+<li>Require status checks (CI)</li>
+<li>Require review approvals (1–2)</li>
+<li>Dismiss stale approvals when new commits are pushed</li>
+<li>Restrict force pushes</li>
+</ul>
+<h3>7) CI/CD basics</h3>
+<ul>
+<li>Run fast checks on every PR:</li>
+<li>Add slower checks as needed:</li>
+</ul>
+<p><strong>Best practice:</strong> Keep builds reproducible with lockfiles and pinned tool versions.</p>
+<h3>8) Rebase vs merge (team consistency matters)</h3>
+<ul>
+<li>For a clean history, many teams prefer:</li>
+<li>If you prefer full context, use:</li>
+</ul>
+<p><strong>Rule:</strong> Whatever you choose, document it and apply it consistently.</p>
+<h3>9) Handling conflicts and history safely</h3>
+<ul>
+<li>Resolve conflicts early by pulling frequently.</li>
+<li>Avoid rewriting published history on shared branches.</li>
+<li>If you must rewrite history (rare): coordinate, communicate, and use force-with-lease:</li>
+</ul>
+<pre><code class="language-bash">git push --force-with-lease</code></pre>
+<h3>10) Tags, releases, and changelogs</h3>
+<ul>
+<li>Use <strong>semantic versioning</strong> when applicable: <code>v1.2.3</code>.</li>
+<li>Create GitHub Releases with:</li>
+<li>Automate changelogs if possible (Conventional Commits helps).</li>
+</ul>
+<h3>11) Security best practices</h3>
+<ul>
+<li>Never commit secrets. Use environment variables and secret managers.</li>
+<li>Turn on:</li>
+<li>Use least-privilege access for collaborators and tokens.</li>
+</ul>
+<h3>12) Useful Git commands (quick reference)</h3>
+<pre><code class="language-bash"># Update your branch safely
+git fetch origin
+git rebase origin/main
+
+# Clean up local branches
+git branch --merged | grep -v &quot;\*&quot; | xargs -n 1 git branch -d
+
+# See what changed in a readable way
+git diff --word-diff</code></pre>
+<p></p>
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog/" class="post-back">&larr; All writing</a>
+      <a href="/#contact" class="post-cta">Start a project &nearr;</a>
+    </footer>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
+    <span>Bilaspur, Chhattisgarh, India</span>
+  </div>
+</footer>
+
+</body>
+</html>
