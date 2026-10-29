@@ -17,7 +17,7 @@ Open [the local preview](http://127.0.0.1:4173). `npm run build` generates the p
 
 ## Update the portfolio
 
-Edit `content/profile.md` for your title, summary, biography, full experience history, and all project entries. The third entry is explicitly an Ourshopee delivery and logging workstream, rather than a separate client project. No employment start date or performance metrics were invented. Earlier experience and project descriptions are preserved in that Markdown file; the prior Good Old Delight entry retains its supplied start month without assuming an end date.
+Edit `content/profile.md` for your title, summary, biography, full experience history, and all project entries. Ourshopee’s Kubernetes, delivery, and logging work is combined into one project. All projects share one searchable portfolio section. No employment start date or performance metrics were invented. Earlier experience and project descriptions are preserved in that Markdown file. The website displays only the `workedWith` company list, without employment dates or roles.
 
 Run `npm run build` after changes. `index.html`, `blog/`, `courses/`, and `sitemap.xml` are generated files; edit their sources rather than their output. Portfolio layout lives in `scripts/templates/home.html` and the other page templates live beside it.
 
@@ -86,8 +86,18 @@ Markdown tooling: [Marked documentation](https://marked.js.org/using_advanced) a
 
 ## Design and experience counter
 
-The cream and forest-green visual system lives in `assets/site.css`; `assets/editorial.css` adapts the same system to writing and learning pages. Both desktop and mobile navigation work without hiding content behind JavaScript-only animations. The full project library uses a native disclosure with optional client-side search. Earlier architecture notes remain in `content/case-studies.md`.
+The cream and forest-green visual system lives in `assets/site.css`; `assets/editorial.css` adapts the same system to writing and learning pages. Both desktop and mobile navigation work without hiding content behind JavaScript-only animations. All projects appear once in a single visible grid with optional client-side search. Earlier architecture notes are retained in `content/case-studies.md` as source material and are not displayed on the website.
 
-`content/profile.md` defines `careerStartYear: 2020`. The build renders an initial experience count, and `assets/experience.mjs` updates it using the visitor’s current calendar year. It refreshes on load, when a tab becomes visible again, and hourly while open. With only a start year supplied, this is a year-based count labelled “since 2020”; it does not imply a verified month or day. Tests cover the year rollover. Digitalshakha is recorded as the first company role without invented employment dates.
+`content/profile.md` defines `careerStartYear: 2020`. The build renders an initial experience count, and `assets/experience.mjs` updates it using the visitor’s current calendar year. It refreshes on load, when a tab becomes visible again, and hourly while open. With only a start year supplied, this is a year-based count labelled “since 2020”; it does not imply a verified month or day. Tests cover the year rollover. The public “Worked with” section does not display employment dates, roles, or employment types.
 
 The edited portrait is `assets/rakesh-portrait.jpg`. It was prepared with the built-in image generation tool, then encoded as a web-sized JPEG. The original supplied photo is unchanged. The edit prompt and asset provenance are in `docs/portrait-edit.md`. `scripts/og-build.mjs` creates the sharing preview from the current profile and portrait, using the stable “building since 2020” caption.
+
+The full portfolio is grouped by deployment platform: EKS/Kubernetes, ECS, EC2, then other projects. Order within each group follows the Markdown source. HappyFirst is recorded as an ECS deployment.
+
+## Client-facing positioning
+
+The homepage presents end-to-end full-stack development, AWS deployment and CI/CD, monitoring and logging, and production troubleshooting. The employer strip and dated timeline were replaced with a neutral “Worked with” company list, without role, current-employer, or employment-type labels. Application builds and container deployment projects share one portfolio grid, ordered by deployment platform. The project-brief email link asks clients for goals, stack, timeline, budget range, and time zone without adding a server dependency. It does not promise response times or around-the-clock support.
+
+## Personal brand assets
+
+The header and footer use `assets/logo.svg`: a custom RR monogram with a two-line Rakesh Rajput wordmark. `assets/brandmark.svg` is the standalone icon, also used for the favicon and portrait badge. The social preview reuses the same SVG logo. These are editable vector assets and remain sharp at different sizes.

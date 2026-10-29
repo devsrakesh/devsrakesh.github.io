@@ -4,8 +4,8 @@
   "role": "Senior DevOps Engineer",
   "company": "EZ Global Technologies Pvt Ltd",
   "headline": "Rakesh Rajput.",
-  "summary": "Senior DevOps Engineer at EZ Global Technologies Pvt Ltd, managing the Ourshopee project’s Kubernetes deployments with Helm and Argo CD, GitHub Actions delivery pipelines, ELK logging, AWS infrastructure, and Cloudflare. I also manage AWS ECS deployments for cashincashout.me.",
-  "description": "Rakesh Rajput, Senior DevOps Engineer at EZ Global Technologies Pvt Ltd. Ourshopee Kubernetes operations, Helm, Argo CD, AWS, ELK, Cloudflare, and ECS.",
+  "summary": "I help international teams build full-stack web applications, deploy them on AWS, and keep them observable in production—from the first API to the next release.",
+  "description": "Hire Rakesh Rajput for full-stack web development, AWS deployments, CI/CD, Kubernetes, and production monitoring. Remote projects for international teams.",
   "experience": [
     {
       "role": "Senior DevOps Engineer",
@@ -96,7 +96,7 @@
       "role": "Junior Full-Stack Developer",
       "company": "Digitalshakha",
       "period": "Early career · first company",
-      "description": "Started my professional journey as a junior full-stack developer, working with the MERN stack and deploying applications using AWS EC2 and S3.",
+      "description": "My first company role was as a junior full-stack developer, working with the MERN stack and deploying applications using AWS EC2 and S3.",
       "stack": [
         "MongoDB",
         "Express",
@@ -110,24 +110,33 @@
       "role": "Freelance Full-Stack Developer",
       "company": "Independent",
       "period": "2020 · Career beginnings",
-      "description": "Began my career as a freelance developer during the COVID-19 period, building the foundation for my later full-stack and cloud engineering work.",
+      "description": "Started freelancing in 2020 during the COVID-19 period, building on my beginnings with the Devsnest community and laying the foundation for later full-stack and cloud engineering work.",
       "stack": [
         "Full-Stack Development",
         "Freelancing"
       ]
+    },
+    {
+      "role": "Community learning",
+      "company": "Devsnest community",
+      "period": "Career foundation",
+      "description": "Began my development journey with the Devsnest community before moving into freelance and professional full-stack work.",
+      "stack": []
     }
   ],
   "projects": [
     {
-      "name": "Ourshopee — Kubernetes Platform",
-      "category": "Kubernetes · Production operations",
-      "description": "Maintain Ourshopee Kubernetes deployments using Helm charts and Argo CD. Manage application delivery and the AWS infrastructure and Cloudflare services supporting the platform.",
+      "name": "Ourshopee — Kubernetes, Delivery & Observability",
+      "category": "Kubernetes · CI/CD & observability",
+      "description": "Maintain Ourshopee Kubernetes deployments using Helm charts and Argo CD, GitHub Actions delivery workflows, and ELK logging. Manage the supporting AWS infrastructure and Cloudflare configuration, and troubleshoot releases and production issues.",
       "tags": [
         "Kubernetes",
         "Helm",
         "Argo CD",
         "AWS",
-        "Cloudflare"
+        "Cloudflare",
+        "GitHub Actions",
+        "ELK"
       ]
     },
     {
@@ -140,18 +149,6 @@
         "ECS",
         "Containers",
         "Deployment Operations"
-      ]
-    },
-    {
-      "name": "Ourshopee — Delivery Pipelines & Logging",
-      "category": "Ourshopee workstream · CI/CD & observability",
-      "description": "Maintain GitHub Actions delivery workflows and ELK logging for Ourshopee. Support Kubernetes release operations alongside Helm and Argo CD, and use platform logs when troubleshooting deployments.",
-      "tags": [
-        "GitHub Actions",
-        "ELK",
-        "Helm",
-        "Argo CD",
-        "Kubernetes"
       ]
     },
     {
@@ -316,20 +313,11 @@
       ]
     },
     {
-      "name": "Dr. Indu",
-      "category": "EC2 · Mentoring",
-      "description": "Owned the AWS EC2 deployment and mentored developers on the deployment workflow.",
-      "tags": [
-        "EC2",
-        "Mentoring"
-      ]
-    },
-    {
       "name": "HappyFirst",
-      "category": "AWS EC2",
-      "description": "Owned the end-to-end AWS EC2 deployment for the platform.",
+      "category": "AWS ECS",
+      "description": "Owned the end-to-end AWS ECS deployment for the platform.",
       "tags": [
-        "EC2",
+        "ECS",
         "AWS"
       ]
     },
@@ -448,94 +436,47 @@
       ]
     },
     {
-      "name": "Motilal Service",
-      "category": "Linux · Backend",
-      "description": "Client backend service operated on Linux with Nginx reverse proxy and PM2.",
+      "name": "Trishul",
+      "category": "AWS EC2 · Real estate marketing & CRM",
+      "description": "White-label real estate marketing and CRM platform, deployed on AWS EC2 using Caddy as the web server and reverse proxy.",
       "tags": [
-        "Linux",
-        "Nginx",
-        "PM2"
+        "AWS",
+        "EC2",
+        "Caddy",
+        "White-label",
+        "Real Estate",
+        "CRM"
       ]
     },
     {
-      "name": "Patho Backend",
-      "category": "Linux · Healthcare",
-      "description": "Pathology backend service operated on Linux with Nginx and Certbot SSL.",
+      "name": "Aadhithi",
+      "category": "AWS ECS · Women’s empowerment",
+      "description": "Women’s empowerment platform deployed on AWS ECS, with responsibility for its container deployment.",
       "tags": [
-        "Linux",
-        "Nginx",
-        "Certbot"
-      ]
-    },
-    {
-      "name": "WigglyPop",
-      "category": "Freelance · E-commerce",
-      "description": "Freelance e-commerce project with full-stack ownership from frontend to deployment.",
-      "tags": [
-        "Next.js",
-        "Node.js",
-        "MongoDB",
-        "Vercel"
-      ]
-    },
-    {
-      "name": "DataMatrix Research",
-      "category": "Freelance · R&D",
-      "description": "Freelance R&D data-management portal focused on structured data capture and reporting.",
-      "tags": [
-        "Next.js",
-        "Node.js",
-        "MongoDB"
-      ]
-    },
-    {
-      "name": "Weather API",
-      "category": "Serverless · API",
-      "description": "Serverless TypeScript weather API deployed on Vercel.",
-      "tags": [
-        "TypeScript",
-        "Node.js",
-        "Vercel"
-      ]
-    },
-    {
-      "name": "MediSync Service",
-      "category": "Healthcare · Backend",
-      "description": "Healthcare appointment and patient-data backend built in TypeScript.",
-      "tags": [
-        "TypeScript",
-        "Node.js",
-        "Vercel"
-      ]
-    },
-    {
-      "name": "Tea Talk Cafe",
-      "category": "Landing Page",
-      "description": "Responsive cafe landing page with a clean modern design.",
-      "tags": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ]
-    },
-    {
-      "name": "Typing Skill Test",
-      "category": "Web App",
-      "description": "Typing-speed test web application.",
-      "tags": [
-        "JavaScript",
-        "CSS"
+        "AWS",
+        "ECS",
+        "Containers",
+        "Women’s Empowerment"
       ]
     }
   ],
   "careerStartYear": 2020,
   "linkedin": "https://www.linkedin.com/in/rakeshrajput9",
-  "portrait": "/assets/rakesh-portrait.jpg"
+  "portrait": "/assets/rakesh-portrait.jpg",
+  "workedWith": [
+    "EZ Global Technologies Pvt Ltd",
+    "Good Old Delight",
+    "iKey.in",
+    "Housing Cart",
+    "CricStox",
+    "HotWax Systems",
+    "Digitalshakha",
+    "Technolitics",
+    "Vidwan Institute"
+  ]
 }
----
+---I help clients turn product requirements into working web applications. My full-stack and cloud engineering background connects the frontend, APIs, databases, and infrastructure needed to launch and maintain a product. I have been building applications since 2020.
 
-I started freelancing in 2020 during the COVID-19 period. My first company role was at Digitalshakha as a Junior Full-Stack Developer, working with the MERN stack and AWS EC2 and S3 deployments.
+I work with React, Next.js, Node.js, NestJS, Express, TypeScript, MongoDB, and PostgreSQL. For delivery and operations, I use AWS, Docker, Kubernetes, EKS, ECS, EC2, S3, Terraform, Helm, Argo CD, and GitHub Actions. ELK, Prometheus, Grafana, and CloudWatch provide logging and monitoring, with Linux, Nginx, Caddy, and Cloudflare supporting the deployment stack.
 
-Today, I am a Senior DevOps Engineer at EZ Global Technologies Pvt Ltd, working on the Ourshopee project. I manage Kubernetes deployments with Helm and Argo CD, GitHub Actions delivery workflows, ELK logging, AWS infrastructure, and Cloudflare. I also manage AWS ECS deployments for cashincashout.me.
-
-My background in application development helps me work across the whole delivery lifecycle — from understanding the code to operating it in production.
+Engage me for a complete product build, an existing application that needs deployment, or a focused DevOps and monitoring project. I work across development, release automation, production troubleshooting, and documentation so your team can understand and maintain what ships.

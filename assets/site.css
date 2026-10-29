@@ -397,36 +397,6 @@ h3 {
   font-weight:400;
   margin-top:3px
 }
-.current-strip {
-  border-block:1px solid var(--line);
-  background:#ecefe4
-}
-.current-strip-inner {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  min-height:88px
-}
-.current-strip p {
-  font-size:13px
-}
-.current-strip p span {
-  color:var(--muted);
-  padding-inline:4px
-}
-.current-strip strong {
-  font-weight:500
-}
-.current-strip a {
-  font-size:11px;
-  border-bottom:1px solid var(--ink);
-  padding-bottom:3px
-}
-.current-strip .eyebrow {
-  font-size:8px;
-  white-space:nowrap
-}
 .status-dot {
   display:inline-block;
   width:6px;
@@ -537,10 +507,10 @@ h3 {
   color:var(--green);
   padding:18px
 }
-.feature-1 .project-visual {
+.feature-ecs .project-visual {
   background:#f0e9dc
 }
-.feature-2 .project-visual {
+.feature-kubernetes .project-visual {
   background:#dae8df
 }
 .architecture {
@@ -1107,17 +1077,6 @@ details[open]>.expand-mark,details[open]>summary>.expand-mark {
   .hero-location {
     display:none!important
   }
-  .current-strip-inner {
-    flex-wrap:wrap;
-    padding-block:21px;
-    gap:9px 25px
-  }
-  .current-strip .eyebrow {
-    width:100%
-  }
-  .current-strip p {
-    font-size:12px
-  }
   .journey-grid {
     gap:50px;
     grid-template-columns:.8fr 1.4fr
@@ -1281,20 +1240,6 @@ details[open]>.expand-mark,details[open]>summary>.expand-mark {
     left:22px;
     right:22px;
     font-size:7px
-  }
-  .current-strip-inner {
-    padding-block:23px;
-    display:block
-  }
-  .current-strip .eyebrow {
-    font-size:8px
-  }
-  .current-strip p {
-    font-size:12px;
-    margin-block:10px
-  }
-  .current-strip a {
-    font-size:10px
   }
   .section {
     padding-block:70px
@@ -1556,3 +1501,50 @@ html:not(.js) .menu-toggle {
   }
 
 }
+
+.featured-project { display: flex; flex-direction: column; }
+.featured-project .project-visual { flex-shrink: 0; }
+.feature-content { display: flex; flex-direction: column; flex: 1; }
+.feature-content > p { flex: 1; }
+.feature-content .text-link { align-self: flex-start; }
+
+.process-section { padding-block: 90px 0; }
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; border-top: 1px solid var(--line); padding-top: 28px; }
+.process-grid article > span { font-size: 9px; letter-spacing: 1.2px; color: var(--muted); }
+.process-grid h3 { font-size: 18px; margin: 16px 0 12px; }
+.process-grid p { font-size: 13px; color: var(--muted); line-height: 1.85; }
+@media (max-width: 760px) { .process-section { padding-top: 65px; } .process-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; } .process-grid h3 { font-size: 16px; } .process-grid p { font-size: 12px; } }
+@media (max-width: 380px) { .process-grid { grid-template-columns: 1fr; } }
+
+.work-subheading { margin: 36px 0 22px; }
+.work-subheading h3 { font-size: 23px; }
+.work-subheading p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.product-projects { margin-bottom: 45px; }
+.product-projects .eyebrow { font-size: 9px; margin-bottom: 18px; }
+
+/* Personal brand: linked RR monogram with a compact two-line name. */
+.wordmark { display: inline-flex; flex-shrink: 0; align-items: center; }
+.brand-logo { display: block; width: 164px; height: auto; }
+.site-footer .brand-logo { width: 145px; }
+.portrait-monogram { border: 0; }
+@media (max-width: 1100px) { .navigation .brand-logo { width: 145px; } }
+@media (max-width: 760px) {
+  .navigation { column-gap: 8px; }
+  .navigation .brand-logo { width: 118px; }
+  .navigation .button-small { padding: 9px 10px; gap: 12px; }
+  .site-footer .brand-logo { width: 125px; }
+}
+@media (max-width: 380px) {
+  .navigation .brand-logo { width: 108px; }
+  .navigation .button-small { padding-inline: 8px; }
+}
+
+.collaborations-section { background: #e9ede1; padding-block: 95px; }
+.collaborations-layout { display: grid; grid-template-columns: .9fr 1.4fr; gap: 75px; align-items: start; }
+.collaborations-layout .eyebrow { margin-bottom: 22px; }
+.collaborations-layout p { color: var(--muted); font-size: 14px; line-height: 1.85; margin-top: 24px; max-width: 340px; }
+.collaborations-layout .community-note { font-size: 12px; margin-top: 20px; }
+.company-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #c4cfb9; }
+.company-list li { padding: 26px 20px 26px 0; border-bottom: 1px solid #c4cfb9; font-family: var(--display); font-size: 18px; font-weight: 500; line-height: 1.5; }
+@media (max-width: 760px) { .collaborations-section { padding-block: 65px; } .collaborations-layout { grid-template-columns: 1fr; gap: 35px; } .collaborations-layout p { max-width: none; } .company-list li { font-size: 16px; padding-block: 22px; } }
+@media (max-width: 380px) { .company-list { grid-template-columns: 1fr; } }

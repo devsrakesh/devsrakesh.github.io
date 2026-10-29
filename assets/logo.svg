@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="56" viewBox="0 0 184 56" role="img" aria-labelledby="title">
+  <title id="title">Rakesh Rajput — full-stack and cloud engineering</title>
+  <rect width="56" height="56" rx="14" fill="#153d32"/>
+  <g fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 41V15h9a7 7 0 0 1 0 14h-9m9 0 8 12" stroke="#d6ef95"/>
+    <path d="M29 41V15h8a7 7 0 0 1 0 14h-8m8 0 8 12" stroke="#fffefa"/>
+  </g>
+  <g fill="#153d32" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" letter-spacing="2.6">
+    <text x="72" y="24">RAKESH</text>
+    <text x="72" y="46">RAJPUT</text>
+  </g>
+</svg>
