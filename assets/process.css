@@ -1,0 +1,67 @@
+/* A four-stage delivery process, with a fresh URL whenever its styles change. */
+.process-section { padding-block: 95px 0; }
+.process-section .section-heading { margin-bottom: 42px; }
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  border: 0;
+  padding: 0;
+}
+.process-grid > .process-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: 26px;
+  background: #fffefa;
+  border: 1px solid #d2dac9;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px -13px #183b3140;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.process-step { display: flex; align-items: center; gap: 13px; margin-bottom: 28px; }
+.process-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #e8efdf;
+  color: #244735;
+  font-family: var(--display, system-ui, sans-serif);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -.5px;
+}
+.process-card:nth-child(3) .process-number { background: #153d32; color: #d6ef95; }
+.process-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #52644f; }
+.process-card h3 { font-size: 20px; line-height: 1.4; letter-spacing: -.6px; margin: 0 0 16px; }
+.process-card > p { font-size: 13px; line-height: 1.85; color: #58675e; margin: 0 0 26px; flex: 1; }
+.process-outcome { padding-top: 19px; margin-top: auto; border-top: 1px solid #daddcf; }
+.process-outcome > span { color: #6a7b61; font-size: 8px; letter-spacing: 1.1px; font-weight: 600; }
+.process-outcome > p { font-size: 12px; line-height: 1.65; font-weight: 500; color: #244735; margin-top: 7px; }
+@media (hover: hover) and (pointer: fine) {
+  .process-card:hover { transform: translateY(-3px); border-color: #9caf88; box-shadow: 0 12px 22px -17px #183b3155; }
+}
+@media (max-width: 1100px) {
+  .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .process-section { padding-top: 65px; }
+  .process-section .section-heading { margin-bottom: 30px; }
+  .process-grid { gap: 15px; }
+  .process-grid > .process-card { padding: 23px; }
+}
+@media (max-width: 600px) {
+  .process-grid { grid-template-columns: 1fr; }
+  .process-step { margin-bottom: 23px; }
+  .process-card h3 { font-size: 21px; }
+  .process-card > p { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-grid > .process-card { transition: none; }
+  .process-card:hover { transform: none; }
+}

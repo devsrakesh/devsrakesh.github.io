@@ -1508,13 +1508,6 @@ html:not(.js) .menu-toggle {
 .feature-content > p { flex: 1; }
 .feature-content .text-link { align-self: flex-start; }
 
-.process-section { padding-block: 90px 0; }
-.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; border-top: 1px solid var(--line); padding-top: 28px; }
-.process-grid article > span { font-size: 9px; letter-spacing: 1.2px; color: var(--muted); }
-.process-grid h3 { font-size: 18px; margin: 16px 0 12px; }
-.process-grid p { font-size: 13px; color: var(--muted); line-height: 1.85; }
-@media (max-width: 760px) { .process-section { padding-top: 65px; } .process-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; } .process-grid h3 { font-size: 16px; } .process-grid p { font-size: 12px; } }
-@media (max-width: 380px) { .process-grid { grid-template-columns: 1fr; } }
 
 .work-subheading { margin: 36px 0 22px; }
 .work-subheading h3 { font-size: 23px; }
@@ -1538,13 +1531,3 @@ html:not(.js) .menu-toggle {
   .navigation .brand-logo { width: 108px; }
   .navigation .button-small { padding-inline: 8px; }
 }
-
-.collaborations-section { background: #e9ede1; padding-block: 95px; }
-.collaborations-layout { display: grid; grid-template-columns: .9fr 1.4fr; gap: 75px; align-items: start; }
-.collaborations-layout .eyebrow { margin-bottom: 22px; }
-.collaborations-layout p { color: var(--muted); font-size: 14px; line-height: 1.85; margin-top: 24px; max-width: 340px; }
-.collaborations-layout .community-note { font-size: 12px; margin-top: 20px; }
-.company-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #c4cfb9; }
-.company-list li { padding: 26px 20px 26px 0; border-bottom: 1px solid #c4cfb9; font-family: var(--display); font-size: 18px; font-weight: 500; line-height: 1.5; }
-@media (max-width: 760px) { .collaborations-section { padding-block: 65px; } .collaborations-layout { grid-template-columns: 1fr; gap: 35px; } .collaborations-layout p { max-width: none; } .company-list li { font-size: 16px; padding-block: 22px; } }
-@media (max-width: 380px) { .company-list { grid-template-columns: 1fr; } }

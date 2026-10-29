@@ -101,3 +101,7 @@ The homepage presents end-to-end full-stack development, AWS deployment and CI/C
 ## Personal brand assets
 
 The header and footer use `assets/logo.svg`: a custom RR monogram with a two-line Rakesh Rajput wordmark. `assets/brandmark.svg` is the standalone icon, also used for the favicon and portrait badge. The social preview reuses the same SVG logo. These are editable vector assets and remain sharp at different sizes.
+
+The “Worked with” section uses a responsive company-card grid, generated from `workedWith` in `content/profile.md`. Initials are decorative identifiers, not official company logos. It does not display dates, roles, or employment types. Its dedicated `assets/companies.css` stylesheet is referenced with a content-based version query so CSS changes receive a new asset URL on the next build.
+
+The delivery-process section uses four numbered cards: Scope, Build, Launch, and Handover. Its dedicated `assets/process.css` stylesheet is content-versioned in the generated homepage, like the company-card stylesheet.
