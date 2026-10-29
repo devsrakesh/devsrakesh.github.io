@@ -1,0 +1,24 @@
+.inquiry-layout { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:70px; align-items:start; }
+.inquiry-intro h3 { font-size:28px; line-height:1.25; margin:0 0 20px; }
+.inquiry-intro p { color:#d2dfc4; line-height:1.8; max-width:390px; margin:20px 0 28px; }
+.inquiry-intro .contact-social { margin:30px 0 0; flex-wrap:wrap; }
+.contact-form { background:#fbfbf5; color:#153d32; padding:32px; border-radius:16px; box-shadow:0 16px 40px #051c201f; }
+.contact-form .form-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.contact-form .form-group { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; min-width:0; }
+.contact-form label { font-size:12px; font-weight:600; }
+.contact-form input,.contact-form select,.contact-form textarea { width:100%; min-width:0; box-sizing:border-box; border:1px solid #c6d0bd; border-radius:7px; background:#fff; color:#153d32; padding:12px; font:inherit; font-size:14px; line-height:1.5; }
+.contact-form input,.contact-form select { min-height:48px; }
+.contact-form textarea { resize:vertical; min-height:140px; }
+.contact-form :is(input,select,textarea,button,a):focus-visible { outline:3px solid #799e45; outline-offset:3px; }
+.contact-form input::placeholder,.contact-form textarea::placeholder { color:#637260; opacity:1; }
+.contact-form .form-submit { width:100%; justify-content:center; border:0; cursor:pointer; }
+.contact-form .form-submit:disabled { opacity:.65; cursor:wait; }
+.contact-form .form-note { font-size:12px; color:#52634b; line-height:1.7; margin-top:16px; }
+.contact-form .form-note a { text-decoration:underline; overflow-wrap:anywhere; }
+#form-status { margin:12px 0 0; font-size:14px; line-height:1.6; }
+#form-status:empty { display:none; }
+#form-status[data-state="error"] { color:#9c2828; }
+#form-status[data-state="success"] { color:#285b26; }
+@media(max-width:1000px) { .inquiry-layout { gap:32px; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); } .contact-form { padding:25px; } }
+@media(max-width:760px) { .inquiry-layout { grid-template-columns:1fr; } .inquiry-intro p { max-width:100%; } .contact-section .contact-email { font-size:16px; overflow-wrap:anywhere; } }
+@media(max-width:480px) { .contact-form { padding:22px 18px; } .contact-form .form-row { grid-template-columns:1fr; gap:0; } .contact-form input,.contact-form select,.contact-form textarea { font-size:16px; } }

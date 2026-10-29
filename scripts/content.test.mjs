@@ -47,3 +47,21 @@ test('experience advances at the calendar year boundary without changing content
   assert.deepEqual(counts.map(element=>element.textContent),['7+','7+']);
   assert.equal(footer.textContent,'2027');
 });
+
+test('inquiries use the server endpoint and only accept confirmed delivery', async () => {
+  const { sendInquiry } = await import('../assets/contact.mjs');
+  const payload = { name: 'Test client', email: 'client@example.com', message: 'A project brief' };
+  await sendInquiry('https://example.com/api/contact', payload, async (url, options) => {
+    assert.equal(url, 'https://example.com/api/contact');
+    assert.equal(options.method, 'POST');
+    assert.deepEqual(JSON.parse(options.body), payload);
+    assert.equal(options.headers['Content-Type'], 'application/json');
+    return {ok:true,json:async()=>({ok:true})};
+  });
+  for (const response of [
+    {ok:false,json:async()=>({error:'Email provider unavailable'})},
+    {ok:true,json:async()=>({})},
+    {ok:true,json:async()=>{throw new Error('Invalid response');}},
+  ]) await assert.rejects(sendInquiry('https://example.com/api/contact', payload, async()=>response));
+  await assert.rejects(sendInquiry('https://example.com/api/contact', payload, async()=>{throw new Error('Offline');}));
+});

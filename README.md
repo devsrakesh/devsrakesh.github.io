@@ -78,7 +78,7 @@ Pull requests only run checks; they never deploy. Subsequent content changes dep
 
 This follows [GitHub’s custom Pages workflow guidance](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). Deployment was prepared locally; no push or live deployment was performed in this chat.
 
-The contact section uses a direct email link that opens the visitor’s email app. It makes no network request to an email API. Direct email and WhatsApp links also work on static hosting. The earlier `api/contact.js` is retained as optional legacy serverless source, excluded from `dist/`, and is no longer called by the site. Contact submission was not tested by sending a message.
+The contact section includes the project inquiry form, posting JSON to the existing `https://githubio-gamma.vercel.app/api/contact` serverless endpoint. It works from static GitHub Pages hosting; the email provider key stays on the endpoint server. The form includes name, email, company, project type, USD budget, timeline, WhatsApp, social profile, and project details. Required fields use browser validation. Sending prevents duplicate submissions; failures keep the entered details and show email/WhatsApp alternatives. Success appears only after an explicit `{ "ok": true }` response. The optional `api/contact.js` source remains excluded from `dist/`; configure its Brevo key on the server. Submission behavior is tested with mocked responses without sending a real inquiry.
 
 `.env` is ignored, never read by the content builders, and never copied into `dist/`. Old Notion secrets are no longer needed. Do not commit credentials. The canonical origin remains `https://devsrakesh.github.io`; if you later change domains, update `scripts/content.mjs`, the templates, and `robots.txt`, then rebuild.
 
@@ -96,7 +96,7 @@ The full portfolio is grouped by deployment platform: EKS/Kubernetes, ECS, EC2, 
 
 ## Client-facing positioning
 
-The homepage presents end-to-end full-stack development, AWS deployment and CI/CD, monitoring and logging, and production troubleshooting. The employer strip and dated timeline were replaced with a neutral “Worked with” company list, without role, current-employer, or employment-type labels. Application builds and container deployment projects share one portfolio grid, ordered by deployment platform. The project-brief email link asks clients for goals, stack, timeline, budget range, and time zone without adding a server dependency. It does not promise response times or around-the-clock support.
+The homepage presents end-to-end full-stack development, AWS deployment and CI/CD, monitoring and logging, and production troubleshooting. The employer strip and dated timeline were replaced with a neutral “Worked with” company list, without role, current-employer, or employment-type labels. Application builds and container deployment projects share one portfolio grid, ordered by deployment platform. The inquiry form asks clients for project details, budget, and timeline, with direct email and WhatsApp alternatives. It does not promise response times or around-the-clock support.
 
 ## Personal brand assets
 

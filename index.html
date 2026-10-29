@@ -33,6 +33,8 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Rakesh Rajput — Portfolio","url":"https://devsrakesh.github.io/","inLanguage":"en"}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEG7EVY91Z"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-ZEG7EVY91Z');</script>
+<link rel="stylesheet" href="/assets/contact.css?v=8bef676d50ed" />
+<script type="module" src="/assets/contact.mjs?v=8bef676d50ed"></script>
 <script type="module" src="/assets/site.mjs"></script>
 </head>
 <body>
@@ -231,7 +233,104 @@
   <article class="research-item"><span class="eyebrow">JETIR / MARCH 2026</span><h3>Support Vector Machine-Based Intrusion Detection Systems</h3><p>A Comprehensive Survey on Kernel Functions and Optimization Strategies. R. Rajput, D. K. Singh. JETIR, vol. 13, no. 3, pp. 510–517.</p><a class="text-link" href="https://www.jetir.org/view?paper=JETIRHQ06084" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a></article>
   <details class="research-more"><summary>More research work <span aria-hidden="true">+</span></summary><article><h3>Hybrid Statistical Exploration and Feature Correlation Analysis for Cybersecurity Intrusion Detection Systems</h3><p>R. Rajput, D. K. Singh. Companion work on NSL-KDD KDDTest+. Status: communicated.</p></article><article><h3>A Lightweight Hybrid Intrusion Detection System Using Genetic Algorithm Feature Selection and Five-Model Stacking Ensemble on CIC-IDS2017</h3><p>R. Rajput, D. K. Singh. Status: communicated.</p></article><article><h3>Diabetes Mellitus PrediCare</h3><p>Research on predictive analytics for Diabetes Mellitus.</p></article></details>
   </div><div class="education" id="education"><article><span class="eyebrow">M.TECH / COMPUTER SCIENCE &amp; ENGINEERING</span><h3>Guru Ghasidas Vishwavidyalaya</h3><p>Central University, Bilaspur · Sep 2024</p></article><article><span class="eyebrow">B.E. / COMPUTER ENGINEERING</span><h3>Government Engineering College</h3><p>Bilaspur · 2018–2022 · CGPA 7.96 / 10</p></article><article><span class="eyebrow">SCHOOLING / CBSE</span><h3>Jawahar Navodaya Vidyalaya</h3><p>Malhar, Bilaspur · First Division</p></article></div></div></div></section>
-<section class="contact-section" id="contact"><div class="container"><div class="contact-top"><div class="eyebrow">TELL ME WHAT YOU’RE BUILDING</div><span>Remote collaboration. Clear scope. <span aria-hidden="true">↙</span></span></div><h2>Build it. Ship it.<br><em>Keep it running.</em></h2><div class="contact-bottom"><a class="button button-light" href="mailto:startupfreak01@gmail.com?subject=Project%20inquiry&amp;body=Project%20summary%3A%0A%0AWhat%20you%20need%20built%20or%20improved%3A%0A%0ACurrent%20stack%3A%0A%0ATarget%20timeline%3A%0A%0ABudget%20range%3A%0A%0AYour%20time%20zone%3A%0A">Send a project brief <span aria-hidden="true">↗</span></a><a class="contact-email" href="mailto:startupfreak01@gmail.com">startupfreak01@gmail.com</a><div class="contact-social"><a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/devsrakesh" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://wa.me/919993313608" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></div><p class="contact-note">Share your product goals, current stack, timeline, budget range, and time zone so we can define the right scope.</p></div></section>
+<section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="container">
+<div class="contact-top"><div class="eyebrow">TELL ME WHAT YOU’RE BUILDING</div><span>Remote collaboration. Clear scope. <span aria-hidden="true">↙</span></span></div>
+<h2 id="contact-title">Build it. Ship it.<br><em>Keep it running.</em></h2>
+<div class="inquiry-layout"><div class="inquiry-intro"><h3>Let’s talk about your project.</h3><p>From a new application to cloud deployment, monitoring, or production support — share what you need and where you’d like to go.</p><a class="contact-email" href="mailto:startupfreak01@gmail.com">startupfreak01@gmail.com</a><p>Bilaspur, India · Working remotely</p><div class="contact-social"><a href="https://www.linkedin.com/in/rakeshrajput9" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/devsrakesh" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://wa.me/919993313608" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></div>
+        <form class="contact-form" id="contact-form" action="https://githubio-gamma.vercel.app/api/contact" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">Your name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" maxlength="120" placeholder="Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" maxlength="254" placeholder="jane@company.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-company">Company (optional)</label>
+              <input type="text" id="cf-company" name="company" autocomplete="organization" maxlength="180" placeholder="Acme Inc.">
+            </div>
+            <div class="form-group">
+              <label for="cf-type">Project type</label>
+              <select id="cf-type" name="type" required>
+                <option value="">Select project type</option>
+                <option value="Monitoring and Logging">Monitoring and Logging</option>
+                <option value="Cloud Architecture (AWS / EKS / ECS)">Cloud Architecture (AWS / EKS / ECS)</option>
+                <option value="Full-Stack Development">Full-Stack Development</option>
+                <option value="DevOps and Deployment">DevOps and Deployment</option>
+                <option value="Consulting and Team Mentoring">Consulting and Team Mentoring</option>
+                <option value="Technical Training">Technical Training</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-budget">Budget range (USD)</label>
+              <select id="cf-budget" name="budget">
+                <option value="">Select a range (optional)</option>
+                <option value="Less than $5,000">Less than $5,000</option>
+                <option value="$5,000 - $20,000">$5,000 - $20,000</option>
+                <option value="$20,000 - $50,000">$20,000 - $50,000</option>
+                <option value="$50,000+">$50,000+</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cf-timeline">Timeline</label>
+              <select id="cf-timeline" name="timeline">
+                <option value="">Select a timeline (optional)</option>
+                <option value="ASAP">ASAP</option>
+                <option value="Within 1 month">Within 1 month</option>
+                <option value="1 - 3 months">1 - 3 months</option>
+                <option value="3+ months">3+ months</option>
+                <option value="Flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-whatsapp">WhatsApp number (optional)</label>
+              <input type="tel" id="cf-whatsapp" name="whatsapp" placeholder="+91 98765 43210" inputmode="tel" autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="cf-social-platform">Social platform (optional)</label>
+              <select id="cf-social-platform" name="socialPlatform">
+                <option value="">Select a platform</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="GitHub">GitHub</option>
+                <option value="Twitter / X">Twitter / X</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Telegram">Telegram</option>
+                <option value="Discord">Discord</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cf-social-handle">Social handle or profile URL (optional)</label>
+            <input type="text" id="cf-social-handle" name="socialHandle" placeholder="@yourhandle or https://linkedin.com/in/your-profile">
+          </div>
+
+          <div class="form-group">
+            <label for="cf-msg">Tell me about your project</label>
+            <textarea id="cf-msg" name="message" maxlength="10000" rows="5" placeholder="Briefly describe your goals, scope, and any constraints..." required></textarea>
+          </div>
+
+          <button type="submit" class="button form-submit">Send inquiry <span aria-hidden="true">↗</span></button>
+          <p id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+          <noscript><p>Please enable JavaScript to send this form, or use the email link below.</p></noscript>
+          <div id="form-note" class="form-note">Your details are sent to Rakesh to respond to your inquiry. You can also email <a href="mailto:startupfreak01@gmail.com">startupfreak01@gmail.com</a>.</div>
+        </form></div></div></section>
 </main>
 <footer class="site-footer"><div class="container"><a class="wordmark" href="#top"><img class="brand-logo" src="/assets/logo.svg" alt="Rakesh Rajput" width="184" height="56" /></a><span>© <span data-current-year>2026</span> Rakesh Rajput. Built with intention.</span><a href="#top">Back to top ↑</a></div></footer>
 </body>
