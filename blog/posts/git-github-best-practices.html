@@ -14,7 +14,7 @@
 </script>
 
 <title>Git &amp; GitHub Best Practices — Rakesh Rajput</title>
-<meta name="description" content="Pick one strategy and document it in the README...." />
+<meta name="description" content="Repository setup, branching, code review, protected branches, and reproducible releases for engineering teams." />
 <meta name="author" content="Rakesh Rajput" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <link rel="canonical" href="https://devsrakesh.github.io/blog/posts/git-github-best-practices.html" />
@@ -23,17 +23,20 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://devsrakesh.github.io/blog/posts/git-github-best-practices.html" />
 <meta property="og:title" content="Git &amp; GitHub Best Practices" />
-<meta property="og:description" content="Pick one strategy and document it in the README...." />
+<meta property="og:description" content="Repository setup, branching, code review, protected branches, and reproducible releases for engineering teams." />
 <meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
 <meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
 <meta property="article:author" content="Rakesh Rajput" />
 <meta property="article:published_time" content="2026-06-10" />
-
+<meta property="article:modified_time" content="2026-06-10" />
+<meta property="article:tag" content="Git" />
+<meta property="article:tag" content="GitHub" />
+<meta property="article:tag" content="CI/CD" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Git &amp; GitHub Best Practices" />
-<meta name="twitter:description" content="Pick one strategy and document it in the README...." />
+<meta name="twitter:description" content="Repository setup, branching, code review, protected branches, and reproducible releases for engineering teams." />
 <meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
 
 <!-- Structured data -->
@@ -42,7 +45,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "Git & GitHub Best Practices",
-  "description": "Pick one strategy and document it in the README....",
+  "description": "Repository setup, branching, code review, protected branches, and reproducible releases for engineering teams.",
   "datePublished": "2026-06-10",
   "dateModified": "2026-06-10",
   "image": "https://devsrakesh.github.io/og-image.png",
@@ -58,7 +61,7 @@
     "name": "Rakesh Rajput",
     "url": "https://devsrakesh.github.io/"
   },
-  "keywords": ""
+  "keywords": "Git, GitHub, CI/CD"
 }
 </script>
 
@@ -68,54 +71,53 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/blog/style.css" />
+<link rel="stylesheet" href="/assets/site.css" />
+<link rel="stylesheet" href="/assets/editorial.css" />
+<script type="module" src="/assets/site.mjs"></script>
 </head>
 <body>
+<a class="skip-link" href="#page-content">Skip to content</a>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="/" class="logo">Rakesh.</a>
-    <ul class="nav-links">
-      <li><a href="/#about">About</a></li>
-      <li><a href="/#skills">Skills</a></li>
-      <li><a href="/#experience">Experience</a></li>
-      <li><a href="/#projects">Projects</a></li>
-      <li><a href="/#publications">Research</a></li>
-      <li><a href="/blog/" aria-current="page">Blog</a></li>
-      <li><a href="/courses/">Courses</a></li>
-    </ul>
-    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
-  </div>
-</nav>
+<header class="site-header">
+  <nav class="container navigation" aria-label="Main navigation">
+    <a class="wordmark" href="/" aria-label="Rakesh Rajput home">rakesh<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
+    <div class="navigation-links" id="site-navigation">
+      <a href="/#about">About</a><a href="/#projects">Work</a><a href="/#experience">Journey</a><a href="/blog/">Writing</a><a href="/courses/">Learning</a>
+    </div>
+    <a class="button button-small" href="/#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
 
-<article class="post">
+<article class="post" id="page-content">
   <div class="container post-container">
     <a href="/blog/" class="post-back">&larr; All writing</a>
 
     <header class="post-header">
       <div class="post-meta-row">
         <time class="post-date" datetime="2026-06-10">Jun 10, 2026</time>
-        
+        <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">CI/CD</span>
       </div>
       <h1 class="post-title">Git &amp; GitHub Best Practices</h1>
-      <p class="post-excerpt">Pick one strategy and document it in the README....</p>
+      <p class="post-excerpt">Repository setup, branching, code review, protected branches, and reproducible releases for engineering teams.</p>
     </header>
 
     <div class="post-body">
-<h3>1) Repository setup</h3>
+<h2>1) Repository setup</h2>
 <ul>
 <li>Add a clear <strong>README</strong> with purpose, quick start, and links to docs.</li>
 <li>Include a <strong>LICENSE</strong> (MIT, Apache-2.0, or your organization’s standard).</li>
 <li>Maintain a <strong>.gitignore</strong> (use GitHub templates for your stack).</li>
 <li>Prefer a <strong>single source of truth</strong> for documentation: either <code>/docs</code> or the wiki, not both.</li>
 </ul>
-<h3>2) Branching strategy (keep it simple)</h3>
+<h2>2) Branching strategy (keep it simple)</h2>
 <p>Pick one strategy and document it in the README.</p>
 <ul>
-<li><strong>Trunk-based</strong> (recommended for most teams):</li>
-<li><strong>GitFlow</strong> (only if you truly need it):</li>
+<li><strong>Trunk-based:</strong> Keep branches short-lived and merge reviewed changes into the main branch frequently.</li>
+<li><strong>GitFlow:</strong> Use separate development and release branches when your release process needs that structure.</li>
 </ul>
 <p><strong>Best practice:</strong> Use short-lived branches named consistently:</p>
 <ul>
@@ -123,27 +125,26 @@
 <li><code>fix/login-timeout</code></li>
 <li><code>chore/update-deps</code></li>
 </ul>
-<h3>3) Commit hygiene</h3>
+<h2>3) Commit hygiene</h2>
 <ul>
 <li>Make commits <strong>small and focused</strong>: one logical change per commit.</li>
-<li>Write <strong>meaningful messages</strong>. A simple, effective format:</li>
+<li>Write <strong>meaningful messages</strong>, such as <code>fix: handle login timeout</code> or <code>feat: add search filters</code>.</li>
 <li>Avoid committing generated files, secrets, or large binaries.</li>
-<li></li>
 </ul>
-<img src="https://images.unsplash.com/photo-1654277041218-84424c78f0ae?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" alt="Blog image" />
-<h3>4) Pull requests that reviewers love</h3>
+<p><img src="https://images.unsplash.com/photo-1654277041218-84424c78f0ae?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" alt="Git and GitHub development workflow"></p>
+<h2>4) Pull requests that reviewers love</h2>
 <ul>
 <li>Keep PRs <strong>small</strong> (ideally under a few hundred lines).</li>
-<li>Use a PR template with:</li>
-<li>Ask for review only when:</li>
+<li>Use a PR template with the problem, implementation, validation, and relevant screenshots.</li>
+<li>Ask for review once the change is complete, the diff has been checked, and required CI checks pass.</li>
 </ul>
-<h3>5) Code review norms</h3>
+<h2>5) Code review norms</h2>
 <ul>
 <li>Review the <em>code</em> and the <em>design intent</em>.</li>
 <li>Prefer suggestions and questions over commands.</li>
-<li>Look for:</li>
+<li>Look for correctness, readable code, useful tests, access controls, and clear error handling.</li>
 </ul>
-<h3>6) Protect <code>main</code></h3>
+<h2>6) Protect <code>main</code></h2>
 <p>In GitHub settings, enable branch protections:</p>
 <ul>
 <li>Require PRs before merge</li>
@@ -152,48 +153,51 @@
 <li>Dismiss stale approvals when new commits are pushed</li>
 <li>Restrict force pushes</li>
 </ul>
-<h3>7) CI/CD basics</h3>
+<h2>7) CI/CD basics</h2>
 <ul>
-<li>Run fast checks on every PR:</li>
-<li>Add slower checks as needed:</li>
+<li>Run fast checks on every PR: formatting, linting, unit tests, and a build.</li>
+<li>Add integration and end-to-end checks where they cover important behavior.</li>
 </ul>
 <p><strong>Best practice:</strong> Keep builds reproducible with lockfiles and pinned tool versions.</p>
-<h3>8) Rebase vs merge (team consistency matters)</h3>
+<h2>8) Rebase vs merge (team consistency matters)</h2>
 <ul>
-<li>For a clean history, many teams prefer:</li>
-<li>If you prefer full context, use:</li>
+<li>Rebase a short-lived feature branch onto the main branch to keep its history linear.</li>
+<li>Use merge commits when preserving the branch history helps your team.</li>
 </ul>
 <p><strong>Rule:</strong> Whatever you choose, document it and apply it consistently.</p>
-<h3>9) Handling conflicts and history safely</h3>
+<h2>9) Handling conflicts and history safely</h2>
 <ul>
 <li>Resolve conflicts early by pulling frequently.</li>
 <li>Avoid rewriting published history on shared branches.</li>
 <li>If you must rewrite history (rare): coordinate, communicate, and use force-with-lease:</li>
 </ul>
-<pre><code class="language-bash">git push --force-with-lease</code></pre>
-<h3>10) Tags, releases, and changelogs</h3>
+<pre><code class="language-bash">git push --force-with-lease
+</code></pre>
+<h2>10) Tags, releases, and changelogs</h2>
 <ul>
 <li>Use <strong>semantic versioning</strong> when applicable: <code>v1.2.3</code>.</li>
-<li>Create GitHub Releases with:</li>
+<li>Create GitHub Releases with a summary, upgrade notes, and links to the relevant changes.</li>
 <li>Automate changelogs if possible (Conventional Commits helps).</li>
 </ul>
-<h3>11) Security best practices</h3>
+<h2>11) Security best practices</h2>
 <ul>
 <li>Never commit secrets. Use environment variables and secret managers.</li>
-<li>Turn on:</li>
+<li>Enable secret scanning and dependency alerts where available.</li>
 <li>Use least-privilege access for collaborators and tokens.</li>
 </ul>
-<h3>12) Useful Git commands (quick reference)</h3>
+<h2>12) Useful Git commands (quick reference)</h2>
 <pre><code class="language-bash"># Update your branch safely
 git fetch origin
 git rebase origin/main
 
-# Clean up local branches
-git branch --merged | grep -v &quot;\*&quot; | xargs -n 1 git branch -d
+# Review merged branches before deleting individual local branches
+git branch --merged
+git branch -d feature/completed-work
 
 # See what changed in a readable way
-git diff --word-diff</code></pre>
-<p></p>
+git diff --word-diff
+</code></pre>
+
     </div>
 
     <footer class="post-footer">
@@ -203,12 +207,7 @@ git diff --word-diff</code></pre>
   </div>
 </article>
 
-<footer class="footer">
-  <div class="container footer-inner">
-    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
-    <span>Bilaspur, Chhattisgarh, India</span>
-  </div>
-</footer>
+<footer class="site-footer"><div class="container"><a class="wordmark" href="/">rakesh<span>.</span></a><span>© <span data-current-year>2026</span> Rakesh Rajput. Built with intention.</span><a href="/#contact">Let’s talk ↗</a></div></footer>
 
 </body>
 </html>

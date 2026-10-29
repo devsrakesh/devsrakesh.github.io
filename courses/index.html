@@ -14,7 +14,7 @@
 </script>
 
 <title>Courses — Rakesh Rajput</title>
-<meta name="description" content="Premium, hands-on courses on Next.js, AWS cloud architecture, DevOps, Kubernetes, and NestJS — by Rakesh Rajput." />
+<meta name="description" content="Learning notes and study outlines on Next.js and application deployment — by Rakesh Rajput." />
 <meta name="author" content="Rakesh Rajput" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <link rel="canonical" href="https://devsrakesh.github.io/courses/" />
@@ -23,14 +23,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://devsrakesh.github.io/courses/" />
 <meta property="og:title" content="Courses — Rakesh Rajput" />
-<meta property="og:description" content="Premium, hands-on courses on Next.js, AWS cloud architecture, DevOps, Kubernetes, and NestJS." />
+<meta property="og:description" content="Learning notes and study outlines on Next.js and application deployment." />
 <meta property="og:image" content="https://devsrakesh.github.io/og-image.png" />
 <meta property="og:site_name" content="Rakesh Rajput — Portfolio" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Courses — Rakesh Rajput" />
-<meta name="twitter:description" content="Premium, hands-on courses on Next.js, AWS cloud architecture, DevOps, Kubernetes, and NestJS." />
+<meta name="twitter:description" content="Learning notes and study outlines on Next.js and application deployment." />
 <meta name="twitter:image" content="https://devsrakesh.github.io/og-image.png" />
 
 <!-- Favicon -->
@@ -39,53 +39,52 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/courses/style.css" />
+<link rel="stylesheet" href="/assets/site.css" />
+<link rel="stylesheet" href="/assets/editorial.css" />
+<script type="module" src="/assets/site.mjs"></script>
 </head>
 <body>
+<a class="skip-link" href="#page-content">Skip to content</a>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="/" class="logo">Rakesh.</a>
-    <ul class="nav-links">
-      <li><a href="/#about">About</a></li>
-      <li><a href="/#skills">Skills</a></li>
-      <li><a href="/#experience">Experience</a></li>
-      <li><a href="/#projects">Projects</a></li>
-      <li><a href="/#publications">Research</a></li>
-      <li><a href="/blog/">Blog</a></li>
-      <li><a href="/courses/" aria-current="page">Courses</a></li>
-    </ul>
-    <a href="/#contact" class="nav-cta">Start a project &nearr;</a>
-  </div>
-</nav>
+<header class="site-header">
+  <nav class="container navigation" aria-label="Main navigation">
+    <a class="wordmark" href="/" aria-label="Rakesh Rajput home">rakesh<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
+    <div class="navigation-links" id="site-navigation">
+      <a href="/#about">About</a><a href="/#projects">Work</a><a href="/#experience">Journey</a><a href="/blog/">Writing</a><a href="/courses/">Learning</a>
+    </div>
+    <a class="button button-small" href="/#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
 
 <header class="courses-hero">
   <div class="container">
     <div class="section-label">Mastery</div>
-    <h1 class="courses-title">Courses &amp; Training.</h1>
-    <p class="courses-lead">Deep-dive, production-focused curricula covering advanced Next.js development, AWS architecture, Kubernetes, and DevOps pipelines. No fluff, just production-grade content.</p>
+    <h1 class="courses-title">Stay curious.<br><em>Keep building.</em></h1>
+    <p class="courses-lead">Self-paced learning notes and study outlines. Start with a topic, practise in a small application, and build toward production deployment.</p>
   </div>
 </header>
 
-<main class="courses-list-section">
+<main id="page-content" class="courses-list-section">
   <div class="container">
     <div class="courses-grid">
       
       <article class="course-card">
         <div class="course-card-meta">
           
-      <span class="course-badge">General</span>
-      <span class="course-badge">2 Hours</span>
+      <span class="course-badge">Foundational to Intermediate</span>
+      <span class="course-badge">Self-paced</span>
     
         </div>
         <h2 class="course-card-title">
-          <a href="/courses/nextjs/">NEXT JS</a>
+          <a href="/courses/nextjs/">Next.js Learning Notes</a>
         </h2>
-        <p class="course-card-desc">Dynamic Course synchronized directly from Notion.</p>
+        <p class="course-card-desc">A practical study outline from routing fundamentals to deployment.</p>
         <div class="course-card-tags">
-          <span class="tag">Notion Sync</span><span class="tag">Cloud</span><span class="tag">Engineering</span>
+          <span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Deployment</span>
         </div>
         <a href="/courses/nextjs/" class="course-card-btn">Explore Syllabus &rarr;</a>
       </article>
@@ -94,12 +93,7 @@
   </div>
 </main>
 
-<footer class="footer">
-  <div class="container footer-inner">
-    <span>&copy; 2026 Rakesh Rajput. All rights reserved.</span>
-    <span>Bilaspur, Chhattisgarh, India</span>
-  </div>
-</footer>
+<footer class="site-footer"><div class="container"><a class="wordmark" href="/">rakesh<span>.</span></a><span>© <span data-current-year>2026</span> Rakesh Rajput. Built with intention.</span><a href="/#contact">Let’s talk ↗</a></div></footer>
 
 </body>
 </html>

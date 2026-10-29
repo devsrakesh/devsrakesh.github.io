@@ -4,10 +4,22 @@
   "private": true,
   "description": "Personal portfolio site for Rakesh Rajput with a Markdown-based blog.",
   "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "build:profile": "node scripts/profile-build.mjs",
     "build:blog": "node scripts/blog-build.mjs",
-    "build:courses": "node scripts/course-build.mjs"
+    "build:courses": "node scripts/course-build.mjs",
+    "check": "node scripts/check-site.mjs",
+    "test": "node --test scripts/content.test.mjs",
+    "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist"
   },
   "dependencies": {
-    "@notionhq/client": "^5.22.0"
+    "gray-matter": "^4.0.3",
+    "marked": "^18.1.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }

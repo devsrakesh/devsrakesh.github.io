@@ -1,0 +1,252 @@
+/* Shared portfolio design applied to the Markdown writing and learning pages. */
+:root {
+  --primary:#173b31;
+  --secondary:#58675e;
+  --tertiary:#f6f5ef;
+  --white:#fffefa;
+  --border:#daddcf
+}
+body {
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink)
+}
+.site-header .container,.site-footer .container {
+  max-width:1280px
+}
+.blog-hero,.courses-hero {
+  padding-block:78px 56px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:45px
+}
+.blog-title,.courses-title {
+  font-family:var(--display);
+  font-size:clamp(45px,6vw,74px);
+  font-weight:500;
+  line-height:1.1;
+  letter-spacing:-3px;
+  margin-bottom:25px
+}
+.blog-title em,.courses-title em {
+  font-family:var(--serif);
+  color:#507345;
+  font-weight:400
+}
+.blog-lead,.courses-lead {
+  font-size:15px;
+  line-height:1.9;
+  max-width:650px
+}
+.section-label {
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1.8px;
+  margin-bottom:22px
+}
+.post-title-link:hover,.chapter-item-title a:hover {
+  color:#507345;
+  opacity:1
+}
+.post {
+  padding-top:65px
+}
+.post-title {
+  font-family:var(--display);
+  font-weight:500;
+  letter-spacing:-2px;
+  line-height:1.15;
+  font-size:clamp(36px,5vw,58px)
+}
+.post-body h2,.chapter-body h2 {
+  font-size:26px;
+  font-weight:600;
+  letter-spacing:-.9px;
+  margin:35px 0 18px
+}
+.post-body h3,.chapter-body h3 {
+  font-size:21px;
+  font-weight:600;
+  letter-spacing:-.6px
+}
+.post-body p,.post-body li,.chapter-body p,.chapter-body li {
+  font-size:15px;
+  line-height:1.95
+}
+.post-body pre,.chapter-body pre {
+  background:var(--green);
+  color:var(--white);
+  border:0;
+  border-radius:8px
+}
+.post-body pre code,.chapter-body pre code {
+  background:none;
+  color:inherit
+}
+.post-body img {
+  border-radius:10px;
+  max-width:100%;
+  height:auto
+}
+.post-body table,.chapter-body table {
+  border-collapse:collapse;
+  display:block;
+  overflow-x:auto;
+  font-size:13px
+}
+.post-body td,.post-body th,.chapter-body td,.chapter-body th {
+  padding:10px 14px;
+  border:1px solid var(--line)
+}
+.cat-chip {
+  border-radius:5px;
+  border-color:var(--line);
+  background:transparent;
+  font-family:var(--sans);
+  font-size:12px;
+  color:var(--ink)
+}
+.cat-chip.is-active {
+  background:var(--green);
+  color:var(--white);
+  border-color:var(--green)
+}
+.post-category {
+  font-family:var(--sans);
+  font-size:9px;
+  letter-spacing:1.5px
+}
+.post-date {
+  font-family:var(--sans);
+  font-size:11px
+}
+.post-item {
+  padding-block:35px
+}
+.post-title-link {
+  font-family:var(--display);
+  font-size:23px;
+  letter-spacing:-.8px;
+  font-weight:500
+}
+.post-excerpt {
+  font-size:14px;
+  line-height:1.85;
+  color:var(--muted)
+}
+.post-excerpt,.post-body,.chapter-body {
+  overflow-wrap:break-word
+}
+.post-cta,.chapter-item-btn {
+  font-family:var(--sans);
+  font-size:12px
+}
+.course-card {
+  border-radius:10px;
+  padding:32px;
+  border-color:var(--line);
+  background:var(--white)
+}
+.course-card-title {
+  font-family:var(--display);
+  font-size:26px;
+  letter-spacing:-.8px;
+  font-weight:500
+}
+.course-card-btn {
+  background:var(--green);
+  color:var(--white);
+  border-radius:6px;
+  align-self:flex-start;
+  font-family:var(--sans)
+}
+.course-card-btn:hover {
+  background:#254f3f
+}
+.course-badge {
+  font-family:var(--sans);
+  background:#e9ede1;
+  color:var(--ink);
+  border-radius:4px
+}
+.course-page {
+  padding-top:65px
+}
+.course-title {
+  font-family:var(--display);
+  font-weight:500;
+  letter-spacing:-2px
+}
+.course-subtitle,.course-desc {
+  font-size:15px;
+  line-height:1.85
+}
+.chapter-item {
+  border-radius:7px;
+  border-color:var(--line);
+  background:var(--white)
+}
+.chapter-number,.chapter-item-number {
+  font-family:var(--sans);
+  color:var(--muted)
+}
+.chapter-page {
+  padding-top:60px
+}
+.chapter-title {
+  font-family:var(--display);
+  font-weight:500;
+  letter-spacing:-1.8px;
+  line-height:1.15
+}
+.site-footer {
+  border-top:1px solid var(--line);
+  margin-top:30px
+}
+@media(max-width:760px) {
+  .blog-hero,.courses-hero {
+    padding-block:45px 35px;
+    margin-bottom:30px
+  }
+  .blog-title,.courses-title {
+    font-size:47px;
+    letter-spacing:-2px
+  }
+  .blog-lead,.courses-lead {
+    font-size:13px
+  }
+  .post,.chapter-page,.course-page {
+    padding-top:35px
+  }
+  .post-title {
+    font-size:36px;
+    letter-spacing:-1.5px
+  }
+  .course-card {
+    padding:23px
+  }
+  .post-title-link {
+    font-size:21px
+  }
+  .post-body p,.post-body li,.chapter-body p,.chapter-body li {
+    font-size:14px
+  }
+  .chapter-title {
+    font-size:36px
+  }
+  .site-footer .container {
+    max-width:100%
+  }
+
+}
+.site-header .container,.site-footer .container {
+  padding-inline:0
+}
+.course-index-section {
+  padding-top:60px
+}
+@media(max-width:760px) {
+  .course-index-section {
+    padding-top:35px
+  }
+
+}
